@@ -1,0 +1,6 @@
+#org.skyway.core settings
+#Wed Aug 16 16:11:08 ICT 2017
+version=11.0.1.me201602080330
+default.top.level.package=com.ttv.cashflow
+models.folder.name=.springDSL
+initialized=true
