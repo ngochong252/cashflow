@@ -102,6 +102,7 @@ public class AccountPayable implements Serializable {
 
 	@Id
 	@XmlElement
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	/**
 	 */

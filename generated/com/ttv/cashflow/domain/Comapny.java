@@ -2,13 +2,13 @@
 package com.ttv.cashflow.domain;
 
 import java.io.Serializable;
-
 import java.lang.StringBuilder;
-
 import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -16,7 +16,6 @@ import javax.persistence.NamedQuery;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.xml.bind.annotation.*;
-
 import javax.persistence.*;
 
 /**
@@ -27,15 +26,15 @@ import javax.persistence.*;
 		@NamedQuery(name = "findAllComapnys", query = "select myComapny from Comapny myComapny"),
 		@NamedQuery(name = "findComapnyByCode", query = "select myComapny from Comapny myComapny where myComapny.code = ?1"),
 		@NamedQuery(name = "findComapnyByCodeContaining", query = "select myComapny from Comapny myComapny where myComapny.code like ?1"),
-		@NamedQuery(name = "findComapnyByCompanyId", query = "select myComapny from Comapny myComapny where myComapny.companyId = ?1"),
 		@NamedQuery(name = "findComapnyByCreatedDate", query = "select myComapny from Comapny myComapny where myComapny.createdDate = ?1"),
 		@NamedQuery(name = "findComapnyByDescription", query = "select myComapny from Comapny myComapny where myComapny.description = ?1"),
 		@NamedQuery(name = "findComapnyByDescriptionContaining", query = "select myComapny from Comapny myComapny where myComapny.description like ?1"),
+		@NamedQuery(name = "findComapnyById", query = "select myComapny from Comapny myComapny where myComapny.id = ?1"),
 		@NamedQuery(name = "findComapnyByIsActive", query = "select myComapny from Comapny myComapny where myComapny.isActive = ?1"),
 		@NamedQuery(name = "findComapnyByModifiedDate", query = "select myComapny from Comapny myComapny where myComapny.modifiedDate = ?1"),
 		@NamedQuery(name = "findComapnyByName", query = "select myComapny from Comapny myComapny where myComapny.name = ?1"),
 		@NamedQuery(name = "findComapnyByNameContaining", query = "select myComapny from Comapny myComapny where myComapny.name like ?1"),
-		@NamedQuery(name = "findComapnyByPrimaryKey", query = "select myComapny from Comapny myComapny where myComapny.companyId = ?1") })
+		@NamedQuery(name = "findComapnyByPrimaryKey", query = "select myComapny from Comapny myComapny where myComapny.id = ?1") })
 
 @Table(schema = "public", name = "comapny")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -47,12 +46,13 @@ public class Comapny implements Serializable {
 	/**
 	 */
 
-	@Column(name = "company_id", nullable = false)
+	@Column(name = "id", nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
 	@Id
 	@XmlElement
-	Integer companyId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	Integer id;
 	/**
 	 */
 
@@ -123,14 +123,14 @@ public class Comapny implements Serializable {
 
 	/**
 	 */
-	public void setCompanyId(Integer companyId) {
-		this.companyId = companyId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	/**
 	 */
-	public Integer getCompanyId() {
-		return this.companyId;
+	public Integer getId() {
+		return this.id;
 	}
 
 	/**
@@ -263,7 +263,7 @@ public class Comapny implements Serializable {
 	 *
 	 */
 	public void copy(Comapny that) {
-		setCompanyId(that.getCompanyId());
+		setId(that.getId());
 		setCode(that.getCode());
 		setName(that.getName());
 		setDescription(that.getDescription());
@@ -283,7 +283,7 @@ public class Comapny implements Serializable {
 
 		StringBuilder buffer = new StringBuilder();
 
-		buffer.append("companyId=[").append(companyId).append("] ");
+		buffer.append("id=[").append(id).append("] ");
 		buffer.append("code=[").append(code).append("] ");
 		buffer.append("name=[").append(name).append("] ");
 		buffer.append("description=[").append(description).append("] ");
@@ -300,7 +300,7 @@ public class Comapny implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = (int) (prime * result + ((companyId == null) ? 0 : companyId.hashCode()));
+		result = (int) (prime * result + ((id == null) ? 0 : id.hashCode()));
 		return result;
 	}
 
@@ -312,9 +312,9 @@ public class Comapny implements Serializable {
 		if (!(obj instanceof Comapny))
 			return false;
 		Comapny equalCheck = (Comapny) obj;
-		if ((companyId == null && equalCheck.companyId != null) || (companyId != null && equalCheck.companyId == null))
+		if ((id == null && equalCheck.id != null) || (id != null && equalCheck.id == null))
 			return false;
-		if (companyId != null && !companyId.equals(equalCheck.companyId))
+		if (id != null && !id.equals(equalCheck.id))
 			return false;
 		return true;
 	}

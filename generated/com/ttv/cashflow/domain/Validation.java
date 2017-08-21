@@ -2,15 +2,14 @@
 package com.ttv.cashflow.domain;
 
 import java.io.Serializable;
-
 import java.lang.StringBuilder;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-
 import javax.xml.bind.annotation.*;
-
 import javax.persistence.*;
 
 /**
@@ -41,6 +40,7 @@ public class Validation implements Serializable {
 
 	@Id
 	@XmlElement
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	/**
 	 */

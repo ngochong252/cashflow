@@ -2,15 +2,14 @@
 package com.ttv.cashflow.domain;
 
 import java.io.Serializable;
-
 import java.lang.StringBuilder;
-
 import java.math.BigDecimal;
-
 import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -18,7 +17,6 @@ import javax.persistence.NamedQuery;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.xml.bind.annotation.*;
-
 import javax.persistence.*;
 
 /**
@@ -29,6 +27,8 @@ import javax.persistence.*;
 		@NamedQuery(name = "findAllLedgers", query = "select myLedger from Ledger myLedger"),
 		@NamedQuery(name = "findLedgerByAmount", query = "select myLedger from Ledger myLedger where myLedger.amount = ?1"),
 		@NamedQuery(name = "findLedgerByCreatedDate", query = "select myLedger from Ledger myLedger where myLedger.createdDate = ?1"),
+		@NamedQuery(name = "findLedgerByDescription", query = "select myLedger from Ledger myLedger where myLedger.description = ?1"),
+		@NamedQuery(name = "findLedgerByDescriptionContaining", query = "select myLedger from Ledger myLedger where myLedger.description like ?1"),
 		@NamedQuery(name = "findLedgerByFilePath", query = "select myLedger from Ledger myLedger where myLedger.filePath = ?1"),
 		@NamedQuery(name = "findLedgerByFilePathContaining", query = "select myLedger from Ledger myLedger where myLedger.filePath like ?1"),
 		@NamedQuery(name = "findLedgerById", query = "select myLedger from Ledger myLedger where myLedger.id = ?1"),
@@ -54,6 +54,7 @@ public class Ledger implements Serializable {
 
 	@Id
 	@XmlElement
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	/**
 	 */
@@ -71,6 +72,14 @@ public class Ledger implements Serializable {
 
 	@XmlElement
 	BigDecimal amount;
+	/**
+	 */
+
+	@Column(name = "description")
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String description;
 	/**
 	 */
 
@@ -115,7 +124,7 @@ public class Ledger implements Serializable {
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumns({ @JoinColumn(name = "company_id", referencedColumnName = "company_id") })
+	@JoinColumns({ @JoinColumn(name = "company_id", referencedColumnName = "id") })
 	@XmlTransient
 	Comapny comapny;
 	/**
@@ -165,6 +174,18 @@ public class Ledger implements Serializable {
 	 */
 	public BigDecimal getAmount() {
 		return this.amount;
+	}
+
+	/**
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 */
+	public String getDescription() {
+		return this.description;
 	}
 
 	/**
@@ -285,6 +306,7 @@ public class Ledger implements Serializable {
 		setId(that.getId());
 		setIssuedDate(that.getIssuedDate());
 		setAmount(that.getAmount());
+		setDescription(that.getDescription());
 		setValidCode(that.getValidCode());
 		setType(that.getType());
 		setFilePath(that.getFilePath());
@@ -306,6 +328,7 @@ public class Ledger implements Serializable {
 		buffer.append("id=[").append(id).append("] ");
 		buffer.append("issuedDate=[").append(issuedDate).append("] ");
 		buffer.append("amount=[").append(amount).append("] ");
+		buffer.append("description=[").append(description).append("] ");
 		buffer.append("validCode=[").append(validCode).append("] ");
 		buffer.append("type=[").append(type).append("] ");
 		buffer.append("filePath=[").append(filePath).append("] ");

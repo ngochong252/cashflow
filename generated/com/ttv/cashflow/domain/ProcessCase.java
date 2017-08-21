@@ -2,11 +2,11 @@
 package com.ttv.cashflow.domain;
 
 import java.io.Serializable;
-
 import java.lang.StringBuilder;
-
 import java.util.Set;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -14,7 +14,6 @@ import javax.persistence.NamedQuery;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.xml.bind.annotation.*;
-
 import javax.persistence.*;
 
 /**
@@ -43,6 +42,7 @@ public class ProcessCase implements Serializable {
 
 	@Id
 	@XmlElement
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	/**
 	 */

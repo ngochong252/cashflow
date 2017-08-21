@@ -2,14 +2,13 @@
 package com.ttv.cashflow.domain;
 
 import java.io.Serializable;
-
 import java.lang.StringBuilder;
-
 import java.math.BigDecimal;
-
 import java.util.Calendar;
 import java.util.Set;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -17,7 +16,6 @@ import javax.persistence.NamedQuery;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.xml.bind.annotation.*;
-
 import javax.persistence.*;
 
 /**
@@ -74,6 +72,7 @@ public class BankingAccounting implements Serializable {
 
 	@Id
 	@XmlElement
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	/**
 	 */
@@ -231,7 +230,7 @@ public class BankingAccounting implements Serializable {
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumns({ @JoinColumn(name = "company_id", referencedColumnName = "company_id", nullable = false) })
+	@JoinColumns({ @JoinColumn(name = "company_id", referencedColumnName = "id", nullable = false) })
 	@XmlTransient
 	Comapny comapny;
 
