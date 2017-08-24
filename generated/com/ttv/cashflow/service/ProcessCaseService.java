@@ -14,28 +14,16 @@ import java.util.Set;
 public interface ProcessCaseService {
 
 	/**
-	* Save an existing ProcessCase entity
-	* 
-	 */
-	public void saveProcessCase(ProcessCase processcase);
-
-	/**
 	* Return a count of all ProcessCase entity
 	* 
 	 */
 	public Integer countProcessCases();
 
 	/**
-	* Delete an existing ProcessCase entity
+	* Load an existing ProcessCase entity
 	* 
 	 */
-	public void deleteProcessCase(ProcessCase processcase_1);
-
-	/**
-	* Delete an existing ErrorDetails entity
-	* 
-	 */
-	public ProcessCase deleteProcessCaseErrorDetails(Integer processcase_id, Integer related_errordetails_id);
+	public Set<ProcessCase> loadProcessCases();
 
 	/**
 	* Return all ProcessCase entity
@@ -50,12 +38,24 @@ public interface ProcessCaseService {
 	public ProcessCase saveProcessCaseErrorDetails(Integer id, ErrorDetails related_errordetails);
 
 	/**
+	* Delete an existing ProcessCase entity
+	* 
+	 */
+	public void deleteProcessCase(ProcessCase processcase);
+
+	/**
+	* Delete an existing ErrorDetails entity
+	* 
+	 */
+	public ProcessCase deleteProcessCaseErrorDetails(Integer processcase_id, Integer related_errordetails_id);
+
+	/**
 	 */
 	public ProcessCase findProcessCaseByPrimaryKey(Integer id_1);
 
 	/**
-	* Load an existing ProcessCase entity
+	* Save an existing ProcessCase entity
 	* 
 	 */
-	public Set<ProcessCase> loadProcessCases();
+	public void saveProcessCase(ProcessCase processcase_1);
 }

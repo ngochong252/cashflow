@@ -78,18 +78,6 @@ public class ProcessCaseServiceTest {
 
 	/**
 	 * Operation Unit Test
-	* Save an existing ProcessCase entity
-	* 
-	 */
-	@Test
-	public void saveProcessCase() {
-		// TODO: JUnit - Populate test inputs for operation: saveProcessCase 
-		ProcessCase processcase = new com.ttv.cashflow.domain.ProcessCase();
-		service.saveProcessCase(processcase);
-	}
-
-	/**
-	 * Operation Unit Test
 	* Return a count of all ProcessCase entity
 	* 
 	 */
@@ -102,29 +90,14 @@ public class ProcessCaseServiceTest {
 
 	/**
 	 * Operation Unit Test
-	* Delete an existing ProcessCase entity
+	* Load an existing ProcessCase entity
 	* 
 	 */
 	@Test
-	public void deleteProcessCase() {
-		// TODO: JUnit - Populate test inputs for operation: deleteProcessCase 
-		ProcessCase processcase_1 = new com.ttv.cashflow.domain.ProcessCase();
-		service.deleteProcessCase(processcase_1);
-	}
-
-	/**
-	 * Operation Unit Test
-	* Delete an existing ErrorDetails entity
-	* 
-	 */
-	@Test
-	public void deleteProcessCaseErrorDetails() {
-		// TODO: JUnit - Populate test inputs for operation: deleteProcessCaseErrorDetails 
-		Integer processcase_id = 0;
-		Integer related_errordetails_id = 0;
-		ProcessCase response = null;
-		response = service.deleteProcessCaseErrorDetails(processcase_id, related_errordetails_id);
-		// TODO: JUnit - Add assertions to test outputs of operation: deleteProcessCaseErrorDetails
+	public void loadProcessCases() {
+		Set<ProcessCase> response = null;
+		response = service.loadProcessCases();
+		// TODO: JUnit - Add assertions to test outputs of operation: loadProcessCases
 	}
 
 	/**
@@ -159,6 +132,33 @@ public class ProcessCaseServiceTest {
 
 	/**
 	 * Operation Unit Test
+	* Delete an existing ProcessCase entity
+	* 
+	 */
+	@Test
+	public void deleteProcessCase() {
+		// TODO: JUnit - Populate test inputs for operation: deleteProcessCase 
+		ProcessCase processcase = new com.ttv.cashflow.domain.ProcessCase();
+		service.deleteProcessCase(processcase);
+	}
+
+	/**
+	 * Operation Unit Test
+	* Delete an existing ErrorDetails entity
+	* 
+	 */
+	@Test
+	public void deleteProcessCaseErrorDetails() {
+		// TODO: JUnit - Populate test inputs for operation: deleteProcessCaseErrorDetails 
+		Integer processcase_id = 0;
+		Integer related_errordetails_id = 0;
+		ProcessCase response = null;
+		response = service.deleteProcessCaseErrorDetails(processcase_id, related_errordetails_id);
+		// TODO: JUnit - Add assertions to test outputs of operation: deleteProcessCaseErrorDetails
+	}
+
+	/**
+	 * Operation Unit Test
 	 */
 	@Test
 	public void findProcessCaseByPrimaryKey() {
@@ -171,14 +171,14 @@ public class ProcessCaseServiceTest {
 
 	/**
 	 * Operation Unit Test
-	* Load an existing ProcessCase entity
+	* Save an existing ProcessCase entity
 	* 
 	 */
 	@Test
-	public void loadProcessCases() {
-		Set<ProcessCase> response = null;
-		response = service.loadProcessCases();
-		// TODO: JUnit - Add assertions to test outputs of operation: loadProcessCases
+	public void saveProcessCase() {
+		// TODO: JUnit - Populate test inputs for operation: saveProcessCase 
+		ProcessCase processcase_1 = new com.ttv.cashflow.domain.ProcessCase();
+		service.saveProcessCase(processcase_1);
 	}
 
 	/**

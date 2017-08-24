@@ -47,20 +47,12 @@ public class ErrorDetailsServiceImpl implements ErrorDetailsService {
 	}
 
 	/**
-	 */
-	@Transactional
-	public ErrorDetails findErrorDetailsByPrimaryKey(Integer id) {
-		return errorDetailsDAO.findErrorDetailsByPrimaryKey(id);
-	}
-
-	/**
-	 * Delete an existing ErrorDetails entity
+	 * Return a count of all ErrorDetails entity
 	 * 
 	 */
 	@Transactional
-	public void deleteErrorDetails(ErrorDetails errordetails) {
-		errorDetailsDAO.remove(errordetails);
-		errorDetailsDAO.flush();
+	public Integer countErrorDetailss() {
+		return ((Long) errorDetailsDAO.createQuerySingleResult("select count(o) from ErrorDetails o").getSingleResult()).intValue();
 	}
 
 	/**
@@ -70,25 +62,6 @@ public class ErrorDetailsServiceImpl implements ErrorDetailsService {
 	@Transactional
 	public Set<ErrorDetails> loadErrorDetailss() {
 		return errorDetailsDAO.findAllErrorDetailss();
-	}
-
-	/**
-	 * Delete an existing ProcessCase entity
-	 * 
-	 */
-	@Transactional
-	public ErrorDetails deleteErrorDetailsProcessCases(Integer errordetails_id, Integer related_processcases_id) {
-		ProcessCase related_processcases = processCaseDAO.findProcessCaseByPrimaryKey(related_processcases_id, -1, -1);
-
-		ErrorDetails errordetails = errorDetailsDAO.findErrorDetailsByPrimaryKey(errordetails_id, -1, -1);
-
-		related_processcases.setErrorDetails(null);
-		errordetails.getProcessCases().remove(related_processcases);
-
-		processCaseDAO.remove(related_processcases);
-		processCaseDAO.flush();
-
-		return errordetails;
 	}
 
 	/**
@@ -122,6 +95,32 @@ public class ErrorDetailsServiceImpl implements ErrorDetailsService {
 	}
 
 	/**
+	 * Delete an existing ErrorDetails entity
+	 * 
+	 */
+	@Transactional
+	public void deleteErrorDetails(ErrorDetails errordetails) {
+		errorDetailsDAO.remove(errordetails);
+		errorDetailsDAO.flush();
+	}
+
+	/**
+	 */
+	@Transactional
+	public ErrorDetails findErrorDetailsByPrimaryKey(Integer id) {
+		return errorDetailsDAO.findErrorDetailsByPrimaryKey(id);
+	}
+
+	/**
+	 * Return all ErrorDetails entity
+	 * 
+	 */
+	@Transactional
+	public List<ErrorDetails> findAllErrorDetailss(Integer startResult, Integer maxRows) {
+		return new java.util.ArrayList<ErrorDetails>(errorDetailsDAO.findAllErrorDetailss(startResult, maxRows));
+	}
+
+	/**
 	 * Save an existing ErrorDetails entity
 	 * 
 	 */
@@ -146,20 +145,21 @@ public class ErrorDetailsServiceImpl implements ErrorDetailsService {
 	}
 
 	/**
-	 * Return all ErrorDetails entity
+	 * Delete an existing ProcessCase entity
 	 * 
 	 */
 	@Transactional
-	public List<ErrorDetails> findAllErrorDetailss(Integer startResult, Integer maxRows) {
-		return new java.util.ArrayList<ErrorDetails>(errorDetailsDAO.findAllErrorDetailss(startResult, maxRows));
-	}
+	public ErrorDetails deleteErrorDetailsProcessCases(Integer errordetails_id, Integer related_processcases_id) {
+		ProcessCase related_processcases = processCaseDAO.findProcessCaseByPrimaryKey(related_processcases_id, -1, -1);
 
-	/**
-	 * Return a count of all ErrorDetails entity
-	 * 
-	 */
-	@Transactional
-	public Integer countErrorDetailss() {
-		return ((Long) errorDetailsDAO.createQuerySingleResult("select count(o) from ErrorDetails o").getSingleResult()).intValue();
+		ErrorDetails errordetails = errorDetailsDAO.findErrorDetailsByPrimaryKey(errordetails_id, -1, -1);
+
+		related_processcases.setErrorDetails(null);
+		errordetails.getProcessCases().remove(related_processcases);
+
+		processCaseDAO.remove(related_processcases);
+		processCaseDAO.flush();
+
+		return errordetails;
 	}
 }

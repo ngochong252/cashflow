@@ -78,17 +78,26 @@ public class ApprovalServiceTest {
 
 	/**
 	 * Operation Unit Test
-	* Save an existing Comapny entity
+	* Return a count of all Approval entity
 	* 
 	 */
 	@Test
-	public void saveApprovalComapny() {
-		// TODO: JUnit - Populate test inputs for operation: saveApprovalComapny 
-		Integer id = 0;
-		Comapny related_comapny = new com.ttv.cashflow.domain.Comapny();
-		Approval response = null;
-		response = service.saveApprovalComapny(id, related_comapny);
-		// TODO: JUnit - Add assertions to test outputs of operation: saveApprovalComapny
+	public void countApprovals() {
+		Integer response = null;
+		response = service.countApprovals();
+		// TODO: JUnit - Add assertions to test outputs of operation: countApprovals
+	}
+
+	/**
+	 * Operation Unit Test
+	* Delete an existing Approval entity
+	* 
+	 */
+	@Test
+	public void deleteApproval() {
+		// TODO: JUnit - Populate test inputs for operation: deleteApproval 
+		Approval approval = new com.ttv.cashflow.domain.Approval();
+		service.deleteApproval(approval);
 	}
 
 	/**
@@ -100,58 +109,10 @@ public class ApprovalServiceTest {
 	public void deleteApprovalComapny() {
 		// TODO: JUnit - Populate test inputs for operation: deleteApprovalComapny 
 		Integer approval_id = 0;
-		Integer related_comapny_companyId = 0;
+		Integer related_comapny_id = 0;
 		Approval response = null;
-		response = service.deleteApprovalComapny(approval_id, related_comapny_companyId);
+		response = service.deleteApprovalComapny(approval_id, related_comapny_id);
 		// TODO: JUnit - Add assertions to test outputs of operation: deleteApprovalComapny
-	}
-
-	/**
-	 * Operation Unit Test
-	* Save an existing Approval entity
-	* 
-	 */
-	@Test
-	public void saveApproval() {
-		// TODO: JUnit - Populate test inputs for operation: saveApproval 
-		Approval approval = new com.ttv.cashflow.domain.Approval();
-		service.saveApproval(approval);
-	}
-
-	/**
-	 * Operation Unit Test
-	* Delete an existing Approval entity
-	* 
-	 */
-	@Test
-	public void deleteApproval() {
-		// TODO: JUnit - Populate test inputs for operation: deleteApproval 
-		Approval approval_1 = new com.ttv.cashflow.domain.Approval();
-		service.deleteApproval(approval_1);
-	}
-
-	/**
-	 * Operation Unit Test
-	 */
-	@Test
-	public void findApprovalByPrimaryKey() {
-		// TODO: JUnit - Populate test inputs for operation: findApprovalByPrimaryKey 
-		Integer id_1 = 0;
-		Approval response = null;
-		response = service.findApprovalByPrimaryKey(id_1);
-		// TODO: JUnit - Add assertions to test outputs of operation: findApprovalByPrimaryKey
-	}
-
-	/**
-	 * Operation Unit Test
-	* Load an existing Approval entity
-	* 
-	 */
-	@Test
-	public void loadApprovals() {
-		Set<Approval> response = null;
-		response = service.loadApprovals();
-		// TODO: JUnit - Add assertions to test outputs of operation: loadApprovals
 	}
 
 	/**
@@ -171,14 +132,53 @@ public class ApprovalServiceTest {
 
 	/**
 	 * Operation Unit Test
-	* Return a count of all Approval entity
+	* Save an existing Comapny entity
 	* 
 	 */
 	@Test
-	public void countApprovals() {
-		Integer response = null;
-		response = service.countApprovals();
-		// TODO: JUnit - Add assertions to test outputs of operation: countApprovals
+	public void saveApprovalComapny() {
+		// TODO: JUnit - Populate test inputs for operation: saveApprovalComapny 
+		Integer id = 0;
+		Comapny related_comapny = new com.ttv.cashflow.domain.Comapny();
+		Approval response = null;
+		response = service.saveApprovalComapny(id, related_comapny);
+		// TODO: JUnit - Add assertions to test outputs of operation: saveApprovalComapny
+	}
+
+	/**
+	 * Operation Unit Test
+	 */
+	@Test
+	public void findApprovalByPrimaryKey() {
+		// TODO: JUnit - Populate test inputs for operation: findApprovalByPrimaryKey 
+		Integer id_1 = 0;
+		Approval response = null;
+		response = service.findApprovalByPrimaryKey(id_1);
+		// TODO: JUnit - Add assertions to test outputs of operation: findApprovalByPrimaryKey
+	}
+
+	/**
+	 * Operation Unit Test
+	* Save an existing Approval entity
+	* 
+	 */
+	@Test
+	public void saveApproval() {
+		// TODO: JUnit - Populate test inputs for operation: saveApproval 
+		Approval approval_1 = new com.ttv.cashflow.domain.Approval();
+		service.saveApproval(approval_1);
+	}
+
+	/**
+	 * Operation Unit Test
+	* Load an existing Approval entity
+	* 
+	 */
+	@Test
+	public void loadApprovals() {
+		Set<Approval> response = null;
+		response = service.loadApprovals();
+		// TODO: JUnit - Add assertions to test outputs of operation: loadApprovals
 	}
 
 	/**

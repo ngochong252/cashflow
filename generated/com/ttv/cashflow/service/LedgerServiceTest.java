@@ -80,36 +80,6 @@ public class LedgerServiceTest {
 
 	/**
 	 * Operation Unit Test
-	* Save an existing AccountPayable entity
-	* 
-	 */
-	@Test
-	public void saveLedgerAccountPayables() {
-		// TODO: JUnit - Populate test inputs for operation: saveLedgerAccountPayables 
-		Integer id = 0;
-		AccountPayable related_accountpayables = new com.ttv.cashflow.domain.AccountPayable();
-		Ledger response = null;
-		response = service.saveLedgerAccountPayables(id, related_accountpayables);
-		// TODO: JUnit - Add assertions to test outputs of operation: saveLedgerAccountPayables
-	}
-
-	/**
-	 * Operation Unit Test
-	* Return all Ledger entity
-	* 
-	 */
-	@Test
-	public void findAllLedgers() {
-		// TODO: JUnit - Populate test inputs for operation: findAllLedgers 
-		Integer startResult = 0;
-		Integer maxRows = 0;
-		List<Ledger> response = null;
-		response = service.findAllLedgers(startResult, maxRows);
-		// TODO: JUnit - Add assertions to test outputs of operation: findAllLedgers
-	}
-
-	/**
-	 * Operation Unit Test
 	* Delete an existing AccountReceivable entity
 	* 
 	 */
@@ -125,14 +95,14 @@ public class LedgerServiceTest {
 
 	/**
 	 * Operation Unit Test
-	* Delete an existing Ledger entity
+	* Save an existing Ledger entity
 	* 
 	 */
 	@Test
-	public void deleteLedger() {
-		// TODO: JUnit - Populate test inputs for operation: deleteLedger 
+	public void saveLedger() {
+		// TODO: JUnit - Populate test inputs for operation: saveLedger 
 		Ledger ledger = new com.ttv.cashflow.domain.Ledger();
-		service.deleteLedger(ledger);
+		service.saveLedger(ledger);
 	}
 
 	/**
@@ -144,9 +114,9 @@ public class LedgerServiceTest {
 	public void deleteLedgerComapny() {
 		// TODO: JUnit - Populate test inputs for operation: deleteLedgerComapny 
 		Integer ledger_id_1 = 0;
-		Integer related_comapny_companyId = 0;
+		Integer related_comapny_id = 0;
 		Ledger response = null;
-		response = service.deleteLedgerComapny(ledger_id_1, related_comapny_companyId);
+		response = service.deleteLedgerComapny(ledger_id_1, related_comapny_id);
 		// TODO: JUnit - Add assertions to test outputs of operation: deleteLedgerComapny
 	}
 
@@ -160,6 +130,36 @@ public class LedgerServiceTest {
 		Set<Ledger> response = null;
 		response = service.loadLedgers();
 		// TODO: JUnit - Add assertions to test outputs of operation: loadLedgers
+	}
+
+	/**
+	 * Operation Unit Test
+	* Delete an existing AccountPayable entity
+	* 
+	 */
+	@Test
+	public void deleteLedgerAccountPayables() {
+		// TODO: JUnit - Populate test inputs for operation: deleteLedgerAccountPayables 
+		Integer ledger_id_2 = 0;
+		Integer related_accountpayables_id = 0;
+		Ledger response = null;
+		response = service.deleteLedgerAccountPayables(ledger_id_2, related_accountpayables_id);
+		// TODO: JUnit - Add assertions to test outputs of operation: deleteLedgerAccountPayables
+	}
+
+	/**
+	 * Operation Unit Test
+	* Save an existing AccountPayable entity
+	* 
+	 */
+	@Test
+	public void saveLedgerAccountPayables() {
+		// TODO: JUnit - Populate test inputs for operation: saveLedgerAccountPayables 
+		Integer id = 0;
+		AccountPayable related_accountpayables = new com.ttv.cashflow.domain.AccountPayable();
+		Ledger response = null;
+		response = service.saveLedgerAccountPayables(id, related_accountpayables);
+		// TODO: JUnit - Add assertions to test outputs of operation: saveLedgerAccountPayables
 	}
 
 	/**
@@ -179,30 +179,6 @@ public class LedgerServiceTest {
 
 	/**
 	 * Operation Unit Test
-	* Return a count of all Ledger entity
-	* 
-	 */
-	@Test
-	public void countLedgers() {
-		Integer response = null;
-		response = service.countLedgers();
-		// TODO: JUnit - Add assertions to test outputs of operation: countLedgers
-	}
-
-	/**
-	 * Operation Unit Test
-	* Save an existing Ledger entity
-	* 
-	 */
-	@Test
-	public void saveLedger() {
-		// TODO: JUnit - Populate test inputs for operation: saveLedger 
-		Ledger ledger_1 = new com.ttv.cashflow.domain.Ledger();
-		service.saveLedger(ledger_1);
-	}
-
-	/**
-	 * Operation Unit Test
 	 */
 	@Test
 	public void findLedgerByPrimaryKey() {
@@ -211,6 +187,18 @@ public class LedgerServiceTest {
 		Ledger response = null;
 		response = service.findLedgerByPrimaryKey(id_2);
 		// TODO: JUnit - Add assertions to test outputs of operation: findLedgerByPrimaryKey
+	}
+
+	/**
+	 * Operation Unit Test
+	* Return a count of all Ledger entity
+	* 
+	 */
+	@Test
+	public void countLedgers() {
+		Integer response = null;
+		response = service.countLedgers();
+		// TODO: JUnit - Add assertions to test outputs of operation: countLedgers
 	}
 
 	/**
@@ -230,17 +218,29 @@ public class LedgerServiceTest {
 
 	/**
 	 * Operation Unit Test
-	* Delete an existing AccountPayable entity
+	* Delete an existing Ledger entity
 	* 
 	 */
 	@Test
-	public void deleteLedgerAccountPayables() {
-		// TODO: JUnit - Populate test inputs for operation: deleteLedgerAccountPayables 
-		Integer ledger_id_2 = 0;
-		Integer related_accountpayables_id = 0;
-		Ledger response = null;
-		response = service.deleteLedgerAccountPayables(ledger_id_2, related_accountpayables_id);
-		// TODO: JUnit - Add assertions to test outputs of operation: deleteLedgerAccountPayables
+	public void deleteLedger() {
+		// TODO: JUnit - Populate test inputs for operation: deleteLedger 
+		Ledger ledger_1 = new com.ttv.cashflow.domain.Ledger();
+		service.deleteLedger(ledger_1);
+	}
+
+	/**
+	 * Operation Unit Test
+	* Return all Ledger entity
+	* 
+	 */
+	@Test
+	public void findAllLedgers() {
+		// TODO: JUnit - Populate test inputs for operation: findAllLedgers 
+		Integer startResult = 0;
+		Integer maxRows = 0;
+		List<Ledger> response = null;
+		response = service.findAllLedgers(startResult, maxRows);
+		// TODO: JUnit - Add assertions to test outputs of operation: findAllLedgers
 	}
 
 	/**

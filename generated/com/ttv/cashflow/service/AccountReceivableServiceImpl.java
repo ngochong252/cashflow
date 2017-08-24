@@ -56,6 +56,101 @@ public class AccountReceivableServiceImpl implements AccountReceivableService {
 	}
 
 	/**
+	 */
+	@Transactional
+	public AccountReceivable findAccountReceivableByPrimaryKey(Integer id) {
+		return accountReceivableDAO.findAccountReceivableByPrimaryKey(id);
+	}
+
+	/**
+	 * Return a count of all AccountReceivable entity
+	 * 
+	 */
+	@Transactional
+	public Integer countAccountReceivables() {
+		return ((Long) accountReceivableDAO.createQuerySingleResult("select count(o) from AccountReceivable o").getSingleResult()).intValue();
+	}
+
+	/**
+	 * Save an existing Ledger entity
+	 * 
+	 */
+	@Transactional
+	public AccountReceivable saveAccountReceivableLedger(Integer id, Ledger related_ledger) {
+		AccountReceivable accountreceivable = accountReceivableDAO.findAccountReceivableByPrimaryKey(id, -1, -1);
+		Ledger existingledger = ledgerDAO.findLedgerByPrimaryKey(related_ledger.getId());
+
+		// copy into the existing record to preserve existing relationships
+		if (existingledger != null) {
+			existingledger.setId(related_ledger.getId());
+			existingledger.setIssuedDate(related_ledger.getIssuedDate());
+			existingledger.setAmount(related_ledger.getAmount());
+			existingledger.setDescription(related_ledger.getDescription());
+			existingledger.setValidCode(related_ledger.getValidCode());
+			existingledger.setType(related_ledger.getType());
+			existingledger.setFilePath(related_ledger.getFilePath());
+			existingledger.setCreatedDate(related_ledger.getCreatedDate());
+			existingledger.setModifiedDate(related_ledger.getModifiedDate());
+			related_ledger = existingledger;
+		} else {
+			related_ledger = ledgerDAO.store(related_ledger);
+			ledgerDAO.flush();
+		}
+
+		accountreceivable.setLedger(related_ledger);
+		related_ledger.getAccountReceivables().add(accountreceivable);
+		accountreceivable = accountReceivableDAO.store(accountreceivable);
+		accountReceivableDAO.flush();
+
+		related_ledger = ledgerDAO.store(related_ledger);
+		ledgerDAO.flush();
+
+		return accountreceivable;
+	}
+
+	/**
+	 * Return all AccountReceivable entity
+	 * 
+	 */
+	@Transactional
+	public List<AccountReceivable> findAllAccountReceivables(Integer startResult, Integer maxRows) {
+		return new java.util.ArrayList<AccountReceivable>(accountReceivableDAO.findAllAccountReceivables(startResult, maxRows));
+	}
+
+	/**
+	 * Delete an existing AccountReceivable entity
+	 * 
+	 */
+	@Transactional
+	public void deleteAccountReceivable(AccountReceivable accountreceivable) {
+		accountReceivableDAO.remove(accountreceivable);
+		accountReceivableDAO.flush();
+	}
+
+	/**
+	 * Delete an existing Ledger entity
+	 * 
+	 */
+	@Transactional
+	public AccountReceivable deleteAccountReceivableLedger(Integer accountreceivable_id, Integer related_ledger_id) {
+		AccountReceivable accountreceivable = accountReceivableDAO.findAccountReceivableByPrimaryKey(accountreceivable_id, -1, -1);
+		Ledger related_ledger = ledgerDAO.findLedgerByPrimaryKey(related_ledger_id, -1, -1);
+
+		accountreceivable.setLedger(null);
+		related_ledger.getAccountReceivables().remove(accountreceivable);
+		accountreceivable = accountReceivableDAO.store(accountreceivable);
+		accountReceivableDAO.flush();
+
+		related_ledger = ledgerDAO.store(related_ledger);
+		ledgerDAO.flush();
+
+		ledgerDAO.remove(related_ledger);
+		ledgerDAO.flush();
+
+		return accountreceivable;
+	}
+
+	/**
 	 * Save an existing AccountReceivable entity
 	 * 
 	 */
@@ -99,99 +194,5 @@ public class AccountReceivableServiceImpl implements AccountReceivableService {
 			accountreceivable = accountReceivableDAO.store(accountreceivable);
 		}
 		accountReceivableDAO.flush();
-	}
-
-	/**
-	 * Return all AccountReceivable entity
-	 * 
-	 */
-	@Transactional
-	public List<AccountReceivable> findAllAccountReceivables(Integer startResult, Integer maxRows) {
-		return new java.util.ArrayList<AccountReceivable>(accountReceivableDAO.findAllAccountReceivables(startResult, maxRows));
-	}
-
-	/**
-	 * Return a count of all AccountReceivable entity
-	 * 
-	 */
-	@Transactional
-	public Integer countAccountReceivables() {
-		return ((Long) accountReceivableDAO.createQuerySingleResult("select count(o) from AccountReceivable o").getSingleResult()).intValue();
-	}
-
-	/**
-	 * Save an existing Ledger entity
-	 * 
-	 */
-	@Transactional
-	public AccountReceivable saveAccountReceivableLedger(Integer id, Ledger related_ledger) {
-		AccountReceivable accountreceivable = accountReceivableDAO.findAccountReceivableByPrimaryKey(id, -1, -1);
-		Ledger existingledger = ledgerDAO.findLedgerByPrimaryKey(related_ledger.getId());
-
-		// copy into the existing record to preserve existing relationships
-		if (existingledger != null) {
-			existingledger.setId(related_ledger.getId());
-			existingledger.setIssuedDate(related_ledger.getIssuedDate());
-			existingledger.setAmount(related_ledger.getAmount());
-			existingledger.setValidCode(related_ledger.getValidCode());
-			existingledger.setType(related_ledger.getType());
-			existingledger.setFilePath(related_ledger.getFilePath());
-			existingledger.setCreatedDate(related_ledger.getCreatedDate());
-			existingledger.setModifiedDate(related_ledger.getModifiedDate());
-			related_ledger = existingledger;
-		} else {
-			related_ledger = ledgerDAO.store(related_ledger);
-			ledgerDAO.flush();
-		}
-
-		accountreceivable.setLedger(related_ledger);
-		related_ledger.getAccountReceivables().add(accountreceivable);
-		accountreceivable = accountReceivableDAO.store(accountreceivable);
-		accountReceivableDAO.flush();
-
-		related_ledger = ledgerDAO.store(related_ledger);
-		ledgerDAO.flush();
-
-		return accountreceivable;
-	}
-
-	/**
-	 * Delete an existing AccountReceivable entity
-	 * 
-	 */
-	@Transactional
-	public void deleteAccountReceivable(AccountReceivable accountreceivable) {
-		accountReceivableDAO.remove(accountreceivable);
-		accountReceivableDAO.flush();
-	}
-
-	/**
-	 */
-	@Transactional
-	public AccountReceivable findAccountReceivableByPrimaryKey(Integer id) {
-		return accountReceivableDAO.findAccountReceivableByPrimaryKey(id);
-	}
-
-	/**
-	 * Delete an existing Ledger entity
-	 * 
-	 */
-	@Transactional
-	public AccountReceivable deleteAccountReceivableLedger(Integer accountreceivable_id, Integer related_ledger_id) {
-		AccountReceivable accountreceivable = accountReceivableDAO.findAccountReceivableByPrimaryKey(accountreceivable_id, -1, -1);
-		Ledger related_ledger = ledgerDAO.findLedgerByPrimaryKey(related_ledger_id, -1, -1);
-
-		accountreceivable.setLedger(null);
-		related_ledger.getAccountReceivables().remove(accountreceivable);
-		accountreceivable = accountReceivableDAO.store(accountreceivable);
-		accountReceivableDAO.flush();
-
-		related_ledger = ledgerDAO.store(related_ledger);
-		ledgerDAO.flush();
-
-		ledgerDAO.remove(related_ledger);
-		ledgerDAO.flush();
-
-		return accountreceivable;
 	}
 }

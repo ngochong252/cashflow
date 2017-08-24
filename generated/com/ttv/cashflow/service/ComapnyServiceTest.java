@@ -80,6 +80,21 @@ public class ComapnyServiceTest {
 
 	/**
 	 * Operation Unit Test
+	* Save an existing Ledger entity
+	* 
+	 */
+	@Test
+	public void saveComapnyLedgers() {
+		// TODO: JUnit - Populate test inputs for operation: saveComapnyLedgers 
+		Integer id = 0;
+		Ledger related_ledgers = new com.ttv.cashflow.domain.Ledger();
+		Comapny response = null;
+		response = service.saveComapnyLedgers(id, related_ledgers);
+		// TODO: JUnit - Add assertions to test outputs of operation: saveComapnyLedgers
+	}
+
+	/**
+	 * Operation Unit Test
 	* Return a count of all Comapny entity
 	* 
 	 */
@@ -92,62 +107,14 @@ public class ComapnyServiceTest {
 
 	/**
 	 * Operation Unit Test
-	* Delete an existing BankingAccounting entity
+	* Load an existing Comapny entity
 	* 
 	 */
 	@Test
-	public void deleteComapnyBankingAccountings() {
-		// TODO: JUnit - Populate test inputs for operation: deleteComapnyBankingAccountings 
-		Integer comapny_companyId = 0;
-		Integer related_bankingaccountings_id = 0;
-		Comapny response = null;
-		response = service.deleteComapnyBankingAccountings(comapny_companyId, related_bankingaccountings_id);
-		// TODO: JUnit - Add assertions to test outputs of operation: deleteComapnyBankingAccountings
-	}
-
-	/**
-	 * Operation Unit Test
-	* Delete an existing Approval entity
-	* 
-	 */
-	@Test
-	public void deleteComapnyApprovals() {
-		// TODO: JUnit - Populate test inputs for operation: deleteComapnyApprovals 
-		Integer comapny_companyId_1 = 0;
-		Integer related_approvals_id = 0;
-		Comapny response = null;
-		response = service.deleteComapnyApprovals(comapny_companyId_1, related_approvals_id);
-		// TODO: JUnit - Add assertions to test outputs of operation: deleteComapnyApprovals
-	}
-
-	/**
-	 * Operation Unit Test
-	* Save an existing Ledger entity
-	* 
-	 */
-	@Test
-	public void saveComapnyLedgers() {
-		// TODO: JUnit - Populate test inputs for operation: saveComapnyLedgers 
-		Integer companyId = 0;
-		Ledger related_ledgers = new com.ttv.cashflow.domain.Ledger();
-		Comapny response = null;
-		response = service.saveComapnyLedgers(companyId, related_ledgers);
-		// TODO: JUnit - Add assertions to test outputs of operation: saveComapnyLedgers
-	}
-
-	/**
-	 * Operation Unit Test
-	* Save an existing BankingAccounting entity
-	* 
-	 */
-	@Test
-	public void saveComapnyBankingAccountings() {
-		// TODO: JUnit - Populate test inputs for operation: saveComapnyBankingAccountings 
-		Integer companyId_1 = 0;
-		BankingAccounting related_bankingaccountings = new com.ttv.cashflow.domain.BankingAccounting();
-		Comapny response = null;
-		response = service.saveComapnyBankingAccountings(companyId_1, related_bankingaccountings);
-		// TODO: JUnit - Add assertions to test outputs of operation: saveComapnyBankingAccountings
+	public void loadComapnys() {
+		Set<Comapny> response = null;
+		response = service.loadComapnys();
+		// TODO: JUnit - Add assertions to test outputs of operation: loadComapnys
 	}
 
 	/**
@@ -160,6 +127,36 @@ public class ComapnyServiceTest {
 		// TODO: JUnit - Populate test inputs for operation: deleteComapny 
 		Comapny comapny = new com.ttv.cashflow.domain.Comapny();
 		service.deleteComapny(comapny);
+	}
+
+	/**
+	 * Operation Unit Test
+	* Save an existing BankingAccounting entity
+	* 
+	 */
+	@Test
+	public void saveComapnyBankingAccountings() {
+		// TODO: JUnit - Populate test inputs for operation: saveComapnyBankingAccountings 
+		Integer id_1 = 0;
+		BankingAccounting related_bankingaccountings = new com.ttv.cashflow.domain.BankingAccounting();
+		Comapny response = null;
+		response = service.saveComapnyBankingAccountings(id_1, related_bankingaccountings);
+		// TODO: JUnit - Add assertions to test outputs of operation: saveComapnyBankingAccountings
+	}
+
+	/**
+	 * Operation Unit Test
+	* Delete an existing Ledger entity
+	* 
+	 */
+	@Test
+	public void deleteComapnyLedgers() {
+		// TODO: JUnit - Populate test inputs for operation: deleteComapnyLedgers 
+		Integer comapny_id = 0;
+		Integer related_ledgers_id = 0;
+		Comapny response = null;
+		response = service.deleteComapnyLedgers(comapny_id, related_ledgers_id);
+		// TODO: JUnit - Add assertions to test outputs of operation: deleteComapnyLedgers
 	}
 
 	/**
@@ -179,40 +176,13 @@ public class ComapnyServiceTest {
 
 	/**
 	 * Operation Unit Test
-	* Load an existing Comapny entity
-	* 
-	 */
-	@Test
-	public void loadComapnys() {
-		Set<Comapny> response = null;
-		response = service.loadComapnys();
-		// TODO: JUnit - Add assertions to test outputs of operation: loadComapnys
-	}
-
-	/**
-	 * Operation Unit Test
-	* Save an existing Approval entity
-	* 
-	 */
-	@Test
-	public void saveComapnyApprovals() {
-		// TODO: JUnit - Populate test inputs for operation: saveComapnyApprovals 
-		Integer companyId_2 = 0;
-		Approval related_approvals = new com.ttv.cashflow.domain.Approval();
-		Comapny response = null;
-		response = service.saveComapnyApprovals(companyId_2, related_approvals);
-		// TODO: JUnit - Add assertions to test outputs of operation: saveComapnyApprovals
-	}
-
-	/**
-	 * Operation Unit Test
 	 */
 	@Test
 	public void findComapnyByPrimaryKey() {
 		// TODO: JUnit - Populate test inputs for operation: findComapnyByPrimaryKey 
-		Integer companyId_3 = 0;
+		Integer id_2 = 0;
 		Comapny response = null;
-		response = service.findComapnyByPrimaryKey(companyId_3);
+		response = service.findComapnyByPrimaryKey(id_2);
 		// TODO: JUnit - Add assertions to test outputs of operation: findComapnyByPrimaryKey
 	}
 
@@ -230,17 +200,47 @@ public class ComapnyServiceTest {
 
 	/**
 	 * Operation Unit Test
-	* Delete an existing Ledger entity
+	* Delete an existing BankingAccounting entity
 	* 
 	 */
 	@Test
-	public void deleteComapnyLedgers() {
-		// TODO: JUnit - Populate test inputs for operation: deleteComapnyLedgers 
-		Integer comapny_companyId_2 = 0;
-		Integer related_ledgers_id = 0;
+	public void deleteComapnyBankingAccountings() {
+		// TODO: JUnit - Populate test inputs for operation: deleteComapnyBankingAccountings 
+		Integer comapny_id_1 = 0;
+		Integer related_bankingaccountings_id = 0;
 		Comapny response = null;
-		response = service.deleteComapnyLedgers(comapny_companyId_2, related_ledgers_id);
-		// TODO: JUnit - Add assertions to test outputs of operation: deleteComapnyLedgers
+		response = service.deleteComapnyBankingAccountings(comapny_id_1, related_bankingaccountings_id);
+		// TODO: JUnit - Add assertions to test outputs of operation: deleteComapnyBankingAccountings
+	}
+
+	/**
+	 * Operation Unit Test
+	* Save an existing Approval entity
+	* 
+	 */
+	@Test
+	public void saveComapnyApprovals() {
+		// TODO: JUnit - Populate test inputs for operation: saveComapnyApprovals 
+		Integer id_3 = 0;
+		Approval related_approvals = new com.ttv.cashflow.domain.Approval();
+		Comapny response = null;
+		response = service.saveComapnyApprovals(id_3, related_approvals);
+		// TODO: JUnit - Add assertions to test outputs of operation: saveComapnyApprovals
+	}
+
+	/**
+	 * Operation Unit Test
+	* Delete an existing Approval entity
+	* 
+	 */
+	@Test
+	public void deleteComapnyApprovals() {
+		// TODO: JUnit - Populate test inputs for operation: deleteComapnyApprovals 
+		Integer comapny_id_2 = 0;
+		Integer related_approvals_id = 0;
+		Comapny response = null;
+		response = service.deleteComapnyApprovals(comapny_id_2, related_approvals_id);
+		// TODO: JUnit - Add assertions to test outputs of operation: deleteComapnyApprovals
 	}
 
 	/**

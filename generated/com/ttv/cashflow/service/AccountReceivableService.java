@@ -20,16 +20,8 @@ public interface AccountReceivableService {
 	public Set<AccountReceivable> loadAccountReceivables();
 
 	/**
-	* Save an existing AccountReceivable entity
-	* 
 	 */
-	public void saveAccountReceivable(AccountReceivable accountreceivable);
-
-	/**
-	* Return all AccountReceivable entity
-	* 
-	 */
-	public List<AccountReceivable> findAllAccountReceivables(Integer startResult, Integer maxRows);
+	public AccountReceivable findAccountReceivableByPrimaryKey(Integer id);
 
 	/**
 	* Return a count of all AccountReceivable entity
@@ -41,21 +33,29 @@ public interface AccountReceivableService {
 	* Save an existing Ledger entity
 	* 
 	 */
-	public AccountReceivable saveAccountReceivableLedger(Integer id, Ledger related_ledger);
+	public AccountReceivable saveAccountReceivableLedger(Integer id_1, Ledger related_ledger);
+
+	/**
+	* Return all AccountReceivable entity
+	* 
+	 */
+	public List<AccountReceivable> findAllAccountReceivables(Integer startResult, Integer maxRows);
 
 	/**
 	* Delete an existing AccountReceivable entity
 	* 
 	 */
-	public void deleteAccountReceivable(AccountReceivable accountreceivable_1);
-
-	/**
-	 */
-	public AccountReceivable findAccountReceivableByPrimaryKey(Integer id_1);
+	public void deleteAccountReceivable(AccountReceivable accountreceivable);
 
 	/**
 	* Delete an existing Ledger entity
 	* 
 	 */
 	public AccountReceivable deleteAccountReceivableLedger(Integer accountreceivable_id, Integer related_ledger_id);
+
+	/**
+	* Save an existing AccountReceivable entity
+	* 
+	 */
+	public void saveAccountReceivable(AccountReceivable accountreceivable_1);
 }

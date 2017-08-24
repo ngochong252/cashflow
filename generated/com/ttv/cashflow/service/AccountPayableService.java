@@ -14,32 +14,14 @@ import java.util.Set;
 public interface AccountPayableService {
 
 	/**
-	* Save an existing Ledger entity
-	* 
-	 */
-	public AccountPayable saveAccountPayableLedger(Integer id, Ledger related_ledger);
-
-	/**
 	* Save an existing AccountPayable entity
 	* 
 	 */
 	public void saveAccountPayable(AccountPayable accountpayable);
 
 	/**
-	* Return a count of all AccountPayable entity
-	* 
 	 */
-	public Integer countAccountPayables();
-
-	/**
-	 */
-	public AccountPayable findAccountPayableByPrimaryKey(Integer id_1);
-
-	/**
-	* Load an existing AccountPayable entity
-	* 
-	 */
-	public Set<AccountPayable> loadAccountPayables();
+	public AccountPayable findAccountPayableByPrimaryKey(Integer id);
 
 	/**
 	* Return all AccountPayable entity
@@ -52,6 +34,24 @@ public interface AccountPayableService {
 	* 
 	 */
 	public void deleteAccountPayable(AccountPayable accountpayable_1);
+
+	/**
+	* Return a count of all AccountPayable entity
+	* 
+	 */
+	public Integer countAccountPayables();
+
+	/**
+	* Save an existing Ledger entity
+	* 
+	 */
+	public AccountPayable saveAccountPayableLedger(Integer id_1, Ledger related_ledger);
+
+	/**
+	* Load an existing AccountPayable entity
+	* 
+	 */
+	public Set<AccountPayable> loadAccountPayables();
 
 	/**
 	* Delete an existing Ledger entity

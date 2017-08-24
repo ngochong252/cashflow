@@ -16,34 +16,22 @@ import java.util.Set;
 public interface LedgerService {
 
 	/**
-	* Save an existing AccountPayable entity
-	* 
-	 */
-	public Ledger saveLedgerAccountPayables(Integer id, AccountPayable related_accountpayables);
-
-	/**
-	* Return all Ledger entity
-	* 
-	 */
-	public List<Ledger> findAllLedgers(Integer startResult, Integer maxRows);
-
-	/**
 	* Delete an existing AccountReceivable entity
 	* 
 	 */
 	public Ledger deleteLedgerAccountReceivables(Integer ledger_id, Integer related_accountreceivables_id);
 
 	/**
-	* Delete an existing Ledger entity
+	* Save an existing Ledger entity
 	* 
 	 */
-	public void deleteLedger(Ledger ledger);
+	public void saveLedger(Ledger ledger);
 
 	/**
 	* Delete an existing Comapny entity
 	* 
 	 */
-	public Ledger deleteLedgerComapny(Integer ledger_id_1, Integer related_comapny_companyId);
+	public Ledger deleteLedgerComapny(Integer ledger_id_1, Integer related_comapny_id);
 
 	/**
 	* Load an existing Ledger entity
@@ -52,10 +40,26 @@ public interface LedgerService {
 	public Set<Ledger> loadLedgers();
 
 	/**
+	* Delete an existing AccountPayable entity
+	* 
+	 */
+	public Ledger deleteLedgerAccountPayables(Integer ledger_id_2, Integer related_accountpayables_id);
+
+	/**
+	* Save an existing AccountPayable entity
+	* 
+	 */
+	public Ledger saveLedgerAccountPayables(Integer id, AccountPayable related_accountpayables);
+
+	/**
 	* Save an existing AccountReceivable entity
 	* 
 	 */
 	public Ledger saveLedgerAccountReceivables(Integer id_1, AccountReceivable related_accountreceivables);
+
+	/**
+	 */
+	public Ledger findLedgerByPrimaryKey(Integer id_2);
 
 	/**
 	* Return a count of all Ledger entity
@@ -64,24 +68,20 @@ public interface LedgerService {
 	public Integer countLedgers();
 
 	/**
-	* Save an existing Ledger entity
-	* 
-	 */
-	public void saveLedger(Ledger ledger_1);
-
-	/**
-	 */
-	public Ledger findLedgerByPrimaryKey(Integer id_2);
-
-	/**
 	* Save an existing Comapny entity
 	* 
 	 */
 	public Ledger saveLedgerComapny(Integer id_3, Comapny related_comapny);
 
 	/**
-	* Delete an existing AccountPayable entity
+	* Delete an existing Ledger entity
 	* 
 	 */
-	public Ledger deleteLedgerAccountPayables(Integer ledger_id_2, Integer related_accountpayables_id);
+	public void deleteLedger(Ledger ledger_1);
+
+	/**
+	* Return all Ledger entity
+	* 
+	 */
+	public List<Ledger> findAllLedgers(Integer startResult, Integer maxRows);
 }

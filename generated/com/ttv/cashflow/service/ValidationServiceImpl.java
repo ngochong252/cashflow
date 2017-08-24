@@ -38,50 +38,6 @@ public class ValidationServiceImpl implements ValidationService {
 	}
 
 	/**
-	 * Return all Validation entity
-	 * 
-	 */
-	@Transactional
-	public List<Validation> findAllValidations(Integer startResult, Integer maxRows) {
-		return new java.util.ArrayList<Validation>(validationDAO.findAllValidations(startResult, maxRows));
-	}
-
-	/**
-	 * Load an existing Validation entity
-	 * 
-	 */
-	@Transactional
-	public Set<Validation> loadValidations() {
-		return validationDAO.findAllValidations();
-	}
-
-	/**
-	 * Return a count of all Validation entity
-	 * 
-	 */
-	@Transactional
-	public Integer countValidations() {
-		return ((Long) validationDAO.createQuerySingleResult("select count(o) from Validation o").getSingleResult()).intValue();
-	}
-
-	/**
-	 */
-	@Transactional
-	public Validation findValidationByPrimaryKey(Integer id) {
-		return validationDAO.findValidationByPrimaryKey(id);
-	}
-
-	/**
-	 * Delete an existing Validation entity
-	 * 
-	 */
-	@Transactional
-	public void deleteValidation(Validation validation) {
-		validationDAO.remove(validation);
-		validationDAO.flush();
-	}
-
-	/**
 	 * Save an existing Validation entity
 	 * 
 	 */
@@ -100,5 +56,49 @@ public class ValidationServiceImpl implements ValidationService {
 			validation = validationDAO.store(validation);
 		}
 		validationDAO.flush();
+	}
+
+	/**
+	 * Delete an existing Validation entity
+	 * 
+	 */
+	@Transactional
+	public void deleteValidation(Validation validation) {
+		validationDAO.remove(validation);
+		validationDAO.flush();
+	}
+
+	/**
+	 * Return all Validation entity
+	 * 
+	 */
+	@Transactional
+	public List<Validation> findAllValidations(Integer startResult, Integer maxRows) {
+		return new java.util.ArrayList<Validation>(validationDAO.findAllValidations(startResult, maxRows));
+	}
+
+	/**
+	 */
+	@Transactional
+	public Validation findValidationByPrimaryKey(Integer id) {
+		return validationDAO.findValidationByPrimaryKey(id);
+	}
+
+	/**
+	 * Return a count of all Validation entity
+	 * 
+	 */
+	@Transactional
+	public Integer countValidations() {
+		return ((Long) validationDAO.createQuerySingleResult("select count(o) from Validation o").getSingleResult()).intValue();
+	}
+
+	/**
+	 * Load an existing Validation entity
+	 * 
+	 */
+	@Transactional
+	public Set<Validation> loadValidations() {
+		return validationDAO.findAllValidations();
 	}
 }

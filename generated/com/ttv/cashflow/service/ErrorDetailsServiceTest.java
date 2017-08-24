@@ -78,26 +78,14 @@ public class ErrorDetailsServiceTest {
 
 	/**
 	 * Operation Unit Test
-	 */
-	@Test
-	public void findErrorDetailsByPrimaryKey() {
-		// TODO: JUnit - Populate test inputs for operation: findErrorDetailsByPrimaryKey 
-		Integer id = 0;
-		ErrorDetails response = null;
-		response = service.findErrorDetailsByPrimaryKey(id);
-		// TODO: JUnit - Add assertions to test outputs of operation: findErrorDetailsByPrimaryKey
-	}
-
-	/**
-	 * Operation Unit Test
-	* Delete an existing ErrorDetails entity
+	* Return a count of all ErrorDetails entity
 	* 
 	 */
 	@Test
-	public void deleteErrorDetails() {
-		// TODO: JUnit - Populate test inputs for operation: deleteErrorDetails 
-		ErrorDetails errordetails = new com.ttv.cashflow.domain.ErrorDetails();
-		service.deleteErrorDetails(errordetails);
+	public void countErrorDetailss() {
+		Integer response = null;
+		response = service.countErrorDetailss();
+		// TODO: JUnit - Add assertions to test outputs of operation: countErrorDetailss
 	}
 
 	/**
@@ -114,44 +102,41 @@ public class ErrorDetailsServiceTest {
 
 	/**
 	 * Operation Unit Test
-	* Delete an existing ProcessCase entity
-	* 
-	 */
-	@Test
-	public void deleteErrorDetailsProcessCases() {
-		// TODO: JUnit - Populate test inputs for operation: deleteErrorDetailsProcessCases 
-		Integer errordetails_id = 0;
-		Integer related_processcases_id = 0;
-		ErrorDetails response = null;
-		response = service.deleteErrorDetailsProcessCases(errordetails_id, related_processcases_id);
-		// TODO: JUnit - Add assertions to test outputs of operation: deleteErrorDetailsProcessCases
-	}
-
-	/**
-	 * Operation Unit Test
 	* Save an existing ProcessCase entity
 	* 
 	 */
 	@Test
 	public void saveErrorDetailsProcessCases() {
 		// TODO: JUnit - Populate test inputs for operation: saveErrorDetailsProcessCases 
-		Integer id_1 = 0;
+		Integer id = 0;
 		ProcessCase related_processcases = new com.ttv.cashflow.domain.ProcessCase();
 		ErrorDetails response = null;
-		response = service.saveErrorDetailsProcessCases(id_1, related_processcases);
+		response = service.saveErrorDetailsProcessCases(id, related_processcases);
 		// TODO: JUnit - Add assertions to test outputs of operation: saveErrorDetailsProcessCases
 	}
 
 	/**
 	 * Operation Unit Test
-	* Save an existing ErrorDetails entity
+	* Delete an existing ErrorDetails entity
 	* 
 	 */
 	@Test
-	public void saveErrorDetails() {
-		// TODO: JUnit - Populate test inputs for operation: saveErrorDetails 
-		ErrorDetails errordetails_1 = new com.ttv.cashflow.domain.ErrorDetails();
-		service.saveErrorDetails(errordetails_1);
+	public void deleteErrorDetails() {
+		// TODO: JUnit - Populate test inputs for operation: deleteErrorDetails 
+		ErrorDetails errordetails = new com.ttv.cashflow.domain.ErrorDetails();
+		service.deleteErrorDetails(errordetails);
+	}
+
+	/**
+	 * Operation Unit Test
+	 */
+	@Test
+	public void findErrorDetailsByPrimaryKey() {
+		// TODO: JUnit - Populate test inputs for operation: findErrorDetailsByPrimaryKey 
+		Integer id_1 = 0;
+		ErrorDetails response = null;
+		response = service.findErrorDetailsByPrimaryKey(id_1);
+		// TODO: JUnit - Add assertions to test outputs of operation: findErrorDetailsByPrimaryKey
 	}
 
 	/**
@@ -171,14 +156,29 @@ public class ErrorDetailsServiceTest {
 
 	/**
 	 * Operation Unit Test
-	* Return a count of all ErrorDetails entity
+	* Save an existing ErrorDetails entity
 	* 
 	 */
 	@Test
-	public void countErrorDetailss() {
-		Integer response = null;
-		response = service.countErrorDetailss();
-		// TODO: JUnit - Add assertions to test outputs of operation: countErrorDetailss
+	public void saveErrorDetails() {
+		// TODO: JUnit - Populate test inputs for operation: saveErrorDetails 
+		ErrorDetails errordetails_1 = new com.ttv.cashflow.domain.ErrorDetails();
+		service.saveErrorDetails(errordetails_1);
+	}
+
+	/**
+	 * Operation Unit Test
+	* Delete an existing ProcessCase entity
+	* 
+	 */
+	@Test
+	public void deleteErrorDetailsProcessCases() {
+		// TODO: JUnit - Populate test inputs for operation: deleteErrorDetailsProcessCases 
+		Integer errordetails_id = 0;
+		Integer related_processcases_id = 0;
+		ErrorDetails response = null;
+		response = service.deleteErrorDetailsProcessCases(errordetails_id, related_processcases_id);
+		// TODO: JUnit - Add assertions to test outputs of operation: deleteErrorDetailsProcessCases
 	}
 
 	/**

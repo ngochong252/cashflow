@@ -14,38 +14,22 @@ import java.util.Set;
 public interface ApprovalService {
 
 	/**
-	* Save an existing Comapny entity
+	* Return a count of all Approval entity
 	* 
 	 */
-	public Approval saveApprovalComapny(Integer id, Comapny related_comapny);
-
-	/**
-	* Delete an existing Comapny entity
-	* 
-	 */
-	public Approval deleteApprovalComapny(Integer approval_id, Integer related_comapny_companyId);
-
-	/**
-	* Save an existing Approval entity
-	* 
-	 */
-	public void saveApproval(Approval approval);
+	public Integer countApprovals();
 
 	/**
 	* Delete an existing Approval entity
 	* 
 	 */
-	public void deleteApproval(Approval approval_1);
+	public void deleteApproval(Approval approval);
 
 	/**
-	 */
-	public Approval findApprovalByPrimaryKey(Integer id_1);
-
-	/**
-	* Load an existing Approval entity
+	* Delete an existing Comapny entity
 	* 
 	 */
-	public Set<Approval> loadApprovals();
+	public Approval deleteApprovalComapny(Integer approval_id, Integer related_comapny_id);
 
 	/**
 	* Return all Approval entity
@@ -54,8 +38,24 @@ public interface ApprovalService {
 	public List<Approval> findAllApprovals(Integer startResult, Integer maxRows);
 
 	/**
-	* Return a count of all Approval entity
+	* Save an existing Comapny entity
 	* 
 	 */
-	public Integer countApprovals();
+	public Approval saveApprovalComapny(Integer id, Comapny related_comapny);
+
+	/**
+	 */
+	public Approval findApprovalByPrimaryKey(Integer id_1);
+
+	/**
+	* Save an existing Approval entity
+	* 
+	 */
+	public void saveApproval(Approval approval_1);
+
+	/**
+	* Load an existing Approval entity
+	* 
+	 */
+	public Set<Approval> loadApprovals();
 }

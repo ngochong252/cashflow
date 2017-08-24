@@ -78,6 +78,33 @@ public class BankingAccountingServiceTest {
 
 	/**
 	 * Operation Unit Test
+	 */
+	@Test
+	public void findBankingAccountingByPrimaryKey() {
+		// TODO: JUnit - Populate test inputs for operation: findBankingAccountingByPrimaryKey 
+		Integer id = 0;
+		BankingAccounting response = null;
+		response = service.findBankingAccountingByPrimaryKey(id);
+		// TODO: JUnit - Add assertions to test outputs of operation: findBankingAccountingByPrimaryKey
+	}
+
+	/**
+	 * Operation Unit Test
+	* Return all BankingAccounting entity
+	* 
+	 */
+	@Test
+	public void findAllBankingAccountings() {
+		// TODO: JUnit - Populate test inputs for operation: findAllBankingAccountings 
+		Integer startResult = 0;
+		Integer maxRows = 0;
+		List<BankingAccounting> response = null;
+		response = service.findAllBankingAccountings(startResult, maxRows);
+		// TODO: JUnit - Add assertions to test outputs of operation: findAllBankingAccountings
+	}
+
+	/**
+	 * Operation Unit Test
 	* Delete an existing BankingAccounting entity
 	* 
 	 */
@@ -114,45 +141,6 @@ public class BankingAccountingServiceTest {
 
 	/**
 	 * Operation Unit Test
-	* Save an existing BankingAccounting entity
-	* 
-	 */
-	@Test
-	public void saveBankingAccounting() {
-		// TODO: JUnit - Populate test inputs for operation: saveBankingAccounting 
-		BankingAccounting bankingaccounting_1 = new com.ttv.cashflow.domain.BankingAccounting();
-		service.saveBankingAccounting(bankingaccounting_1);
-	}
-
-	/**
-	 * Operation Unit Test
-	* Delete an existing Comapny entity
-	* 
-	 */
-	@Test
-	public void deleteBankingAccountingComapny() {
-		// TODO: JUnit - Populate test inputs for operation: deleteBankingAccountingComapny 
-		Integer bankingaccounting_id = 0;
-		Integer related_comapny_companyId = 0;
-		BankingAccounting response = null;
-		response = service.deleteBankingAccountingComapny(bankingaccounting_id, related_comapny_companyId);
-		// TODO: JUnit - Add assertions to test outputs of operation: deleteBankingAccountingComapny
-	}
-
-	/**
-	 * Operation Unit Test
-	 */
-	@Test
-	public void findBankingAccountingByPrimaryKey() {
-		// TODO: JUnit - Populate test inputs for operation: findBankingAccountingByPrimaryKey 
-		Integer id = 0;
-		BankingAccounting response = null;
-		response = service.findBankingAccountingByPrimaryKey(id);
-		// TODO: JUnit - Add assertions to test outputs of operation: findBankingAccountingByPrimaryKey
-	}
-
-	/**
-	 * Operation Unit Test
 	* Save an existing Comapny entity
 	* 
 	 */
@@ -168,17 +156,29 @@ public class BankingAccountingServiceTest {
 
 	/**
 	 * Operation Unit Test
-	* Return all BankingAccounting entity
+	* Delete an existing Comapny entity
 	* 
 	 */
 	@Test
-	public void findAllBankingAccountings() {
-		// TODO: JUnit - Populate test inputs for operation: findAllBankingAccountings 
-		Integer startResult = 0;
-		Integer maxRows = 0;
-		List<BankingAccounting> response = null;
-		response = service.findAllBankingAccountings(startResult, maxRows);
-		// TODO: JUnit - Add assertions to test outputs of operation: findAllBankingAccountings
+	public void deleteBankingAccountingComapny() {
+		// TODO: JUnit - Populate test inputs for operation: deleteBankingAccountingComapny 
+		Integer bankingaccounting_id = 0;
+		Integer related_comapny_id = 0;
+		BankingAccounting response = null;
+		response = service.deleteBankingAccountingComapny(bankingaccounting_id, related_comapny_id);
+		// TODO: JUnit - Add assertions to test outputs of operation: deleteBankingAccountingComapny
+	}
+
+	/**
+	 * Operation Unit Test
+	* Save an existing BankingAccounting entity
+	* 
+	 */
+	@Test
+	public void saveBankingAccounting() {
+		// TODO: JUnit - Populate test inputs for operation: saveBankingAccounting 
+		BankingAccounting bankingaccounting_1 = new com.ttv.cashflow.domain.BankingAccounting();
+		service.saveBankingAccounting(bankingaccounting_1);
 	}
 
 	/**

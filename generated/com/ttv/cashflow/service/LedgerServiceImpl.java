@@ -65,6 +65,103 @@ public class LedgerServiceImpl implements LedgerService {
 	}
 
 	/**
+	 * Delete an existing AccountReceivable entity
+	 * 
+	 */
+	@Transactional
+	public Ledger deleteLedgerAccountReceivables(Integer ledger_id, Integer related_accountreceivables_id) {
+		AccountReceivable related_accountreceivables = accountReceivableDAO.findAccountReceivableByPrimaryKey(related_accountreceivables_id, -1, -1);
+
+		Ledger ledger = ledgerDAO.findLedgerByPrimaryKey(ledger_id, -1, -1);
+
+		related_accountreceivables.setLedger(null);
+		ledger.getAccountReceivables().remove(related_accountreceivables);
+
+		accountReceivableDAO.remove(related_accountreceivables);
+		accountReceivableDAO.flush();
+
+		return ledger;
+	}
+
+	/**
+	 * Save an existing Ledger entity
+	 * 
+	 */
+	@Transactional
+	public void saveLedger(Ledger ledger) {
+		Ledger existingLedger = ledgerDAO.findLedgerByPrimaryKey(ledger.getId());
+
+		if (existingLedger != null) {
+			if (existingLedger != ledger) {
+				existingLedger.setId(ledger.getId());
+				existingLedger.setIssuedDate(ledger.getIssuedDate());
+				existingLedger.setAmount(ledger.getAmount());
+				existingLedger.setDescription(ledger.getDescription());
+				existingLedger.setValidCode(ledger.getValidCode());
+				existingLedger.setType(ledger.getType());
+				existingLedger.setFilePath(ledger.getFilePath());
+				existingLedger.setCreatedDate(ledger.getCreatedDate());
+				existingLedger.setModifiedDate(ledger.getModifiedDate());
+			}
+			ledger = ledgerDAO.store(existingLedger);
+		} else {
+			ledger = ledgerDAO.store(ledger);
+		}
+		ledgerDAO.flush();
+	}
+
+	/**
+	 * Delete an existing Comapny entity
+	 * 
+	 */
+	@Transactional
+	public Ledger deleteLedgerComapny(Integer ledger_id, Integer related_comapny_id) {
+		Ledger ledger = ledgerDAO.findLedgerByPrimaryKey(ledger_id, -1, -1);
+		Comapny related_comapny = comapnyDAO.findComapnyByPrimaryKey(related_comapny_id, -1, -1);
+
+		ledger.setComapny(null);
+		related_comapny.getLedgers().remove(ledger);
+		ledger = ledgerDAO.store(ledger);
+		ledgerDAO.flush();
+
+		related_comapny = comapnyDAO.store(related_comapny);
+		comapnyDAO.flush();
+
+		comapnyDAO.remove(related_comapny);
+		comapnyDAO.flush();
+
+		return ledger;
+	}
+
+	/**
+	 * Load an existing Ledger entity
+	 * 
+	 */
+	@Transactional
+	public Set<Ledger> loadLedgers() {
+		return ledgerDAO.findAllLedgers();
+	}
+
+	/**
+	 * Delete an existing AccountPayable entity
+	 * 
+	 */
+	@Transactional
+	public Ledger deleteLedgerAccountPayables(Integer ledger_id, Integer related_accountpayables_id) {
+		AccountPayable related_accountpayables = accountPayableDAO.findAccountPayableByPrimaryKey(related_accountpayables_id, -1, -1);
+
+		Ledger ledger = ledgerDAO.findLedgerByPrimaryKey(ledger_id, -1, -1);
+
+		related_accountpayables.setLedger(null);
+		ledger.getAccountPayables().remove(related_accountpayables);
+
+		accountPayableDAO.remove(related_accountpayables);
+		accountPayableDAO.flush();
+
+		return ledger;
+	}
+
+	/**
 	 * Save an existing AccountPayable entity
 	 * 
 	 */
@@ -129,76 +226,6 @@ public class LedgerServiceImpl implements LedgerService {
 	}
 
 	/**
-	 * Return all Ledger entity
-	 * 
-	 */
-	@Transactional
-	public List<Ledger> findAllLedgers(Integer startResult, Integer maxRows) {
-		return new java.util.ArrayList<Ledger>(ledgerDAO.findAllLedgers(startResult, maxRows));
-	}
-
-	/**
-	 * Delete an existing AccountReceivable entity
-	 * 
-	 */
-	@Transactional
-	public Ledger deleteLedgerAccountReceivables(Integer ledger_id, Integer related_accountreceivables_id) {
-		AccountReceivable related_accountreceivables = accountReceivableDAO.findAccountReceivableByPrimaryKey(related_accountreceivables_id, -1, -1);
-
-		Ledger ledger = ledgerDAO.findLedgerByPrimaryKey(ledger_id, -1, -1);
-
-		related_accountreceivables.setLedger(null);
-		ledger.getAccountReceivables().remove(related_accountreceivables);
-
-		accountReceivableDAO.remove(related_accountreceivables);
-		accountReceivableDAO.flush();
-
-		return ledger;
-	}
-
-	/**
-	 * Delete an existing Ledger entity
-	 * 
-	 */
-	@Transactional
-	public void deleteLedger(Ledger ledger) {
-		ledgerDAO.remove(ledger);
-		ledgerDAO.flush();
-	}
-
-	/**
-	 * Delete an existing Comapny entity
-	 * 
-	 */
-	@Transactional
-	public Ledger deleteLedgerComapny(Integer ledger_id, Integer related_comapny_companyId) {
-		Ledger ledger = ledgerDAO.findLedgerByPrimaryKey(ledger_id, -1, -1);
-		Comapny related_comapny = comapnyDAO.findComapnyByPrimaryKey(related_comapny_companyId, -1, -1);
-
-		ledger.setComapny(null);
-		related_comapny.getLedgers().remove(ledger);
-		ledger = ledgerDAO.store(ledger);
-		ledgerDAO.flush();
-
-		related_comapny = comapnyDAO.store(related_comapny);
-		comapnyDAO.flush();
-
-		comapnyDAO.remove(related_comapny);
-		comapnyDAO.flush();
-
-		return ledger;
-	}
-
-	/**
-	 * Load an existing Ledger entity
-	 * 
-	 */
-	@Transactional
-	public Set<Ledger> loadLedgers() {
-		return ledgerDAO.findAllLedgers();
-	}
-
-	/**
 	 * Save an existing AccountReceivable entity
 	 * 
 	 */
@@ -255,6 +282,13 @@ public class LedgerServiceImpl implements LedgerService {
 	}
 
 	/**
+	 */
+	@Transactional
+	public Ledger findLedgerByPrimaryKey(Integer id) {
+		return ledgerDAO.findLedgerByPrimaryKey(id);
+	}
+
+	/**
 	 * Return a count of all Ledger entity
 	 * 
 	 */
@@ -264,50 +298,17 @@ public class LedgerServiceImpl implements LedgerService {
 	}
 
 	/**
-	 * Save an existing Ledger entity
-	 * 
-	 */
-	@Transactional
-	public void saveLedger(Ledger ledger) {
-		Ledger existingLedger = ledgerDAO.findLedgerByPrimaryKey(ledger.getId());
-
-		if (existingLedger != null) {
-			if (existingLedger != ledger) {
-				existingLedger.setId(ledger.getId());
-				existingLedger.setIssuedDate(ledger.getIssuedDate());
-				existingLedger.setAmount(ledger.getAmount());
-				existingLedger.setValidCode(ledger.getValidCode());
-				existingLedger.setType(ledger.getType());
-				existingLedger.setFilePath(ledger.getFilePath());
-				existingLedger.setCreatedDate(ledger.getCreatedDate());
-				existingLedger.setModifiedDate(ledger.getModifiedDate());
-			}
-			ledger = ledgerDAO.store(existingLedger);
-		} else {
-			ledger = ledgerDAO.store(ledger);
-		}
-		ledgerDAO.flush();
-	}
-
-	/**
-	 */
-	@Transactional
-	public Ledger findLedgerByPrimaryKey(Integer id) {
-		return ledgerDAO.findLedgerByPrimaryKey(id);
-	}
-
-	/**
 	 * Save an existing Comapny entity
 	 * 
 	 */
 	@Transactional
 	public Ledger saveLedgerComapny(Integer id, Comapny related_comapny) {
 		Ledger ledger = ledgerDAO.findLedgerByPrimaryKey(id, -1, -1);
-		Comapny existingcomapny = comapnyDAO.findComapnyByPrimaryKey(related_comapny.getCompanyId());
+		Comapny existingcomapny = comapnyDAO.findComapnyByPrimaryKey(related_comapny.getId());
 
 		// copy into the existing record to preserve existing relationships
 		if (existingcomapny != null) {
-			existingcomapny.setCompanyId(related_comapny.getCompanyId());
+			existingcomapny.setId(related_comapny.getId());
 			existingcomapny.setCode(related_comapny.getCode());
 			existingcomapny.setName(related_comapny.getName());
 			existingcomapny.setDescription(related_comapny.getDescription());
@@ -332,21 +333,21 @@ public class LedgerServiceImpl implements LedgerService {
 	}
 
 	/**
-	 * Delete an existing AccountPayable entity
+	 * Delete an existing Ledger entity
 	 * 
 	 */
 	@Transactional
-	public Ledger deleteLedgerAccountPayables(Integer ledger_id, Integer related_accountpayables_id) {
-		AccountPayable related_accountpayables = accountPayableDAO.findAccountPayableByPrimaryKey(related_accountpayables_id, -1, -1);
+	public void deleteLedger(Ledger ledger) {
+		ledgerDAO.remove(ledger);
+		ledgerDAO.flush();
+	}
 
-		Ledger ledger = ledgerDAO.findLedgerByPrimaryKey(ledger_id, -1, -1);
-
-		related_accountpayables.setLedger(null);
-		ledger.getAccountPayables().remove(related_accountpayables);
-
-		accountPayableDAO.remove(related_accountpayables);
-		accountPayableDAO.flush();
-
-		return ledger;
+	/**
+	 * Return all Ledger entity
+	 * 
+	 */
+	@Transactional
+	public List<Ledger> findAllLedgers(Integer startResult, Integer maxRows) {
+		return new java.util.ArrayList<Ledger>(ledgerDAO.findAllLedgers(startResult, maxRows));
 	}
 }

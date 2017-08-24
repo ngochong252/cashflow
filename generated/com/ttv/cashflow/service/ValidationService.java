@@ -13,16 +13,26 @@ import java.util.Set;
 public interface ValidationService {
 
 	/**
+	* Save an existing Validation entity
+	* 
+	 */
+	public void saveValidation(Validation validation);
+
+	/**
+	* Delete an existing Validation entity
+	* 
+	 */
+	public void deleteValidation(Validation validation_1);
+
+	/**
 	* Return all Validation entity
 	* 
 	 */
 	public List<Validation> findAllValidations(Integer startResult, Integer maxRows);
 
 	/**
-	* Load an existing Validation entity
-	* 
 	 */
-	public Set<Validation> loadValidations();
+	public Validation findValidationByPrimaryKey(Integer id);
 
 	/**
 	* Return a count of all Validation entity
@@ -31,18 +41,8 @@ public interface ValidationService {
 	public Integer countValidations();
 
 	/**
-	 */
-	public Validation findValidationByPrimaryKey(Integer id);
-
-	/**
-	* Delete an existing Validation entity
+	* Load an existing Validation entity
 	* 
 	 */
-	public void deleteValidation(Validation validation);
-
-	/**
-	* Save an existing Validation entity
-	* 
-	 */
-	public void saveValidation(Validation validation_1);
+	public Set<Validation> loadValidations();
 }

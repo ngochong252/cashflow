@@ -47,42 +47,6 @@ public class AccountPayableServiceImpl implements AccountPayableService {
 	}
 
 	/**
-	 * Save an existing Ledger entity
-	 * 
-	 */
-	@Transactional
-	public AccountPayable saveAccountPayableLedger(Integer id, Ledger related_ledger) {
-		AccountPayable accountpayable = accountPayableDAO.findAccountPayableByPrimaryKey(id, -1, -1);
-		Ledger existingledger = ledgerDAO.findLedgerByPrimaryKey(related_ledger.getId());
-
-		// copy into the existing record to preserve existing relationships
-		if (existingledger != null) {
-			existingledger.setId(related_ledger.getId());
-			existingledger.setIssuedDate(related_ledger.getIssuedDate());
-			existingledger.setAmount(related_ledger.getAmount());
-			existingledger.setValidCode(related_ledger.getValidCode());
-			existingledger.setType(related_ledger.getType());
-			existingledger.setFilePath(related_ledger.getFilePath());
-			existingledger.setCreatedDate(related_ledger.getCreatedDate());
-			existingledger.setModifiedDate(related_ledger.getModifiedDate());
-			related_ledger = existingledger;
-		} else {
-			related_ledger = ledgerDAO.store(related_ledger);
-			ledgerDAO.flush();
-		}
-
-		accountpayable.setLedger(related_ledger);
-		related_ledger.getAccountPayables().add(accountpayable);
-		accountpayable = accountPayableDAO.store(accountpayable);
-		accountPayableDAO.flush();
-
-		related_ledger = ledgerDAO.store(related_ledger);
-		ledgerDAO.flush();
-
-		return accountpayable;
-	}
-
-	/**
 	 * Save an existing AccountPayable entity
 	 * 
 	 */
@@ -137,28 +101,10 @@ public class AccountPayableServiceImpl implements AccountPayableService {
 	}
 
 	/**
-	 * Return a count of all AccountPayable entity
-	 * 
-	 */
-	@Transactional
-	public Integer countAccountPayables() {
-		return ((Long) accountPayableDAO.createQuerySingleResult("select count(o) from AccountPayable o").getSingleResult()).intValue();
-	}
-
-	/**
 	 */
 	@Transactional
 	public AccountPayable findAccountPayableByPrimaryKey(Integer id) {
 		return accountPayableDAO.findAccountPayableByPrimaryKey(id);
-	}
-
-	/**
-	 * Load an existing AccountPayable entity
-	 * 
-	 */
-	@Transactional
-	public Set<AccountPayable> loadAccountPayables() {
-		return accountPayableDAO.findAllAccountPayables();
 	}
 
 	/**
@@ -178,6 +124,61 @@ public class AccountPayableServiceImpl implements AccountPayableService {
 	public void deleteAccountPayable(AccountPayable accountpayable) {
 		accountPayableDAO.remove(accountpayable);
 		accountPayableDAO.flush();
+	}
+
+	/**
+	 * Return a count of all AccountPayable entity
+	 * 
+	 */
+	@Transactional
+	public Integer countAccountPayables() {
+		return ((Long) accountPayableDAO.createQuerySingleResult("select count(o) from AccountPayable o").getSingleResult()).intValue();
+	}
+
+	/**
+	 * Save an existing Ledger entity
+	 * 
+	 */
+	@Transactional
+	public AccountPayable saveAccountPayableLedger(Integer id, Ledger related_ledger) {
+		AccountPayable accountpayable = accountPayableDAO.findAccountPayableByPrimaryKey(id, -1, -1);
+		Ledger existingledger = ledgerDAO.findLedgerByPrimaryKey(related_ledger.getId());
+
+		// copy into the existing record to preserve existing relationships
+		if (existingledger != null) {
+			existingledger.setId(related_ledger.getId());
+			existingledger.setIssuedDate(related_ledger.getIssuedDate());
+			existingledger.setAmount(related_ledger.getAmount());
+			existingledger.setDescription(related_ledger.getDescription());
+			existingledger.setValidCode(related_ledger.getValidCode());
+			existingledger.setType(related_ledger.getType());
+			existingledger.setFilePath(related_ledger.getFilePath());
+			existingledger.setCreatedDate(related_ledger.getCreatedDate());
+			existingledger.setModifiedDate(related_ledger.getModifiedDate());
+			related_ledger = existingledger;
+		} else {
+			related_ledger = ledgerDAO.store(related_ledger);
+			ledgerDAO.flush();
+		}
+
+		accountpayable.setLedger(related_ledger);
+		related_ledger.getAccountPayables().add(accountpayable);
+		accountpayable = accountPayableDAO.store(accountpayable);
+		accountPayableDAO.flush();
+
+		related_ledger = ledgerDAO.store(related_ledger);
+		ledgerDAO.flush();
+
+		return accountpayable;
+	}
+
+	/**
+	 * Load an existing AccountPayable entity
+	 * 
+	 */
+	@Transactional
+	public Set<AccountPayable> loadAccountPayables() {
+		return accountPayableDAO.findAllAccountPayables();
 	}
 
 	/**

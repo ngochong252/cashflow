@@ -14,6 +14,16 @@ import java.util.Set;
 public interface BankingAccountingService {
 
 	/**
+	 */
+	public BankingAccounting findBankingAccountingByPrimaryKey(Integer id);
+
+	/**
+	* Return all BankingAccounting entity
+	* 
+	 */
+	public List<BankingAccounting> findAllBankingAccountings(Integer startResult, Integer maxRows);
+
+	/**
 	* Delete an existing BankingAccounting entity
 	* 
 	 */
@@ -32,30 +42,20 @@ public interface BankingAccountingService {
 	public Integer countBankingAccountings();
 
 	/**
-	* Save an existing BankingAccounting entity
-	* 
-	 */
-	public void saveBankingAccounting(BankingAccounting bankingaccounting_1);
-
-	/**
-	* Delete an existing Comapny entity
-	* 
-	 */
-	public BankingAccounting deleteBankingAccountingComapny(Integer bankingaccounting_id, Integer related_comapny_companyId);
-
-	/**
-	 */
-	public BankingAccounting findBankingAccountingByPrimaryKey(Integer id);
-
-	/**
 	* Save an existing Comapny entity
 	* 
 	 */
 	public BankingAccounting saveBankingAccountingComapny(Integer id_1, Comapny related_comapny);
 
 	/**
-	* Return all BankingAccounting entity
+	* Delete an existing Comapny entity
 	* 
 	 */
-	public List<BankingAccounting> findAllBankingAccountings(Integer startResult, Integer maxRows);
+	public BankingAccounting deleteBankingAccountingComapny(Integer bankingaccounting_id, Integer related_comapny_id);
+
+	/**
+	* Save an existing BankingAccounting entity
+	* 
+	 */
+	public void saveBankingAccounting(BankingAccounting bankingaccounting_1);
 }

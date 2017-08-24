@@ -1,8 +1,7 @@
 
 package com.ttv.cashflow.service;
 
-import com.ttv.cashflow.domain.AccountPayable;
-import com.ttv.cashflow.domain.Ledger;
+import com.ttv.cashflow.domain.Configuration;
 
 import java.util.List;
 import java.util.Set;
@@ -52,7 +51,7 @@ import org.springframework.web.context.request.SessionScope;
 		"file:./resources/cashflow-dao-context.xml",
 		"file:./resources/cashflow-web-context.xml" })
 @Transactional
-public class AccountPayableServiceTest {
+public class ConfigurationServiceTest {
 
 	/**
 	 * The Spring application context.
@@ -66,119 +65,89 @@ public class AccountPayableServiceTest {
 	 *
 	 */
 	@Autowired
-	protected AccountPayableService service;
+	protected ConfigurationService service;
 
 	/**
-	 * Instantiates a new AccountPayableServiceTest.
+	 * Instantiates a new ConfigurationServiceTest.
 	 *
 	 */
-	public AccountPayableServiceTest() {
+	public ConfigurationServiceTest() {
 		setupRequestContext();
 	}
 
 	/**
 	 * Operation Unit Test
-	* Save an existing AccountPayable entity
+	* Return a count of all Configuration entity
 	* 
 	 */
 	@Test
-	public void saveAccountPayable() {
-		// TODO: JUnit - Populate test inputs for operation: saveAccountPayable 
-		AccountPayable accountpayable = new com.ttv.cashflow.domain.AccountPayable();
-		service.saveAccountPayable(accountpayable);
+	public void countConfigurations() {
+		Integer response = null;
+		response = service.countConfigurations();
+		// TODO: JUnit - Add assertions to test outputs of operation: countConfigurations
 	}
 
 	/**
 	 * Operation Unit Test
-	 */
-	@Test
-	public void findAccountPayableByPrimaryKey() {
-		// TODO: JUnit - Populate test inputs for operation: findAccountPayableByPrimaryKey 
-		Integer id = 0;
-		AccountPayable response = null;
-		response = service.findAccountPayableByPrimaryKey(id);
-		// TODO: JUnit - Add assertions to test outputs of operation: findAccountPayableByPrimaryKey
-	}
-
-	/**
-	 * Operation Unit Test
-	* Return all AccountPayable entity
+	* Return all Configuration entity
 	* 
 	 */
 	@Test
-	public void findAllAccountPayables() {
-		// TODO: JUnit - Populate test inputs for operation: findAllAccountPayables 
+	public void findAllConfigurations() {
+		// TODO: JUnit - Populate test inputs for operation: findAllConfigurations 
 		Integer startResult = 0;
 		Integer maxRows = 0;
-		List<AccountPayable> response = null;
-		response = service.findAllAccountPayables(startResult, maxRows);
-		// TODO: JUnit - Add assertions to test outputs of operation: findAllAccountPayables
+		List<Configuration> response = null;
+		response = service.findAllConfigurations(startResult, maxRows);
+		// TODO: JUnit - Add assertions to test outputs of operation: findAllConfigurations
 	}
 
 	/**
 	 * Operation Unit Test
-	* Delete an existing AccountPayable entity
+	* Delete an existing Configuration entity
 	* 
 	 */
 	@Test
-	public void deleteAccountPayable() {
-		// TODO: JUnit - Populate test inputs for operation: deleteAccountPayable 
-		AccountPayable accountpayable_1 = new com.ttv.cashflow.domain.AccountPayable();
-		service.deleteAccountPayable(accountpayable_1);
+	public void deleteConfiguration() {
+		// TODO: JUnit - Populate test inputs for operation: deleteConfiguration 
+		Configuration configuration = new com.ttv.cashflow.domain.Configuration();
+		service.deleteConfiguration(configuration);
 	}
 
 	/**
 	 * Operation Unit Test
-	* Return a count of all AccountPayable entity
-	* 
 	 */
 	@Test
-	public void countAccountPayables() {
-		Integer response = null;
-		response = service.countAccountPayables();
-		// TODO: JUnit - Add assertions to test outputs of operation: countAccountPayables
+	public void findConfigurationByPrimaryKey() {
+		// TODO: JUnit - Populate test inputs for operation: findConfigurationByPrimaryKey 
+		Integer id = 0;
+		Configuration response = null;
+		response = service.findConfigurationByPrimaryKey(id);
+		// TODO: JUnit - Add assertions to test outputs of operation: findConfigurationByPrimaryKey
 	}
 
 	/**
 	 * Operation Unit Test
-	* Save an existing Ledger entity
+	* Save an existing Configuration entity
 	* 
 	 */
 	@Test
-	public void saveAccountPayableLedger() {
-		// TODO: JUnit - Populate test inputs for operation: saveAccountPayableLedger 
-		Integer id_1 = 0;
-		Ledger related_ledger = new com.ttv.cashflow.domain.Ledger();
-		AccountPayable response = null;
-		response = service.saveAccountPayableLedger(id_1, related_ledger);
-		// TODO: JUnit - Add assertions to test outputs of operation: saveAccountPayableLedger
+	public void saveConfiguration() {
+		// TODO: JUnit - Populate test inputs for operation: saveConfiguration 
+		Configuration configuration_1 = new com.ttv.cashflow.domain.Configuration();
+		service.saveConfiguration(configuration_1);
 	}
 
 	/**
 	 * Operation Unit Test
-	* Load an existing AccountPayable entity
+	* Load an existing Configuration entity
 	* 
 	 */
 	@Test
-	public void loadAccountPayables() {
-		Set<AccountPayable> response = null;
-		response = service.loadAccountPayables();
-		// TODO: JUnit - Add assertions to test outputs of operation: loadAccountPayables
-	}
-
-	/**
-	 * Operation Unit Test
-	* Delete an existing Ledger entity
-	* 
-	 */
-	@Test
-	public void deleteAccountPayableLedger() {
-		// TODO: JUnit - Populate test inputs for operation: deleteAccountPayableLedger 
-		Integer accountpayable_id = 0;
-		Integer related_ledger_id = 0;
-		AccountPayable response = null;
-		response = service.deleteAccountPayableLedger(accountpayable_id, related_ledger_id);
-		// TODO: JUnit - Add assertions to test outputs of operation: deleteAccountPayableLedger
+	public void loadConfigurations() {
+		Set<Configuration> response = null;
+		response = service.loadConfigurations();
+		// TODO: JUnit - Add assertions to test outputs of operation: loadConfigurations
 	}
 
 	/**

@@ -90,29 +90,14 @@ public class AccountReceivableServiceTest {
 
 	/**
 	 * Operation Unit Test
-	* Save an existing AccountReceivable entity
-	* 
 	 */
 	@Test
-	public void saveAccountReceivable() {
-		// TODO: JUnit - Populate test inputs for operation: saveAccountReceivable 
-		AccountReceivable accountreceivable = new com.ttv.cashflow.domain.AccountReceivable();
-		service.saveAccountReceivable(accountreceivable);
-	}
-
-	/**
-	 * Operation Unit Test
-	* Return all AccountReceivable entity
-	* 
-	 */
-	@Test
-	public void findAllAccountReceivables() {
-		// TODO: JUnit - Populate test inputs for operation: findAllAccountReceivables 
-		Integer startResult = 0;
-		Integer maxRows = 0;
-		List<AccountReceivable> response = null;
-		response = service.findAllAccountReceivables(startResult, maxRows);
-		// TODO: JUnit - Add assertions to test outputs of operation: findAllAccountReceivables
+	public void findAccountReceivableByPrimaryKey() {
+		// TODO: JUnit - Populate test inputs for operation: findAccountReceivableByPrimaryKey 
+		Integer id = 0;
+		AccountReceivable response = null;
+		response = service.findAccountReceivableByPrimaryKey(id);
+		// TODO: JUnit - Add assertions to test outputs of operation: findAccountReceivableByPrimaryKey
 	}
 
 	/**
@@ -135,11 +120,26 @@ public class AccountReceivableServiceTest {
 	@Test
 	public void saveAccountReceivableLedger() {
 		// TODO: JUnit - Populate test inputs for operation: saveAccountReceivableLedger 
-		Integer id = 0;
+		Integer id_1 = 0;
 		Ledger related_ledger = new com.ttv.cashflow.domain.Ledger();
 		AccountReceivable response = null;
-		response = service.saveAccountReceivableLedger(id, related_ledger);
+		response = service.saveAccountReceivableLedger(id_1, related_ledger);
 		// TODO: JUnit - Add assertions to test outputs of operation: saveAccountReceivableLedger
+	}
+
+	/**
+	 * Operation Unit Test
+	* Return all AccountReceivable entity
+	* 
+	 */
+	@Test
+	public void findAllAccountReceivables() {
+		// TODO: JUnit - Populate test inputs for operation: findAllAccountReceivables 
+		Integer startResult = 0;
+		Integer maxRows = 0;
+		List<AccountReceivable> response = null;
+		response = service.findAllAccountReceivables(startResult, maxRows);
+		// TODO: JUnit - Add assertions to test outputs of operation: findAllAccountReceivables
 	}
 
 	/**
@@ -150,20 +150,8 @@ public class AccountReceivableServiceTest {
 	@Test
 	public void deleteAccountReceivable() {
 		// TODO: JUnit - Populate test inputs for operation: deleteAccountReceivable 
-		AccountReceivable accountreceivable_1 = new com.ttv.cashflow.domain.AccountReceivable();
-		service.deleteAccountReceivable(accountreceivable_1);
-	}
-
-	/**
-	 * Operation Unit Test
-	 */
-	@Test
-	public void findAccountReceivableByPrimaryKey() {
-		// TODO: JUnit - Populate test inputs for operation: findAccountReceivableByPrimaryKey 
-		Integer id_1 = 0;
-		AccountReceivable response = null;
-		response = service.findAccountReceivableByPrimaryKey(id_1);
-		// TODO: JUnit - Add assertions to test outputs of operation: findAccountReceivableByPrimaryKey
+		AccountReceivable accountreceivable = new com.ttv.cashflow.domain.AccountReceivable();
+		service.deleteAccountReceivable(accountreceivable);
 	}
 
 	/**
@@ -179,6 +167,18 @@ public class AccountReceivableServiceTest {
 		AccountReceivable response = null;
 		response = service.deleteAccountReceivableLedger(accountreceivable_id, related_ledger_id);
 		// TODO: JUnit - Add assertions to test outputs of operation: deleteAccountReceivableLedger
+	}
+
+	/**
+	 * Operation Unit Test
+	* Save an existing AccountReceivable entity
+	* 
+	 */
+	@Test
+	public void saveAccountReceivable() {
+		// TODO: JUnit - Populate test inputs for operation: saveAccountReceivable 
+		AccountReceivable accountreceivable_1 = new com.ttv.cashflow.domain.AccountReceivable();
+		service.saveAccountReceivable(accountreceivable_1);
 	}
 
 	/**

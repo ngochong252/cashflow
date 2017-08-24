@@ -14,14 +14,10 @@ import java.util.Set;
 public interface ErrorDetailsService {
 
 	/**
-	 */
-	public ErrorDetails findErrorDetailsByPrimaryKey(Integer id);
-
-	/**
-	* Delete an existing ErrorDetails entity
+	* Return a count of all ErrorDetails entity
 	* 
 	 */
-	public void deleteErrorDetails(ErrorDetails errordetails);
+	public Integer countErrorDetailss();
 
 	/**
 	* Load an existing ErrorDetails entity
@@ -30,22 +26,20 @@ public interface ErrorDetailsService {
 	public Set<ErrorDetails> loadErrorDetailss();
 
 	/**
-	* Delete an existing ProcessCase entity
-	* 
-	 */
-	public ErrorDetails deleteErrorDetailsProcessCases(Integer errordetails_id, Integer related_processcases_id);
-
-	/**
 	* Save an existing ProcessCase entity
 	* 
 	 */
-	public ErrorDetails saveErrorDetailsProcessCases(Integer id_1, ProcessCase related_processcases);
+	public ErrorDetails saveErrorDetailsProcessCases(Integer id, ProcessCase related_processcases);
 
 	/**
-	* Save an existing ErrorDetails entity
+	* Delete an existing ErrorDetails entity
 	* 
 	 */
-	public void saveErrorDetails(ErrorDetails errordetails_1);
+	public void deleteErrorDetails(ErrorDetails errordetails);
+
+	/**
+	 */
+	public ErrorDetails findErrorDetailsByPrimaryKey(Integer id_1);
 
 	/**
 	* Return all ErrorDetails entity
@@ -54,8 +48,14 @@ public interface ErrorDetailsService {
 	public List<ErrorDetails> findAllErrorDetailss(Integer startResult, Integer maxRows);
 
 	/**
-	* Return a count of all ErrorDetails entity
+	* Save an existing ErrorDetails entity
 	* 
 	 */
-	public Integer countErrorDetailss();
+	public void saveErrorDetails(ErrorDetails errordetails_1);
+
+	/**
+	* Delete an existing ProcessCase entity
+	* 
+	 */
+	public ErrorDetails deleteErrorDetailsProcessCases(Integer errordetails_id, Integer related_processcases_id);
 }

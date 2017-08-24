@@ -65,59 +65,12 @@ public class ComapnyServiceImpl implements ComapnyService {
 	}
 
 	/**
-	 * Return a count of all Comapny entity
-	 * 
-	 */
-	@Transactional
-	public Integer countComapnys() {
-		return ((Long) comapnyDAO.createQuerySingleResult("select count(o) from Comapny o").getSingleResult()).intValue();
-	}
-
-	/**
-	 * Delete an existing BankingAccounting entity
-	 * 
-	 */
-	@Transactional
-	public Comapny deleteComapnyBankingAccountings(Integer comapny_companyId, Integer related_bankingaccountings_id) {
-		BankingAccounting related_bankingaccountings = bankingAccountingDAO.findBankingAccountingByPrimaryKey(related_bankingaccountings_id, -1, -1);
-
-		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_companyId, -1, -1);
-
-		related_bankingaccountings.setComapny(null);
-		comapny.getBankingAccountings().remove(related_bankingaccountings);
-
-		bankingAccountingDAO.remove(related_bankingaccountings);
-		bankingAccountingDAO.flush();
-
-		return comapny;
-	}
-
-	/**
-	 * Delete an existing Approval entity
-	 * 
-	 */
-	@Transactional
-	public Comapny deleteComapnyApprovals(Integer comapny_companyId, Integer related_approvals_id) {
-		Approval related_approvals = approvalDAO.findApprovalByPrimaryKey(related_approvals_id, -1, -1);
-
-		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_companyId, -1, -1);
-
-		related_approvals.setComapny(null);
-		comapny.getApprovals().remove(related_approvals);
-
-		approvalDAO.remove(related_approvals);
-		approvalDAO.flush();
-
-		return comapny;
-	}
-
-	/**
 	 * Save an existing Ledger entity
 	 * 
 	 */
 	@Transactional
-	public Comapny saveComapnyLedgers(Integer companyId, Ledger related_ledgers) {
-		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(companyId, -1, -1);
+	public Comapny saveComapnyLedgers(Integer id, Ledger related_ledgers) {
+		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(id, -1, -1);
 		Ledger existingledgers = ledgerDAO.findLedgerByPrimaryKey(related_ledgers.getId());
 
 		// copy into the existing record to preserve existing relationships
@@ -125,6 +78,7 @@ public class ComapnyServiceImpl implements ComapnyService {
 			existingledgers.setId(related_ledgers.getId());
 			existingledgers.setIssuedDate(related_ledgers.getIssuedDate());
 			existingledgers.setAmount(related_ledgers.getAmount());
+			existingledgers.setDescription(related_ledgers.getDescription());
 			existingledgers.setValidCode(related_ledgers.getValidCode());
 			existingledgers.setType(related_ledgers.getType());
 			existingledgers.setFilePath(related_ledgers.getFilePath());
@@ -148,12 +102,40 @@ public class ComapnyServiceImpl implements ComapnyService {
 	}
 
 	/**
+	 * Return a count of all Comapny entity
+	 * 
+	 */
+	@Transactional
+	public Integer countComapnys() {
+		return ((Long) comapnyDAO.createQuerySingleResult("select count(o) from Comapny o").getSingleResult()).intValue();
+	}
+
+	/**
+	 * Load an existing Comapny entity
+	 * 
+	 */
+	@Transactional
+	public Set<Comapny> loadComapnys() {
+		return comapnyDAO.findAllComapnys();
+	}
+
+	/**
+	 * Delete an existing Comapny entity
+	 * 
+	 */
+	@Transactional
+	public void deleteComapny(Comapny comapny) {
+		comapnyDAO.remove(comapny);
+		comapnyDAO.flush();
+	}
+
+	/**
 	 * Save an existing BankingAccounting entity
 	 * 
 	 */
 	@Transactional
-	public Comapny saveComapnyBankingAccountings(Integer companyId, BankingAccounting related_bankingaccountings) {
-		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(companyId, -1, -1);
+	public Comapny saveComapnyBankingAccountings(Integer id, BankingAccounting related_bankingaccountings) {
+		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(id, -1, -1);
 		BankingAccounting existingbankingAccountings = bankingAccountingDAO.findBankingAccountingByPrimaryKey(related_bankingaccountings.getId());
 
 		// copy into the existing record to preserve existing relationships
@@ -193,13 +175,22 @@ public class ComapnyServiceImpl implements ComapnyService {
 	}
 
 	/**
-	 * Delete an existing Comapny entity
+	 * Delete an existing Ledger entity
 	 * 
 	 */
 	@Transactional
-	public void deleteComapny(Comapny comapny) {
-		comapnyDAO.remove(comapny);
-		comapnyDAO.flush();
+	public Comapny deleteComapnyLedgers(Integer comapny_id, Integer related_ledgers_id) {
+		Ledger related_ledgers = ledgerDAO.findLedgerByPrimaryKey(related_ledgers_id, -1, -1);
+
+		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_id, -1, -1);
+
+		related_ledgers.setComapny(null);
+		comapny.getLedgers().remove(related_ledgers);
+
+		ledgerDAO.remove(related_ledgers);
+		ledgerDAO.flush();
+
+		return comapny;
 	}
 
 	/**
@@ -212,12 +203,54 @@ public class ComapnyServiceImpl implements ComapnyService {
 	}
 
 	/**
-	 * Load an existing Comapny entity
+	 */
+	@Transactional
+	public Comapny findComapnyByPrimaryKey(Integer id) {
+		return comapnyDAO.findComapnyByPrimaryKey(id);
+	}
+
+	/**
+	 * Save an existing Comapny entity
 	 * 
 	 */
 	@Transactional
-	public Set<Comapny> loadComapnys() {
-		return comapnyDAO.findAllComapnys();
+	public void saveComapny(Comapny comapny) {
+		Comapny existingComapny = comapnyDAO.findComapnyByPrimaryKey(comapny.getId());
+
+		if (existingComapny != null) {
+			if (existingComapny != comapny) {
+				existingComapny.setId(comapny.getId());
+				existingComapny.setCode(comapny.getCode());
+				existingComapny.setName(comapny.getName());
+				existingComapny.setDescription(comapny.getDescription());
+				existingComapny.setCreatedDate(comapny.getCreatedDate());
+				existingComapny.setModifiedDate(comapny.getModifiedDate());
+				existingComapny.setIsActive(comapny.getIsActive());
+			}
+			comapny = comapnyDAO.store(existingComapny);
+		} else {
+			comapny = comapnyDAO.store(comapny);
+		}
+		comapnyDAO.flush();
+	}
+
+	/**
+	 * Delete an existing BankingAccounting entity
+	 * 
+	 */
+	@Transactional
+	public Comapny deleteComapnyBankingAccountings(Integer comapny_id, Integer related_bankingaccountings_id) {
+		BankingAccounting related_bankingaccountings = bankingAccountingDAO.findBankingAccountingByPrimaryKey(related_bankingaccountings_id, -1, -1);
+
+		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_id, -1, -1);
+
+		related_bankingaccountings.setComapny(null);
+		comapny.getBankingAccountings().remove(related_bankingaccountings);
+
+		bankingAccountingDAO.remove(related_bankingaccountings);
+		bankingAccountingDAO.flush();
+
+		return comapny;
 	}
 
 	/**
@@ -225,8 +258,8 @@ public class ComapnyServiceImpl implements ComapnyService {
 	 * 
 	 */
 	@Transactional
-	public Comapny saveComapnyApprovals(Integer companyId, Approval related_approvals) {
-		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(companyId, -1, -1);
+	public Comapny saveComapnyApprovals(Integer id, Approval related_approvals) {
+		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(id, -1, -1);
 		Approval existingapprovals = approvalDAO.findApprovalByPrimaryKey(related_approvals.getId());
 
 		// copy into the existing record to preserve existing relationships
@@ -265,52 +298,20 @@ public class ComapnyServiceImpl implements ComapnyService {
 	}
 
 	/**
-	 */
-	@Transactional
-	public Comapny findComapnyByPrimaryKey(Integer companyId) {
-		return comapnyDAO.findComapnyByPrimaryKey(companyId);
-	}
-
-	/**
-	 * Save an existing Comapny entity
+	 * Delete an existing Approval entity
 	 * 
 	 */
 	@Transactional
-	public void saveComapny(Comapny comapny) {
-		Comapny existingComapny = comapnyDAO.findComapnyByPrimaryKey(comapny.getCompanyId());
+	public Comapny deleteComapnyApprovals(Integer comapny_id, Integer related_approvals_id) {
+		Approval related_approvals = approvalDAO.findApprovalByPrimaryKey(related_approvals_id, -1, -1);
 
-		if (existingComapny != null) {
-			if (existingComapny != comapny) {
-				existingComapny.setCompanyId(comapny.getCompanyId());
-				existingComapny.setCode(comapny.getCode());
-				existingComapny.setName(comapny.getName());
-				existingComapny.setDescription(comapny.getDescription());
-				existingComapny.setCreatedDate(comapny.getCreatedDate());
-				existingComapny.setModifiedDate(comapny.getModifiedDate());
-				existingComapny.setIsActive(comapny.getIsActive());
-			}
-			comapny = comapnyDAO.store(existingComapny);
-		} else {
-			comapny = comapnyDAO.store(comapny);
-		}
-		comapnyDAO.flush();
-	}
+		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_id, -1, -1);
 
-	/**
-	 * Delete an existing Ledger entity
-	 * 
-	 */
-	@Transactional
-	public Comapny deleteComapnyLedgers(Integer comapny_companyId, Integer related_ledgers_id) {
-		Ledger related_ledgers = ledgerDAO.findLedgerByPrimaryKey(related_ledgers_id, -1, -1);
+		related_approvals.setComapny(null);
+		comapny.getApprovals().remove(related_approvals);
 
-		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_companyId, -1, -1);
-
-		related_ledgers.setComapny(null);
-		comapny.getLedgers().remove(related_ledgers);
-
-		ledgerDAO.remove(related_ledgers);
-		ledgerDAO.flush();
+		approvalDAO.remove(related_approvals);
+		approvalDAO.flush();
 
 		return comapny;
 	}

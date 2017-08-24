@@ -77,6 +77,30 @@ public class ValidationServiceTest {
 
 	/**
 	 * Operation Unit Test
+	* Save an existing Validation entity
+	* 
+	 */
+	@Test
+	public void saveValidation() {
+		// TODO: JUnit - Populate test inputs for operation: saveValidation 
+		Validation validation = new com.ttv.cashflow.domain.Validation();
+		service.saveValidation(validation);
+	}
+
+	/**
+	 * Operation Unit Test
+	* Delete an existing Validation entity
+	* 
+	 */
+	@Test
+	public void deleteValidation() {
+		// TODO: JUnit - Populate test inputs for operation: deleteValidation 
+		Validation validation_1 = new com.ttv.cashflow.domain.Validation();
+		service.deleteValidation(validation_1);
+	}
+
+	/**
+	 * Operation Unit Test
 	* Return all Validation entity
 	* 
 	 */
@@ -88,30 +112,6 @@ public class ValidationServiceTest {
 		List<Validation> response = null;
 		response = service.findAllValidations(startResult, maxRows);
 		// TODO: JUnit - Add assertions to test outputs of operation: findAllValidations
-	}
-
-	/**
-	 * Operation Unit Test
-	* Load an existing Validation entity
-	* 
-	 */
-	@Test
-	public void loadValidations() {
-		Set<Validation> response = null;
-		response = service.loadValidations();
-		// TODO: JUnit - Add assertions to test outputs of operation: loadValidations
-	}
-
-	/**
-	 * Operation Unit Test
-	* Return a count of all Validation entity
-	* 
-	 */
-	@Test
-	public void countValidations() {
-		Integer response = null;
-		response = service.countValidations();
-		// TODO: JUnit - Add assertions to test outputs of operation: countValidations
 	}
 
 	/**
@@ -128,26 +128,26 @@ public class ValidationServiceTest {
 
 	/**
 	 * Operation Unit Test
-	* Delete an existing Validation entity
+	* Return a count of all Validation entity
 	* 
 	 */
 	@Test
-	public void deleteValidation() {
-		// TODO: JUnit - Populate test inputs for operation: deleteValidation 
-		Validation validation = new com.ttv.cashflow.domain.Validation();
-		service.deleteValidation(validation);
+	public void countValidations() {
+		Integer response = null;
+		response = service.countValidations();
+		// TODO: JUnit - Add assertions to test outputs of operation: countValidations
 	}
 
 	/**
 	 * Operation Unit Test
-	* Save an existing Validation entity
+	* Load an existing Validation entity
 	* 
 	 */
 	@Test
-	public void saveValidation() {
-		// TODO: JUnit - Populate test inputs for operation: saveValidation 
-		Validation validation_1 = new com.ttv.cashflow.domain.Validation();
-		service.saveValidation(validation_1);
+	public void loadValidations() {
+		Set<Validation> response = null;
+		response = service.loadValidations();
+		// TODO: JUnit - Add assertions to test outputs of operation: loadValidations
 	}
 
 	/**

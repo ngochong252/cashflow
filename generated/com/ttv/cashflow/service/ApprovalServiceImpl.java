@@ -47,17 +47,68 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	/**
+	 * Return a count of all Approval entity
+	 * 
+	 */
+	@Transactional
+	public Integer countApprovals() {
+		return ((Long) approvalDAO.createQuerySingleResult("select count(o) from Approval o").getSingleResult()).intValue();
+	}
+
+	/**
+	 * Delete an existing Approval entity
+	 * 
+	 */
+	@Transactional
+	public void deleteApproval(Approval approval) {
+		approvalDAO.remove(approval);
+		approvalDAO.flush();
+	}
+
+	/**
+	 * Delete an existing Comapny entity
+	 * 
+	 */
+	@Transactional
+	public Approval deleteApprovalComapny(Integer approval_id, Integer related_comapny_id) {
+		Approval approval = approvalDAO.findApprovalByPrimaryKey(approval_id, -1, -1);
+		Comapny related_comapny = comapnyDAO.findComapnyByPrimaryKey(related_comapny_id, -1, -1);
+
+		approval.setComapny(null);
+		related_comapny.getApprovals().remove(approval);
+		approval = approvalDAO.store(approval);
+		approvalDAO.flush();
+
+		related_comapny = comapnyDAO.store(related_comapny);
+		comapnyDAO.flush();
+
+		comapnyDAO.remove(related_comapny);
+		comapnyDAO.flush();
+
+		return approval;
+	}
+
+	/**
+	 * Return all Approval entity
+	 * 
+	 */
+	@Transactional
+	public List<Approval> findAllApprovals(Integer startResult, Integer maxRows) {
+		return new java.util.ArrayList<Approval>(approvalDAO.findAllApprovals(startResult, maxRows));
+	}
+
+	/**
 	 * Save an existing Comapny entity
 	 * 
 	 */
 	@Transactional
 	public Approval saveApprovalComapny(Integer id, Comapny related_comapny) {
 		Approval approval = approvalDAO.findApprovalByPrimaryKey(id, -1, -1);
-		Comapny existingcomapny = comapnyDAO.findComapnyByPrimaryKey(related_comapny.getCompanyId());
+		Comapny existingcomapny = comapnyDAO.findComapnyByPrimaryKey(related_comapny.getId());
 
 		// copy into the existing record to preserve existing relationships
 		if (existingcomapny != null) {
-			existingcomapny.setCompanyId(related_comapny.getCompanyId());
+			existingcomapny.setId(related_comapny.getId());
 			existingcomapny.setCode(related_comapny.getCode());
 			existingcomapny.setName(related_comapny.getName());
 			existingcomapny.setDescription(related_comapny.getDescription());
@@ -82,26 +133,10 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	/**
-	 * Delete an existing Comapny entity
-	 * 
 	 */
 	@Transactional
-	public Approval deleteApprovalComapny(Integer approval_id, Integer related_comapny_companyId) {
-		Approval approval = approvalDAO.findApprovalByPrimaryKey(approval_id, -1, -1);
-		Comapny related_comapny = comapnyDAO.findComapnyByPrimaryKey(related_comapny_companyId, -1, -1);
-
-		approval.setComapny(null);
-		related_comapny.getApprovals().remove(approval);
-		approval = approvalDAO.store(approval);
-		approvalDAO.flush();
-
-		related_comapny = comapnyDAO.store(related_comapny);
-		comapnyDAO.flush();
-
-		comapnyDAO.remove(related_comapny);
-		comapnyDAO.flush();
-
-		return approval;
+	public Approval findApprovalByPrimaryKey(Integer id) {
+		return approvalDAO.findApprovalByPrimaryKey(id);
 	}
 
 	/**
@@ -139,46 +174,11 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	/**
-	 * Delete an existing Approval entity
-	 * 
-	 */
-	@Transactional
-	public void deleteApproval(Approval approval) {
-		approvalDAO.remove(approval);
-		approvalDAO.flush();
-	}
-
-	/**
-	 */
-	@Transactional
-	public Approval findApprovalByPrimaryKey(Integer id) {
-		return approvalDAO.findApprovalByPrimaryKey(id);
-	}
-
-	/**
 	 * Load an existing Approval entity
 	 * 
 	 */
 	@Transactional
 	public Set<Approval> loadApprovals() {
 		return approvalDAO.findAllApprovals();
-	}
-
-	/**
-	 * Return all Approval entity
-	 * 
-	 */
-	@Transactional
-	public List<Approval> findAllApprovals(Integer startResult, Integer maxRows) {
-		return new java.util.ArrayList<Approval>(approvalDAO.findAllApprovals(startResult, maxRows));
-	}
-
-	/**
-	 * Return a count of all Approval entity
-	 * 
-	 */
-	@Transactional
-	public Integer countApprovals() {
-		return ((Long) approvalDAO.createQuerySingleResult("select count(o) from Approval o").getSingleResult()).intValue();
 	}
 }
