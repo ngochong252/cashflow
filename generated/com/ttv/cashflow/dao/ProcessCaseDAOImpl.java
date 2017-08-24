@@ -69,28 +69,6 @@ public class ProcessCaseDAOImpl extends AbstractJpaDao<ProcessCase> implements P
 	}
 
 	/**
-	 * JPQL Query - findAllProcessCases
-	 *
-	 */
-	@Transactional
-	public Set<ProcessCase> findAllProcessCases() throws DataAccessException {
-
-		return findAllProcessCases(-1, -1);
-	}
-
-	/**
-	 * JPQL Query - findAllProcessCases
-	 *
-	 */
-
-	@SuppressWarnings("unchecked")
-	@Transactional
-	public Set<ProcessCase> findAllProcessCases(int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findAllProcessCases", startResult, maxRows);
-		return new LinkedHashSet<ProcessCase>(query.getResultList());
-	}
-
-	/**
 	 * JPQL Query - findProcessCaseByPrimaryKey
 	 *
 	 */
@@ -116,24 +94,46 @@ public class ProcessCaseDAOImpl extends AbstractJpaDao<ProcessCase> implements P
 	}
 
 	/**
-	 * JPQL Query - findProcessCaseByStepsResolveContaining
+	 * JPQL Query - findProcessCaseByStepsResolve
 	 *
 	 */
 	@Transactional
-	public Set<ProcessCase> findProcessCaseByStepsResolveContaining(String stepsResolve) throws DataAccessException {
+	public Set<ProcessCase> findProcessCaseByStepsResolve(String stepsResolve) throws DataAccessException {
 
-		return findProcessCaseByStepsResolveContaining(stepsResolve, -1, -1);
+		return findProcessCaseByStepsResolve(stepsResolve, -1, -1);
 	}
 
 	/**
-	 * JPQL Query - findProcessCaseByStepsResolveContaining
+	 * JPQL Query - findProcessCaseByStepsResolve
 	 *
 	 */
 
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public Set<ProcessCase> findProcessCaseByStepsResolveContaining(String stepsResolve, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findProcessCaseByStepsResolveContaining", startResult, maxRows, stepsResolve);
+	public Set<ProcessCase> findProcessCaseByStepsResolve(String stepsResolve, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findProcessCaseByStepsResolve", startResult, maxRows, stepsResolve);
+		return new LinkedHashSet<ProcessCase>(query.getResultList());
+	}
+
+	/**
+	 * JPQL Query - findAllProcessCases
+	 *
+	 */
+	@Transactional
+	public Set<ProcessCase> findAllProcessCases() throws DataAccessException {
+
+		return findAllProcessCases(-1, -1);
+	}
+
+	/**
+	 * JPQL Query - findAllProcessCases
+	 *
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Set<ProcessCase> findAllProcessCases(int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findAllProcessCases", startResult, maxRows);
 		return new LinkedHashSet<ProcessCase>(query.getResultList());
 	}
 
@@ -163,24 +163,24 @@ public class ProcessCaseDAOImpl extends AbstractJpaDao<ProcessCase> implements P
 	}
 
 	/**
-	 * JPQL Query - findProcessCaseByStepsResolve
+	 * JPQL Query - findProcessCaseByStepsResolveContaining
 	 *
 	 */
 	@Transactional
-	public Set<ProcessCase> findProcessCaseByStepsResolve(String stepsResolve) throws DataAccessException {
+	public Set<ProcessCase> findProcessCaseByStepsResolveContaining(String stepsResolve) throws DataAccessException {
 
-		return findProcessCaseByStepsResolve(stepsResolve, -1, -1);
+		return findProcessCaseByStepsResolveContaining(stepsResolve, -1, -1);
 	}
 
 	/**
-	 * JPQL Query - findProcessCaseByStepsResolve
+	 * JPQL Query - findProcessCaseByStepsResolveContaining
 	 *
 	 */
 
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public Set<ProcessCase> findProcessCaseByStepsResolve(String stepsResolve, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findProcessCaseByStepsResolve", startResult, maxRows, stepsResolve);
+	public Set<ProcessCase> findProcessCaseByStepsResolveContaining(String stepsResolve, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findProcessCaseByStepsResolveContaining", startResult, maxRows, stepsResolve);
 		return new LinkedHashSet<ProcessCase>(query.getResultList());
 	}
 

@@ -16,18 +16,6 @@ import org.springframework.dao.DataAccessException;
 public interface ProcessCaseDAO extends JpaDao<ProcessCase> {
 
 	/**
-	 * JPQL Query - findAllProcessCases
-	 *
-	 */
-	public Set<ProcessCase> findAllProcessCases() throws DataAccessException;
-
-	/**
-	 * JPQL Query - findAllProcessCases
-	 *
-	 */
-	public Set<ProcessCase> findAllProcessCases(int startResult, int maxRows) throws DataAccessException;
-
-	/**
 	 * JPQL Query - findProcessCaseByPrimaryKey
 	 *
 	 */
@@ -40,16 +28,28 @@ public interface ProcessCaseDAO extends JpaDao<ProcessCase> {
 	public ProcessCase findProcessCaseByPrimaryKey(Integer id, int startResult, int maxRows) throws DataAccessException;
 
 	/**
-	 * JPQL Query - findProcessCaseByStepsResolveContaining
+	 * JPQL Query - findProcessCaseByStepsResolve
 	 *
 	 */
-	public Set<ProcessCase> findProcessCaseByStepsResolveContaining(String stepsResolve) throws DataAccessException;
+	public Set<ProcessCase> findProcessCaseByStepsResolve(String stepsResolve) throws DataAccessException;
 
 	/**
-	 * JPQL Query - findProcessCaseByStepsResolveContaining
+	 * JPQL Query - findProcessCaseByStepsResolve
 	 *
 	 */
-	public Set<ProcessCase> findProcessCaseByStepsResolveContaining(String stepsResolve, int startResult, int maxRows) throws DataAccessException;
+	public Set<ProcessCase> findProcessCaseByStepsResolve(String stepsResolve, int startResult, int maxRows) throws DataAccessException;
+
+	/**
+	 * JPQL Query - findAllProcessCases
+	 *
+	 */
+	public Set<ProcessCase> findAllProcessCases() throws DataAccessException;
+
+	/**
+	 * JPQL Query - findAllProcessCases
+	 *
+	 */
+	public Set<ProcessCase> findAllProcessCases(int startResult, int maxRows) throws DataAccessException;
 
 	/**
 	 * JPQL Query - findProcessCaseById
@@ -64,15 +64,15 @@ public interface ProcessCaseDAO extends JpaDao<ProcessCase> {
 	public ProcessCase findProcessCaseById(Integer id_1, int startResult, int maxRows) throws DataAccessException;
 
 	/**
-	 * JPQL Query - findProcessCaseByStepsResolve
+	 * JPQL Query - findProcessCaseByStepsResolveContaining
 	 *
 	 */
-	public Set<ProcessCase> findProcessCaseByStepsResolve(String stepsResolve_1) throws DataAccessException;
+	public Set<ProcessCase> findProcessCaseByStepsResolveContaining(String stepsResolve_1) throws DataAccessException;
 
 	/**
-	 * JPQL Query - findProcessCaseByStepsResolve
+	 * JPQL Query - findProcessCaseByStepsResolveContaining
 	 *
 	 */
-	public Set<ProcessCase> findProcessCaseByStepsResolve(String stepsResolve_1, int startResult, int maxRows) throws DataAccessException;
+	public Set<ProcessCase> findProcessCaseByStepsResolveContaining(String stepsResolve_1, int startResult, int maxRows) throws DataAccessException;
 
 }

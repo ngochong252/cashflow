@@ -69,6 +69,50 @@ public class LedgerDAOImpl extends AbstractJpaDao<Ledger> implements LedgerDAO {
 	}
 
 	/**
+	 * JPQL Query - findLedgerByAmount
+	 *
+	 */
+	@Transactional
+	public Set<Ledger> findLedgerByAmount(java.math.BigDecimal amount) throws DataAccessException {
+
+		return findLedgerByAmount(amount, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findLedgerByAmount
+	 *
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Set<Ledger> findLedgerByAmount(java.math.BigDecimal amount, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findLedgerByAmount", startResult, maxRows, amount);
+		return new LinkedHashSet<Ledger>(query.getResultList());
+	}
+
+	/**
+	 * JPQL Query - findLedgerByType
+	 *
+	 */
+	@Transactional
+	public Set<Ledger> findLedgerByType(Integer type) throws DataAccessException {
+
+		return findLedgerByType(type, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findLedgerByType
+	 *
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Set<Ledger> findLedgerByType(Integer type, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findLedgerByType", startResult, maxRows, type);
+		return new LinkedHashSet<Ledger>(query.getResultList());
+	}
+
+	/**
 	 * JPQL Query - findLedgerByValidCode
 	 *
 	 */
@@ -91,24 +135,90 @@ public class LedgerDAOImpl extends AbstractJpaDao<Ledger> implements LedgerDAO {
 	}
 
 	/**
-	 * JPQL Query - findLedgerByModifiedDate
+	 * JPQL Query - findAllLedgers
 	 *
 	 */
 	@Transactional
-	public Set<Ledger> findLedgerByModifiedDate(java.util.Calendar modifiedDate) throws DataAccessException {
+	public Set<Ledger> findAllLedgers() throws DataAccessException {
 
-		return findLedgerByModifiedDate(modifiedDate, -1, -1);
+		return findAllLedgers(-1, -1);
 	}
 
 	/**
-	 * JPQL Query - findLedgerByModifiedDate
+	 * JPQL Query - findAllLedgers
 	 *
 	 */
 
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public Set<Ledger> findLedgerByModifiedDate(java.util.Calendar modifiedDate, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findLedgerByModifiedDate", startResult, maxRows, modifiedDate);
+	public Set<Ledger> findAllLedgers(int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findAllLedgers", startResult, maxRows);
+		return new LinkedHashSet<Ledger>(query.getResultList());
+	}
+
+	/**
+	 * JPQL Query - findLedgerByDescriptionContaining
+	 *
+	 */
+	@Transactional
+	public Set<Ledger> findLedgerByDescriptionContaining(String description) throws DataAccessException {
+
+		return findLedgerByDescriptionContaining(description, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findLedgerByDescriptionContaining
+	 *
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Set<Ledger> findLedgerByDescriptionContaining(String description, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findLedgerByDescriptionContaining", startResult, maxRows, description);
+		return new LinkedHashSet<Ledger>(query.getResultList());
+	}
+
+	/**
+	 * JPQL Query - findLedgerByValidCodeContaining
+	 *
+	 */
+	@Transactional
+	public Set<Ledger> findLedgerByValidCodeContaining(String validCode) throws DataAccessException {
+
+		return findLedgerByValidCodeContaining(validCode, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findLedgerByValidCodeContaining
+	 *
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Set<Ledger> findLedgerByValidCodeContaining(String validCode, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findLedgerByValidCodeContaining", startResult, maxRows, validCode);
+		return new LinkedHashSet<Ledger>(query.getResultList());
+	}
+
+	/**
+	 * JPQL Query - findLedgerByDescription
+	 *
+	 */
+	@Transactional
+	public Set<Ledger> findLedgerByDescription(String description) throws DataAccessException {
+
+		return findLedgerByDescription(description, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findLedgerByDescription
+	 *
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Set<Ledger> findLedgerByDescription(String description, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findLedgerByDescription", startResult, maxRows, description);
 		return new LinkedHashSet<Ledger>(query.getResultList());
 	}
 
@@ -138,46 +248,93 @@ public class LedgerDAOImpl extends AbstractJpaDao<Ledger> implements LedgerDAO {
 	}
 
 	/**
-	 * JPQL Query - findAllLedgers
+	 * JPQL Query - findLedgerByPrimaryKey
 	 *
 	 */
 	@Transactional
-	public Set<Ledger> findAllLedgers() throws DataAccessException {
+	public Ledger findLedgerByPrimaryKey(Integer id) throws DataAccessException {
 
-		return findAllLedgers(-1, -1);
+		return findLedgerByPrimaryKey(id, -1, -1);
 	}
 
 	/**
-	 * JPQL Query - findAllLedgers
+	 * JPQL Query - findLedgerByPrimaryKey
+	 *
+	 */
+
+	@Transactional
+	public Ledger findLedgerByPrimaryKey(Integer id, int startResult, int maxRows) throws DataAccessException {
+		try {
+			Query query = createNamedQuery("findLedgerByPrimaryKey", startResult, maxRows, id);
+			return (com.ttv.cashflow.domain.Ledger) query.getSingleResult();
+		} catch (NoResultException nre) {
+			return null;
+		}
+	}
+
+	/**
+	 * JPQL Query - findLedgerByFilePathContaining
+	 *
+	 */
+	@Transactional
+	public Set<Ledger> findLedgerByFilePathContaining(String filePath) throws DataAccessException {
+
+		return findLedgerByFilePathContaining(filePath, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findLedgerByFilePathContaining
 	 *
 	 */
 
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public Set<Ledger> findAllLedgers(int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findAllLedgers", startResult, maxRows);
+	public Set<Ledger> findLedgerByFilePathContaining(String filePath, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findLedgerByFilePathContaining", startResult, maxRows, filePath);
 		return new LinkedHashSet<Ledger>(query.getResultList());
 	}
 
 	/**
-	 * JPQL Query - findLedgerByValidCodeContaining
+	 * JPQL Query - findLedgerByFilePath
 	 *
 	 */
 	@Transactional
-	public Set<Ledger> findLedgerByValidCodeContaining(String validCode) throws DataAccessException {
+	public Set<Ledger> findLedgerByFilePath(String filePath) throws DataAccessException {
 
-		return findLedgerByValidCodeContaining(validCode, -1, -1);
+		return findLedgerByFilePath(filePath, -1, -1);
 	}
 
 	/**
-	 * JPQL Query - findLedgerByValidCodeContaining
+	 * JPQL Query - findLedgerByFilePath
 	 *
 	 */
 
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public Set<Ledger> findLedgerByValidCodeContaining(String validCode, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findLedgerByValidCodeContaining", startResult, maxRows, validCode);
+	public Set<Ledger> findLedgerByFilePath(String filePath, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findLedgerByFilePath", startResult, maxRows, filePath);
+		return new LinkedHashSet<Ledger>(query.getResultList());
+	}
+
+	/**
+	 * JPQL Query - findLedgerByModifiedDate
+	 *
+	 */
+	@Transactional
+	public Set<Ledger> findLedgerByModifiedDate(java.util.Calendar modifiedDate) throws DataAccessException {
+
+		return findLedgerByModifiedDate(modifiedDate, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findLedgerByModifiedDate
+	 *
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Set<Ledger> findLedgerByModifiedDate(java.util.Calendar modifiedDate, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findLedgerByModifiedDate", startResult, maxRows, modifiedDate);
 		return new LinkedHashSet<Ledger>(query.getResultList());
 	}
 
@@ -204,97 +361,6 @@ public class LedgerDAOImpl extends AbstractJpaDao<Ledger> implements LedgerDAO {
 	}
 
 	/**
-	 * JPQL Query - findLedgerByType
-	 *
-	 */
-	@Transactional
-	public Set<Ledger> findLedgerByType(Integer type) throws DataAccessException {
-
-		return findLedgerByType(type, -1, -1);
-	}
-
-	/**
-	 * JPQL Query - findLedgerByType
-	 *
-	 */
-
-	@SuppressWarnings("unchecked")
-	@Transactional
-	public Set<Ledger> findLedgerByType(Integer type, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findLedgerByType", startResult, maxRows, type);
-		return new LinkedHashSet<Ledger>(query.getResultList());
-	}
-
-	/**
-	 * JPQL Query - findLedgerByFilePathContaining
-	 *
-	 */
-	@Transactional
-	public Set<Ledger> findLedgerByFilePathContaining(String filePath) throws DataAccessException {
-
-		return findLedgerByFilePathContaining(filePath, -1, -1);
-	}
-
-	/**
-	 * JPQL Query - findLedgerByFilePathContaining
-	 *
-	 */
-
-	@SuppressWarnings("unchecked")
-	@Transactional
-	public Set<Ledger> findLedgerByFilePathContaining(String filePath, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findLedgerByFilePathContaining", startResult, maxRows, filePath);
-		return new LinkedHashSet<Ledger>(query.getResultList());
-	}
-
-	/**
-	 * JPQL Query - findLedgerByPrimaryKey
-	 *
-	 */
-	@Transactional
-	public Ledger findLedgerByPrimaryKey(Integer id) throws DataAccessException {
-
-		return findLedgerByPrimaryKey(id, -1, -1);
-	}
-
-	/**
-	 * JPQL Query - findLedgerByPrimaryKey
-	 *
-	 */
-
-	@Transactional
-	public Ledger findLedgerByPrimaryKey(Integer id, int startResult, int maxRows) throws DataAccessException {
-		try {
-			Query query = createNamedQuery("findLedgerByPrimaryKey", startResult, maxRows, id);
-			return (com.ttv.cashflow.domain.Ledger) query.getSingleResult();
-		} catch (NoResultException nre) {
-			return null;
-		}
-	}
-
-	/**
-	 * JPQL Query - findLedgerByFilePath
-	 *
-	 */
-	@Transactional
-	public Set<Ledger> findLedgerByFilePath(String filePath) throws DataAccessException {
-
-		return findLedgerByFilePath(filePath, -1, -1);
-	}
-
-	/**
-	 * JPQL Query - findLedgerByFilePath
-	 *
-	 */
-
-	@SuppressWarnings("unchecked")
-	@Transactional
-	public Set<Ledger> findLedgerByFilePath(String filePath, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findLedgerByFilePath", startResult, maxRows, filePath);
-		return new LinkedHashSet<Ledger>(query.getResultList());
-	}
-
-	/**
 	 * JPQL Query - findLedgerByIssuedDate
 	 *
 	 */
@@ -313,28 +379,6 @@ public class LedgerDAOImpl extends AbstractJpaDao<Ledger> implements LedgerDAO {
 	@Transactional
 	public Set<Ledger> findLedgerByIssuedDate(java.util.Calendar issuedDate, int startResult, int maxRows) throws DataAccessException {
 		Query query = createNamedQuery("findLedgerByIssuedDate", startResult, maxRows, issuedDate);
-		return new LinkedHashSet<Ledger>(query.getResultList());
-	}
-
-	/**
-	 * JPQL Query - findLedgerByAmount
-	 *
-	 */
-	@Transactional
-	public Set<Ledger> findLedgerByAmount(java.math.BigDecimal amount) throws DataAccessException {
-
-		return findLedgerByAmount(amount, -1, -1);
-	}
-
-	/**
-	 * JPQL Query - findLedgerByAmount
-	 *
-	 */
-
-	@SuppressWarnings("unchecked")
-	@Transactional
-	public Set<Ledger> findLedgerByAmount(java.math.BigDecimal amount, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findLedgerByAmount", startResult, maxRows, amount);
 		return new LinkedHashSet<Ledger>(query.getResultList());
 	}
 

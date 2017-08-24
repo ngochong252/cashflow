@@ -17,28 +17,40 @@ import org.springframework.dao.DataAccessException;
 public interface ComapnyDAO extends JpaDao<Comapny> {
 
 	/**
-	 * JPQL Query - findComapnyByDescription
+	 * JPQL Query - findComapnyByNameContaining
 	 *
 	 */
-	public Set<Comapny> findComapnyByDescription(String description) throws DataAccessException;
+	public Set<Comapny> findComapnyByNameContaining(String name) throws DataAccessException;
 
 	/**
-	 * JPQL Query - findComapnyByDescription
+	 * JPQL Query - findComapnyByNameContaining
 	 *
 	 */
-	public Set<Comapny> findComapnyByDescription(String description, int startResult, int maxRows) throws DataAccessException;
+	public Set<Comapny> findComapnyByNameContaining(String name, int startResult, int maxRows) throws DataAccessException;
 
 	/**
-	 * JPQL Query - findComapnyByModifiedDate
+	 * JPQL Query - findComapnyByPrimaryKey
 	 *
 	 */
-	public Set<Comapny> findComapnyByModifiedDate(java.util.Calendar modifiedDate) throws DataAccessException;
+	public Comapny findComapnyByPrimaryKey(Integer id) throws DataAccessException;
 
 	/**
-	 * JPQL Query - findComapnyByModifiedDate
+	 * JPQL Query - findComapnyByPrimaryKey
 	 *
 	 */
-	public Set<Comapny> findComapnyByModifiedDate(Calendar modifiedDate, int startResult, int maxRows) throws DataAccessException;
+	public Comapny findComapnyByPrimaryKey(Integer id, int startResult, int maxRows) throws DataAccessException;
+
+	/**
+	 * JPQL Query - findComapnyByName
+	 *
+	 */
+	public Set<Comapny> findComapnyByName(String name_1) throws DataAccessException;
+
+	/**
+	 * JPQL Query - findComapnyByName
+	 *
+	 */
+	public Set<Comapny> findComapnyByName(String name_1, int startResult, int maxRows) throws DataAccessException;
 
 	/**
 	 * JPQL Query - findComapnyByCodeContaining
@@ -53,88 +65,28 @@ public interface ComapnyDAO extends JpaDao<Comapny> {
 	public Set<Comapny> findComapnyByCodeContaining(String code, int startResult, int maxRows) throws DataAccessException;
 
 	/**
-	 * JPQL Query - findComapnyByCompanyId
+	 * JPQL Query - findComapnyByDescriptionContaining
 	 *
 	 */
-	public Comapny findComapnyByCompanyId(Integer companyId) throws DataAccessException;
-
-	/**
-	 * JPQL Query - findComapnyByCompanyId
-	 *
-	 */
-	public Comapny findComapnyByCompanyId(Integer companyId, int startResult, int maxRows) throws DataAccessException;
-
-	/**
-	 * JPQL Query - findComapnyByIsActive
-	 *
-	 */
-	public Set<Comapny> findComapnyByIsActive(Boolean isActive) throws DataAccessException;
-
-	/**
-	 * JPQL Query - findComapnyByIsActive
-	 *
-	 */
-	public Set<Comapny> findComapnyByIsActive(Boolean isActive, int startResult, int maxRows) throws DataAccessException;
-
-	/**
-	 * JPQL Query - findComapnyByCode
-	 *
-	 */
-	public Set<Comapny> findComapnyByCode(String code_1) throws DataAccessException;
-
-	/**
-	 * JPQL Query - findComapnyByCode
-	 *
-	 */
-	public Set<Comapny> findComapnyByCode(String code_1, int startResult, int maxRows) throws DataAccessException;
+	public Set<Comapny> findComapnyByDescriptionContaining(String description) throws DataAccessException;
 
 	/**
 	 * JPQL Query - findComapnyByDescriptionContaining
 	 *
 	 */
-	public Set<Comapny> findComapnyByDescriptionContaining(String description_1) throws DataAccessException;
+	public Set<Comapny> findComapnyByDescriptionContaining(String description, int startResult, int maxRows) throws DataAccessException;
 
 	/**
-	 * JPQL Query - findComapnyByDescriptionContaining
+	 * JPQL Query - findComapnyById
 	 *
 	 */
-	public Set<Comapny> findComapnyByDescriptionContaining(String description_1, int startResult, int maxRows) throws DataAccessException;
+	public Comapny findComapnyById(Integer id_1) throws DataAccessException;
 
 	/**
-	 * JPQL Query - findComapnyByPrimaryKey
+	 * JPQL Query - findComapnyById
 	 *
 	 */
-	public Comapny findComapnyByPrimaryKey(Integer companyId_1) throws DataAccessException;
-
-	/**
-	 * JPQL Query - findComapnyByPrimaryKey
-	 *
-	 */
-	public Comapny findComapnyByPrimaryKey(Integer companyId_1, int startResult, int maxRows) throws DataAccessException;
-
-	/**
-	 * JPQL Query - findAllComapnys
-	 *
-	 */
-	public Set<Comapny> findAllComapnys() throws DataAccessException;
-
-	/**
-	 * JPQL Query - findAllComapnys
-	 *
-	 */
-	public Set<Comapny> findAllComapnys(int startResult, int maxRows) throws DataAccessException;
-
-	/**
-	 * JPQL Query - findComapnyByName
-	 *
-	 */
-	public Set<Comapny> findComapnyByName(String name) throws DataAccessException;
-
-	/**
-	 * JPQL Query - findComapnyByName
-	 *
-	 */
-	public Set<Comapny> findComapnyByName(String name, int startResult, int maxRows) throws DataAccessException;
+	public Comapny findComapnyById(Integer id_1, int startResult, int maxRows) throws DataAccessException;
 
 	/**
 	 * JPQL Query - findComapnyByCreatedDate
@@ -149,15 +101,63 @@ public interface ComapnyDAO extends JpaDao<Comapny> {
 	public Set<Comapny> findComapnyByCreatedDate(Calendar createdDate, int startResult, int maxRows) throws DataAccessException;
 
 	/**
-	 * JPQL Query - findComapnyByNameContaining
+	 * JPQL Query - findComapnyByIsActive
 	 *
 	 */
-	public Set<Comapny> findComapnyByNameContaining(String name_1) throws DataAccessException;
+	public Set<Comapny> findComapnyByIsActive(Boolean isActive) throws DataAccessException;
 
 	/**
-	 * JPQL Query - findComapnyByNameContaining
+	 * JPQL Query - findComapnyByIsActive
 	 *
 	 */
-	public Set<Comapny> findComapnyByNameContaining(String name_1, int startResult, int maxRows) throws DataAccessException;
+	public Set<Comapny> findComapnyByIsActive(Boolean isActive, int startResult, int maxRows) throws DataAccessException;
+
+	/**
+	 * JPQL Query - findComapnyByModifiedDate
+	 *
+	 */
+	public Set<Comapny> findComapnyByModifiedDate(java.util.Calendar modifiedDate) throws DataAccessException;
+
+	/**
+	 * JPQL Query - findComapnyByModifiedDate
+	 *
+	 */
+	public Set<Comapny> findComapnyByModifiedDate(Calendar modifiedDate, int startResult, int maxRows) throws DataAccessException;
+
+	/**
+	 * JPQL Query - findComapnyByDescription
+	 *
+	 */
+	public Set<Comapny> findComapnyByDescription(String description_1) throws DataAccessException;
+
+	/**
+	 * JPQL Query - findComapnyByDescription
+	 *
+	 */
+	public Set<Comapny> findComapnyByDescription(String description_1, int startResult, int maxRows) throws DataAccessException;
+
+	/**
+	 * JPQL Query - findComapnyByCode
+	 *
+	 */
+	public Set<Comapny> findComapnyByCode(String code_1) throws DataAccessException;
+
+	/**
+	 * JPQL Query - findComapnyByCode
+	 *
+	 */
+	public Set<Comapny> findComapnyByCode(String code_1, int startResult, int maxRows) throws DataAccessException;
+
+	/**
+	 * JPQL Query - findAllComapnys
+	 *
+	 */
+	public Set<Comapny> findAllComapnys() throws DataAccessException;
+
+	/**
+	 * JPQL Query - findAllComapnys
+	 *
+	 */
+	public Set<Comapny> findAllComapnys(int startResult, int maxRows) throws DataAccessException;
 
 }

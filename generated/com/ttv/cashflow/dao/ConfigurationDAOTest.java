@@ -1,7 +1,7 @@
 
 package com.ttv.cashflow.dao;
 
-import com.ttv.cashflow.domain.Comapny;
+import com.ttv.cashflow.domain.Configuration;
 
 import org.junit.Test;
 
@@ -39,28 +39,28 @@ import org.springframework.transaction.annotation.Transactional;
 		"file:./resources/cashflow-service-context.xml",
 		"file:./resources/cashflow-dao-context.xml",
 		"file:./resources/cashflow-web-context.xml" })
-public class ComapnyDAOTest {
+public class ConfigurationDAOTest {
 	/**
 	 * The DAO being tested, injected by Spring
 	 *
 	 */
-	private ComapnyDAO dataStore;
+	private ConfigurationDAO dataStore;
 
 	/**
-	 * Instantiates a new ComapnyDAOTest.
+	 * Instantiates a new ConfigurationDAOTest.
 	 *
 	 */
-	public ComapnyDAOTest() {
+	public ConfigurationDAOTest() {
 	}
 
 	/**
-	* Method to test Comapny domain object.
+	* Method to test Configuration domain object.
 	*
 	*/
 	@Rollback(false)
 	@Test
-	public void Comapny() {
-		Comapny instance = new Comapny();
+	public void Configuration() {
+		Configuration instance = new Configuration();
 
 		// Test create				
 		// TODO: Populate instance for create.  The store will fail if the primary key fields are blank.				
@@ -84,7 +84,7 @@ public class ComapnyDAOTest {
 	 *
 	*/
 	@Autowired
-	public void setDataStore(ComapnyDAO dataStore) {
+	public void setDataStore(ConfigurationDAO dataStore) {
 		this.dataStore = dataStore;
 	}
 }

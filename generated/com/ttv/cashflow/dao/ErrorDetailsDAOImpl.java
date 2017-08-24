@@ -69,28 +69,6 @@ public class ErrorDetailsDAOImpl extends AbstractJpaDao<ErrorDetails> implements
 	}
 
 	/**
-	 * JPQL Query - findErrorDetailsByDescription
-	 *
-	 */
-	@Transactional
-	public Set<ErrorDetails> findErrorDetailsByDescription(String description) throws DataAccessException {
-
-		return findErrorDetailsByDescription(description, -1, -1);
-	}
-
-	/**
-	 * JPQL Query - findErrorDetailsByDescription
-	 *
-	 */
-
-	@SuppressWarnings("unchecked")
-	@Transactional
-	public Set<ErrorDetails> findErrorDetailsByDescription(String description, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findErrorDetailsByDescription", startResult, maxRows, description);
-		return new LinkedHashSet<ErrorDetails>(query.getResultList());
-	}
-
-	/**
 	 * JPQL Query - findErrorDetailsByDescriptionContaining
 	 *
 	 */
@@ -113,6 +91,97 @@ public class ErrorDetailsDAOImpl extends AbstractJpaDao<ErrorDetails> implements
 	}
 
 	/**
+	 * JPQL Query - findErrorDetailsByBaId
+	 *
+	 */
+	@Transactional
+	public Set<ErrorDetails> findErrorDetailsByBaId(Integer baId) throws DataAccessException {
+
+		return findErrorDetailsByBaId(baId, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findErrorDetailsByBaId
+	 *
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Set<ErrorDetails> findErrorDetailsByBaId(Integer baId, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findErrorDetailsByBaId", startResult, maxRows, baId);
+		return new LinkedHashSet<ErrorDetails>(query.getResultList());
+	}
+
+	/**
+	 * JPQL Query - findErrorDetailsByStatus
+	 *
+	 */
+	@Transactional
+	public Set<ErrorDetails> findErrorDetailsByStatus(Integer status) throws DataAccessException {
+
+		return findErrorDetailsByStatus(status, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findErrorDetailsByStatus
+	 *
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Set<ErrorDetails> findErrorDetailsByStatus(Integer status, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findErrorDetailsByStatus", startResult, maxRows, status);
+		return new LinkedHashSet<ErrorDetails>(query.getResultList());
+	}
+
+	/**
+	 * JPQL Query - findErrorDetailsByDescription
+	 *
+	 */
+	@Transactional
+	public Set<ErrorDetails> findErrorDetailsByDescription(String description) throws DataAccessException {
+
+		return findErrorDetailsByDescription(description, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findErrorDetailsByDescription
+	 *
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Set<ErrorDetails> findErrorDetailsByDescription(String description, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findErrorDetailsByDescription", startResult, maxRows, description);
+		return new LinkedHashSet<ErrorDetails>(query.getResultList());
+	}
+
+	/**
+	 * JPQL Query - findErrorDetailsByPrimaryKey
+	 *
+	 */
+	@Transactional
+	public ErrorDetails findErrorDetailsByPrimaryKey(Integer id) throws DataAccessException {
+
+		return findErrorDetailsByPrimaryKey(id, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findErrorDetailsByPrimaryKey
+	 *
+	 */
+
+	@Transactional
+	public ErrorDetails findErrorDetailsByPrimaryKey(Integer id, int startResult, int maxRows) throws DataAccessException {
+		try {
+			Query query = createNamedQuery("findErrorDetailsByPrimaryKey", startResult, maxRows, id);
+			return (com.ttv.cashflow.domain.ErrorDetails) query.getSingleResult();
+		} catch (NoResultException nre) {
+			return null;
+		}
+	}
+
+	/**
 	 * JPQL Query - findErrorDetailsByApprovalId
 	 *
 	 */
@@ -131,28 +200,6 @@ public class ErrorDetailsDAOImpl extends AbstractJpaDao<ErrorDetails> implements
 	@Transactional
 	public Set<ErrorDetails> findErrorDetailsByApprovalId(Integer approvalId, int startResult, int maxRows) throws DataAccessException {
 		Query query = createNamedQuery("findErrorDetailsByApprovalId", startResult, maxRows, approvalId);
-		return new LinkedHashSet<ErrorDetails>(query.getResultList());
-	}
-
-	/**
-	 * JPQL Query - findErrorDetailsByLedgerId
-	 *
-	 */
-	@Transactional
-	public Set<ErrorDetails> findErrorDetailsByLedgerId(Integer ledgerId) throws DataAccessException {
-
-		return findErrorDetailsByLedgerId(ledgerId, -1, -1);
-	}
-
-	/**
-	 * JPQL Query - findErrorDetailsByLedgerId
-	 *
-	 */
-
-	@SuppressWarnings("unchecked")
-	@Transactional
-	public Set<ErrorDetails> findErrorDetailsByLedgerId(Integer ledgerId, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findErrorDetailsByLedgerId", startResult, maxRows, ledgerId);
 		return new LinkedHashSet<ErrorDetails>(query.getResultList());
 	}
 
@@ -204,71 +251,24 @@ public class ErrorDetailsDAOImpl extends AbstractJpaDao<ErrorDetails> implements
 	}
 
 	/**
-	 * JPQL Query - findErrorDetailsByPrimaryKey
+	 * JPQL Query - findErrorDetailsByLedgerId
 	 *
 	 */
 	@Transactional
-	public ErrorDetails findErrorDetailsByPrimaryKey(Integer id) throws DataAccessException {
+	public Set<ErrorDetails> findErrorDetailsByLedgerId(Integer ledgerId) throws DataAccessException {
 
-		return findErrorDetailsByPrimaryKey(id, -1, -1);
+		return findErrorDetailsByLedgerId(ledgerId, -1, -1);
 	}
 
 	/**
-	 * JPQL Query - findErrorDetailsByPrimaryKey
-	 *
-	 */
-
-	@Transactional
-	public ErrorDetails findErrorDetailsByPrimaryKey(Integer id, int startResult, int maxRows) throws DataAccessException {
-		try {
-			Query query = createNamedQuery("findErrorDetailsByPrimaryKey", startResult, maxRows, id);
-			return (com.ttv.cashflow.domain.ErrorDetails) query.getSingleResult();
-		} catch (NoResultException nre) {
-			return null;
-		}
-	}
-
-	/**
-	 * JPQL Query - findErrorDetailsByBaId
-	 *
-	 */
-	@Transactional
-	public Set<ErrorDetails> findErrorDetailsByBaId(Integer baId) throws DataAccessException {
-
-		return findErrorDetailsByBaId(baId, -1, -1);
-	}
-
-	/**
-	 * JPQL Query - findErrorDetailsByBaId
+	 * JPQL Query - findErrorDetailsByLedgerId
 	 *
 	 */
 
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public Set<ErrorDetails> findErrorDetailsByBaId(Integer baId, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findErrorDetailsByBaId", startResult, maxRows, baId);
-		return new LinkedHashSet<ErrorDetails>(query.getResultList());
-	}
-
-	/**
-	 * JPQL Query - findErrorDetailsByStatus
-	 *
-	 */
-	@Transactional
-	public Set<ErrorDetails> findErrorDetailsByStatus(Integer status) throws DataAccessException {
-
-		return findErrorDetailsByStatus(status, -1, -1);
-	}
-
-	/**
-	 * JPQL Query - findErrorDetailsByStatus
-	 *
-	 */
-
-	@SuppressWarnings("unchecked")
-	@Transactional
-	public Set<ErrorDetails> findErrorDetailsByStatus(Integer status, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findErrorDetailsByStatus", startResult, maxRows, status);
+	public Set<ErrorDetails> findErrorDetailsByLedgerId(Integer ledgerId, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findErrorDetailsByLedgerId", startResult, maxRows, ledgerId);
 		return new LinkedHashSet<ErrorDetails>(query.getResultList());
 	}
 

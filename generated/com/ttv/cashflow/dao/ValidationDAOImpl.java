@@ -69,6 +69,50 @@ public class ValidationDAOImpl extends AbstractJpaDao<Validation> implements Val
 	}
 
 	/**
+	 * JPQL Query - findValidationByDescriptionContaining
+	 *
+	 */
+	@Transactional
+	public Set<Validation> findValidationByDescriptionContaining(String description) throws DataAccessException {
+
+		return findValidationByDescriptionContaining(description, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findValidationByDescriptionContaining
+	 *
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Set<Validation> findValidationByDescriptionContaining(String description, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findValidationByDescriptionContaining", startResult, maxRows, description);
+		return new LinkedHashSet<Validation>(query.getResultList());
+	}
+
+	/**
+	 * JPQL Query - findValidationByValidCode
+	 *
+	 */
+	@Transactional
+	public Set<Validation> findValidationByValidCode(String validCode) throws DataAccessException {
+
+		return findValidationByValidCode(validCode, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findValidationByValidCode
+	 *
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Set<Validation> findValidationByValidCode(String validCode, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findValidationByValidCode", startResult, maxRows, validCode);
+		return new LinkedHashSet<Validation>(query.getResultList());
+	}
+
+	/**
 	 * JPQL Query - findValidationByDescription
 	 *
 	 */
@@ -88,6 +132,56 @@ public class ValidationDAOImpl extends AbstractJpaDao<Validation> implements Val
 	public Set<Validation> findValidationByDescription(String description, int startResult, int maxRows) throws DataAccessException {
 		Query query = createNamedQuery("findValidationByDescription", startResult, maxRows, description);
 		return new LinkedHashSet<Validation>(query.getResultList());
+	}
+
+	/**
+	 * JPQL Query - findValidationById
+	 *
+	 */
+	@Transactional
+	public Validation findValidationById(Integer id) throws DataAccessException {
+
+		return findValidationById(id, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findValidationById
+	 *
+	 */
+
+	@Transactional
+	public Validation findValidationById(Integer id, int startResult, int maxRows) throws DataAccessException {
+		try {
+			Query query = createNamedQuery("findValidationById", startResult, maxRows, id);
+			return (com.ttv.cashflow.domain.Validation) query.getSingleResult();
+		} catch (NoResultException nre) {
+			return null;
+		}
+	}
+
+	/**
+	 * JPQL Query - findValidationByPrimaryKey
+	 *
+	 */
+	@Transactional
+	public Validation findValidationByPrimaryKey(Integer id) throws DataAccessException {
+
+		return findValidationByPrimaryKey(id, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findValidationByPrimaryKey
+	 *
+	 */
+
+	@Transactional
+	public Validation findValidationByPrimaryKey(Integer id, int startResult, int maxRows) throws DataAccessException {
+		try {
+			Query query = createNamedQuery("findValidationByPrimaryKey", startResult, maxRows, id);
+			return (com.ttv.cashflow.domain.Validation) query.getSingleResult();
+		} catch (NoResultException nre) {
+			return null;
+		}
 	}
 
 	/**
@@ -132,100 +226,6 @@ public class ValidationDAOImpl extends AbstractJpaDao<Validation> implements Val
 	public Set<Validation> findAllValidations(int startResult, int maxRows) throws DataAccessException {
 		Query query = createNamedQuery("findAllValidations", startResult, maxRows);
 		return new LinkedHashSet<Validation>(query.getResultList());
-	}
-
-	/**
-	 * JPQL Query - findValidationByValidCode
-	 *
-	 */
-	@Transactional
-	public Set<Validation> findValidationByValidCode(String validCode) throws DataAccessException {
-
-		return findValidationByValidCode(validCode, -1, -1);
-	}
-
-	/**
-	 * JPQL Query - findValidationByValidCode
-	 *
-	 */
-
-	@SuppressWarnings("unchecked")
-	@Transactional
-	public Set<Validation> findValidationByValidCode(String validCode, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findValidationByValidCode", startResult, maxRows, validCode);
-		return new LinkedHashSet<Validation>(query.getResultList());
-	}
-
-	/**
-	 * JPQL Query - findValidationByDescriptionContaining
-	 *
-	 */
-	@Transactional
-	public Set<Validation> findValidationByDescriptionContaining(String description) throws DataAccessException {
-
-		return findValidationByDescriptionContaining(description, -1, -1);
-	}
-
-	/**
-	 * JPQL Query - findValidationByDescriptionContaining
-	 *
-	 */
-
-	@SuppressWarnings("unchecked")
-	@Transactional
-	public Set<Validation> findValidationByDescriptionContaining(String description, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findValidationByDescriptionContaining", startResult, maxRows, description);
-		return new LinkedHashSet<Validation>(query.getResultList());
-	}
-
-	/**
-	 * JPQL Query - findValidationByPrimaryKey
-	 *
-	 */
-	@Transactional
-	public Validation findValidationByPrimaryKey(Integer id) throws DataAccessException {
-
-		return findValidationByPrimaryKey(id, -1, -1);
-	}
-
-	/**
-	 * JPQL Query - findValidationByPrimaryKey
-	 *
-	 */
-
-	@Transactional
-	public Validation findValidationByPrimaryKey(Integer id, int startResult, int maxRows) throws DataAccessException {
-		try {
-			Query query = createNamedQuery("findValidationByPrimaryKey", startResult, maxRows, id);
-			return (com.ttv.cashflow.domain.Validation) query.getSingleResult();
-		} catch (NoResultException nre) {
-			return null;
-		}
-	}
-
-	/**
-	 * JPQL Query - findValidationById
-	 *
-	 */
-	@Transactional
-	public Validation findValidationById(Integer id) throws DataAccessException {
-
-		return findValidationById(id, -1, -1);
-	}
-
-	/**
-	 * JPQL Query - findValidationById
-	 *
-	 */
-
-	@Transactional
-	public Validation findValidationById(Integer id, int startResult, int maxRows) throws DataAccessException {
-		try {
-			Query query = createNamedQuery("findValidationById", startResult, maxRows, id);
-			return (com.ttv.cashflow.domain.Validation) query.getSingleResult();
-		} catch (NoResultException nre) {
-			return null;
-		}
 	}
 
 	/**

@@ -69,46 +69,71 @@ public class ComapnyDAOImpl extends AbstractJpaDao<Comapny> implements ComapnyDA
 	}
 
 	/**
-	 * JPQL Query - findComapnyByDescription
+	 * JPQL Query - findComapnyByNameContaining
 	 *
 	 */
 	@Transactional
-	public Set<Comapny> findComapnyByDescription(String description) throws DataAccessException {
+	public Set<Comapny> findComapnyByNameContaining(String name) throws DataAccessException {
 
-		return findComapnyByDescription(description, -1, -1);
+		return findComapnyByNameContaining(name, -1, -1);
 	}
 
 	/**
-	 * JPQL Query - findComapnyByDescription
+	 * JPQL Query - findComapnyByNameContaining
 	 *
 	 */
 
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public Set<Comapny> findComapnyByDescription(String description, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findComapnyByDescription", startResult, maxRows, description);
+	public Set<Comapny> findComapnyByNameContaining(String name, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findComapnyByNameContaining", startResult, maxRows, name);
 		return new LinkedHashSet<Comapny>(query.getResultList());
 	}
 
 	/**
-	 * JPQL Query - findComapnyByModifiedDate
+	 * JPQL Query - findComapnyByPrimaryKey
 	 *
 	 */
 	@Transactional
-	public Set<Comapny> findComapnyByModifiedDate(java.util.Calendar modifiedDate) throws DataAccessException {
+	public Comapny findComapnyByPrimaryKey(Integer id) throws DataAccessException {
 
-		return findComapnyByModifiedDate(modifiedDate, -1, -1);
+		return findComapnyByPrimaryKey(id, -1, -1);
 	}
 
 	/**
-	 * JPQL Query - findComapnyByModifiedDate
+	 * JPQL Query - findComapnyByPrimaryKey
+	 *
+	 */
+
+	@Transactional
+	public Comapny findComapnyByPrimaryKey(Integer id, int startResult, int maxRows) throws DataAccessException {
+		try {
+			Query query = createNamedQuery("findComapnyByPrimaryKey", startResult, maxRows, id);
+			return (com.ttv.cashflow.domain.Comapny) query.getSingleResult();
+		} catch (NoResultException nre) {
+			return null;
+		}
+	}
+
+	/**
+	 * JPQL Query - findComapnyByName
+	 *
+	 */
+	@Transactional
+	public Set<Comapny> findComapnyByName(String name) throws DataAccessException {
+
+		return findComapnyByName(name, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findComapnyByName
 	 *
 	 */
 
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public Set<Comapny> findComapnyByModifiedDate(java.util.Calendar modifiedDate, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findComapnyByModifiedDate", startResult, maxRows, modifiedDate);
+	public Set<Comapny> findComapnyByName(String name, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findComapnyByName", startResult, maxRows, name);
 		return new LinkedHashSet<Comapny>(query.getResultList());
 	}
 
@@ -135,28 +160,72 @@ public class ComapnyDAOImpl extends AbstractJpaDao<Comapny> implements ComapnyDA
 	}
 
 	/**
-	 * JPQL Query - findComapnyByCompanyId
+	 * JPQL Query - findComapnyByDescriptionContaining
 	 *
 	 */
 	@Transactional
-	public Comapny findComapnyByCompanyId(Integer companyId) throws DataAccessException {
+	public Set<Comapny> findComapnyByDescriptionContaining(String description) throws DataAccessException {
 
-		return findComapnyByCompanyId(companyId, -1, -1);
+		return findComapnyByDescriptionContaining(description, -1, -1);
 	}
 
 	/**
-	 * JPQL Query - findComapnyByCompanyId
+	 * JPQL Query - findComapnyByDescriptionContaining
+	 *
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Set<Comapny> findComapnyByDescriptionContaining(String description, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findComapnyByDescriptionContaining", startResult, maxRows, description);
+		return new LinkedHashSet<Comapny>(query.getResultList());
+	}
+
+	/**
+	 * JPQL Query - findComapnyById
+	 *
+	 */
+	@Transactional
+	public Comapny findComapnyById(Integer id) throws DataAccessException {
+
+		return findComapnyById(id, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findComapnyById
 	 *
 	 */
 
 	@Transactional
-	public Comapny findComapnyByCompanyId(Integer companyId, int startResult, int maxRows) throws DataAccessException {
+	public Comapny findComapnyById(Integer id, int startResult, int maxRows) throws DataAccessException {
 		try {
-			Query query = createNamedQuery("findComapnyByCompanyId", startResult, maxRows, companyId);
+			Query query = createNamedQuery("findComapnyById", startResult, maxRows, id);
 			return (com.ttv.cashflow.domain.Comapny) query.getSingleResult();
 		} catch (NoResultException nre) {
 			return null;
 		}
+	}
+
+	/**
+	 * JPQL Query - findComapnyByCreatedDate
+	 *
+	 */
+	@Transactional
+	public Set<Comapny> findComapnyByCreatedDate(java.util.Calendar createdDate) throws DataAccessException {
+
+		return findComapnyByCreatedDate(createdDate, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findComapnyByCreatedDate
+	 *
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Set<Comapny> findComapnyByCreatedDate(java.util.Calendar createdDate, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findComapnyByCreatedDate", startResult, maxRows, createdDate);
+		return new LinkedHashSet<Comapny>(query.getResultList());
 	}
 
 	/**
@@ -178,6 +247,50 @@ public class ComapnyDAOImpl extends AbstractJpaDao<Comapny> implements ComapnyDA
 	@Transactional
 	public Set<Comapny> findComapnyByIsActive(Boolean isActive, int startResult, int maxRows) throws DataAccessException {
 		Query query = createNamedQuery("findComapnyByIsActive", startResult, maxRows, isActive);
+		return new LinkedHashSet<Comapny>(query.getResultList());
+	}
+
+	/**
+	 * JPQL Query - findComapnyByModifiedDate
+	 *
+	 */
+	@Transactional
+	public Set<Comapny> findComapnyByModifiedDate(java.util.Calendar modifiedDate) throws DataAccessException {
+
+		return findComapnyByModifiedDate(modifiedDate, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findComapnyByModifiedDate
+	 *
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Set<Comapny> findComapnyByModifiedDate(java.util.Calendar modifiedDate, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findComapnyByModifiedDate", startResult, maxRows, modifiedDate);
+		return new LinkedHashSet<Comapny>(query.getResultList());
+	}
+
+	/**
+	 * JPQL Query - findComapnyByDescription
+	 *
+	 */
+	@Transactional
+	public Set<Comapny> findComapnyByDescription(String description) throws DataAccessException {
+
+		return findComapnyByDescription(description, -1, -1);
+	}
+
+	/**
+	 * JPQL Query - findComapnyByDescription
+	 *
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Set<Comapny> findComapnyByDescription(String description, int startResult, int maxRows) throws DataAccessException {
+		Query query = createNamedQuery("findComapnyByDescription", startResult, maxRows, description);
 		return new LinkedHashSet<Comapny>(query.getResultList());
 	}
 
@@ -204,53 +317,6 @@ public class ComapnyDAOImpl extends AbstractJpaDao<Comapny> implements ComapnyDA
 	}
 
 	/**
-	 * JPQL Query - findComapnyByDescriptionContaining
-	 *
-	 */
-	@Transactional
-	public Set<Comapny> findComapnyByDescriptionContaining(String description) throws DataAccessException {
-
-		return findComapnyByDescriptionContaining(description, -1, -1);
-	}
-
-	/**
-	 * JPQL Query - findComapnyByDescriptionContaining
-	 *
-	 */
-
-	@SuppressWarnings("unchecked")
-	@Transactional
-	public Set<Comapny> findComapnyByDescriptionContaining(String description, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findComapnyByDescriptionContaining", startResult, maxRows, description);
-		return new LinkedHashSet<Comapny>(query.getResultList());
-	}
-
-	/**
-	 * JPQL Query - findComapnyByPrimaryKey
-	 *
-	 */
-	@Transactional
-	public Comapny findComapnyByPrimaryKey(Integer companyId) throws DataAccessException {
-
-		return findComapnyByPrimaryKey(companyId, -1, -1);
-	}
-
-	/**
-	 * JPQL Query - findComapnyByPrimaryKey
-	 *
-	 */
-
-	@Transactional
-	public Comapny findComapnyByPrimaryKey(Integer companyId, int startResult, int maxRows) throws DataAccessException {
-		try {
-			Query query = createNamedQuery("findComapnyByPrimaryKey", startResult, maxRows, companyId);
-			return (com.ttv.cashflow.domain.Comapny) query.getSingleResult();
-		} catch (NoResultException nre) {
-			return null;
-		}
-	}
-
-	/**
 	 * JPQL Query - findAllComapnys
 	 *
 	 */
@@ -269,72 +335,6 @@ public class ComapnyDAOImpl extends AbstractJpaDao<Comapny> implements ComapnyDA
 	@Transactional
 	public Set<Comapny> findAllComapnys(int startResult, int maxRows) throws DataAccessException {
 		Query query = createNamedQuery("findAllComapnys", startResult, maxRows);
-		return new LinkedHashSet<Comapny>(query.getResultList());
-	}
-
-	/**
-	 * JPQL Query - findComapnyByName
-	 *
-	 */
-	@Transactional
-	public Set<Comapny> findComapnyByName(String name) throws DataAccessException {
-
-		return findComapnyByName(name, -1, -1);
-	}
-
-	/**
-	 * JPQL Query - findComapnyByName
-	 *
-	 */
-
-	@SuppressWarnings("unchecked")
-	@Transactional
-	public Set<Comapny> findComapnyByName(String name, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findComapnyByName", startResult, maxRows, name);
-		return new LinkedHashSet<Comapny>(query.getResultList());
-	}
-
-	/**
-	 * JPQL Query - findComapnyByCreatedDate
-	 *
-	 */
-	@Transactional
-	public Set<Comapny> findComapnyByCreatedDate(java.util.Calendar createdDate) throws DataAccessException {
-
-		return findComapnyByCreatedDate(createdDate, -1, -1);
-	}
-
-	/**
-	 * JPQL Query - findComapnyByCreatedDate
-	 *
-	 */
-
-	@SuppressWarnings("unchecked")
-	@Transactional
-	public Set<Comapny> findComapnyByCreatedDate(java.util.Calendar createdDate, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findComapnyByCreatedDate", startResult, maxRows, createdDate);
-		return new LinkedHashSet<Comapny>(query.getResultList());
-	}
-
-	/**
-	 * JPQL Query - findComapnyByNameContaining
-	 *
-	 */
-	@Transactional
-	public Set<Comapny> findComapnyByNameContaining(String name) throws DataAccessException {
-
-		return findComapnyByNameContaining(name, -1, -1);
-	}
-
-	/**
-	 * JPQL Query - findComapnyByNameContaining
-	 *
-	 */
-
-	@SuppressWarnings("unchecked")
-	@Transactional
-	public Set<Comapny> findComapnyByNameContaining(String name, int startResult, int maxRows) throws DataAccessException {
-		Query query = createNamedQuery("findComapnyByNameContaining", startResult, maxRows, name);
 		return new LinkedHashSet<Comapny>(query.getResultList());
 	}
 
