@@ -55,24 +55,18 @@ public class BankingAccountingController {
 	private BankingAccountingService bankingAccountingService;
 
 	/**
+	 * Create a new BankingAccounting entity
+	 * 
 	 */
-	@RequestMapping("/bankingaccountingController/binary.action")
-	public ModelAndView streamBinary(@ModelAttribute HttpServletRequest request, @ModelAttribute HttpServletResponse response) {
+	@RequestMapping("/newBankingAccounting")
+	public ModelAndView newBankingAccounting() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("streamedBinaryContentView");
+
+		mav.addObject("bankingaccounting", new BankingAccounting());
+		mav.addObject("newFlag", true);
+		mav.setViewName("bankingaccounting/editBankingAccounting.jsp");
+
 		return mav;
-
-	}
-
-	/**
-	* Delete an existing BankingAccounting entity
-	* 
-	*/
-	@RequestMapping("/deleteBankingAccounting")
-	public String deleteBankingAccounting(@RequestParam Integer idKey) {
-		BankingAccounting bankingaccounting = bankingAccountingDAO.findBankingAccountingByPrimaryKey(idKey);
-		bankingAccountingService.deleteBankingAccounting(bankingaccounting);
-		return "forward:/indexBankingAccounting";
 	}
 
 	/**
@@ -80,93 +74,14 @@ public class BankingAccountingController {
 	* 
 	*/
 	@RequestMapping("/deleteBankingAccountingComapny")
-	public ModelAndView deleteBankingAccountingComapny(@RequestParam Integer bankingaccounting_id, @RequestParam Integer related_comapny_companyId) {
+	public ModelAndView deleteBankingAccountingComapny(@RequestParam Integer bankingaccounting_id, @RequestParam Integer related_comapny_id) {
 		ModelAndView mav = new ModelAndView();
 
-		BankingAccounting bankingaccounting = bankingAccountingService.deleteBankingAccountingComapny(bankingaccounting_id, related_comapny_companyId);
+		BankingAccounting bankingaccounting = bankingAccountingService.deleteBankingAccountingComapny(bankingaccounting_id, related_comapny_id);
 
 		mav.addObject("bankingaccounting_id", bankingaccounting_id);
 		mav.addObject("bankingaccounting", bankingaccounting);
 		mav.setViewName("bankingaccounting/viewBankingAccounting.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Select an existing BankingAccounting entity
-	* 
-	*/
-	@RequestMapping("/selectBankingAccounting")
-	public ModelAndView selectBankingAccounting(@RequestParam Integer idKey) {
-		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("bankingaccounting", bankingAccountingDAO.findBankingAccountingByPrimaryKey(idKey));
-		mav.setViewName("bankingaccounting/viewBankingAccounting.jsp");
-
-		return mav;
-	}
-
-	/**
-	* View an existing Comapny entity
-	* 
-	*/
-	@RequestMapping("/selectBankingAccountingComapny")
-	public ModelAndView selectBankingAccountingComapny(@RequestParam Integer bankingaccounting_id, @RequestParam Integer comapny_companyId) {
-		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_companyId, -1, -1);
-
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("bankingaccounting_id", bankingaccounting_id);
-		mav.addObject("comapny", comapny);
-		mav.setViewName("bankingaccounting/comapny/viewComapny.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Select the child Comapny entity for display allowing the user to confirm that they would like to delete the entity
-	* 
-	*/
-	@RequestMapping("/confirmDeleteBankingAccountingComapny")
-	public ModelAndView confirmDeleteBankingAccountingComapny(@RequestParam Integer bankingaccounting_id, @RequestParam Integer related_comapny_companyId) {
-		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("comapny", comapnyDAO.findComapnyByPrimaryKey(related_comapny_companyId));
-		mav.addObject("bankingaccounting_id", bankingaccounting_id);
-		mav.setViewName("bankingaccounting/comapny/deleteComapny.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Save an existing BankingAccounting entity
-	* 
-	*/
-	@RequestMapping("/saveBankingAccounting")
-	public String saveBankingAccounting(@ModelAttribute BankingAccounting bankingaccounting) {
-		bankingAccountingService.saveBankingAccounting(bankingaccounting);
-		return "forward:/indexBankingAccounting";
-	}
-
-	/**
-	* Entry point to show all BankingAccounting entities
-	* 
-	*/
-	public String indexBankingAccounting() {
-		return "redirect:/indexBankingAccounting";
-	}
-
-	/**
-	* Edit an existing Comapny entity
-	* 
-	*/
-	@RequestMapping("/editBankingAccountingComapny")
-	public ModelAndView editBankingAccountingComapny(@RequestParam Integer bankingaccounting_id, @RequestParam Integer comapny_companyId) {
-		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_companyId, -1, -1);
-
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("bankingaccounting_id", bankingaccounting_id);
-		mav.addObject("comapny", comapny);
-		mav.setViewName("bankingaccounting/comapny/editComapny.jsp");
 
 		return mav;
 	}
@@ -187,46 +102,26 @@ public class BankingAccountingController {
 	}
 
 	/**
-	* Show all Comapny entities by BankingAccounting
-	* 
 	*/
-	@RequestMapping("/listBankingAccountingComapny")
-	public ModelAndView listBankingAccountingComapny(@RequestParam Integer idKey) {
+	@RequestMapping("/bankingaccountingController/binary.action")
+	public ModelAndView streamBinary(@ModelAttribute HttpServletRequest request, @ModelAttribute HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("bankingaccounting", bankingAccountingDAO.findBankingAccountingByPrimaryKey(idKey));
-		mav.setViewName("bankingaccounting/comapny/listComapny.jsp");
-
+		mav.setViewName("streamedBinaryContentView");
 		return mav;
+
 	}
 
 	/**
-	* Save an existing Comapny entity
+	* Select the child Comapny entity for display allowing the user to confirm that they would like to delete the entity
 	* 
 	*/
-	@RequestMapping("/saveBankingAccountingComapny")
-	public ModelAndView saveBankingAccountingComapny(@RequestParam Integer bankingaccounting_id, @ModelAttribute Comapny comapny) {
-		BankingAccounting parent_bankingaccounting = bankingAccountingService.saveBankingAccountingComapny(bankingaccounting_id, comapny);
-
+	@RequestMapping("/confirmDeleteBankingAccountingComapny")
+	public ModelAndView confirmDeleteBankingAccountingComapny(@RequestParam Integer bankingaccounting_id, @RequestParam Integer related_comapny_id) {
 		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("comapny", comapnyDAO.findComapnyByPrimaryKey(related_comapny_id));
 		mav.addObject("bankingaccounting_id", bankingaccounting_id);
-		mav.addObject("bankingaccounting", parent_bankingaccounting);
-		mav.setViewName("bankingaccounting/viewBankingAccounting.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Create a new BankingAccounting entity
-	* 
-	*/
-	@RequestMapping("/newBankingAccounting")
-	public ModelAndView newBankingAccounting() {
-		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("bankingaccounting", new BankingAccounting());
-		mav.addObject("newFlag", true);
-		mav.setViewName("bankingaccounting/editBankingAccounting.jsp");
+		mav.setViewName("bankingaccounting/comapny/deleteComapny.jsp");
 
 		return mav;
 	}
@@ -241,6 +136,44 @@ public class BankingAccountingController {
 
 		mav.addObject("bankingaccounting", bankingAccountingDAO.findBankingAccountingByPrimaryKey(idKey));
 		mav.setViewName("bankingaccounting/editBankingAccounting.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Show all Comapny entities by BankingAccounting
+	* 
+	*/
+	@RequestMapping("/listBankingAccountingComapny")
+	public ModelAndView listBankingAccountingComapny(@RequestParam Integer idKey) {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("bankingaccounting", bankingAccountingDAO.findBankingAccountingByPrimaryKey(idKey));
+		mav.setViewName("bankingaccounting/comapny/listComapny.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Entry point to show all BankingAccounting entities
+	* 
+	*/
+	public String indexBankingAccounting() {
+		return "redirect:/indexBankingAccounting";
+	}
+
+	/**
+	* View an existing Comapny entity
+	* 
+	*/
+	@RequestMapping("/selectBankingAccountingComapny")
+	public ModelAndView selectBankingAccountingComapny(@RequestParam Integer bankingaccounting_id, @RequestParam Integer comapny_id) {
+		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_id, -1, -1);
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("bankingaccounting_id", bankingaccounting_id);
+		mav.addObject("comapny", comapny);
+		mav.setViewName("bankingaccounting/comapny/viewComapny.jsp");
 
 		return mav;
 	}
@@ -287,6 +220,73 @@ public class BankingAccountingController {
 		mav.addObject("bankingaccounting_id", bankingaccounting_id);
 		mav.addObject("comapny", new Comapny());
 		mav.addObject("newFlag", true);
+		mav.setViewName("bankingaccounting/comapny/editComapny.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Save an existing BankingAccounting entity
+	* 
+	*/
+	@RequestMapping("/saveBankingAccounting")
+	public String saveBankingAccounting(@ModelAttribute BankingAccounting bankingaccounting) {
+		bankingAccountingService.saveBankingAccounting(bankingaccounting);
+		return "forward:/indexBankingAccounting";
+	}
+
+	/**
+	* Select an existing BankingAccounting entity
+	* 
+	*/
+	@RequestMapping("/selectBankingAccounting")
+	public ModelAndView selectBankingAccounting(@RequestParam Integer idKey) {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("bankingaccounting", bankingAccountingDAO.findBankingAccountingByPrimaryKey(idKey));
+		mav.setViewName("bankingaccounting/viewBankingAccounting.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Delete an existing BankingAccounting entity
+	* 
+	*/
+	@RequestMapping("/deleteBankingAccounting")
+	public String deleteBankingAccounting(@RequestParam Integer idKey) {
+		BankingAccounting bankingaccounting = bankingAccountingDAO.findBankingAccountingByPrimaryKey(idKey);
+		bankingAccountingService.deleteBankingAccounting(bankingaccounting);
+		return "forward:/indexBankingAccounting";
+	}
+
+	/**
+	* Save an existing Comapny entity
+	* 
+	*/
+	@RequestMapping("/saveBankingAccountingComapny")
+	public ModelAndView saveBankingAccountingComapny(@RequestParam Integer bankingaccounting_id, @ModelAttribute Comapny comapny) {
+		BankingAccounting parent_bankingaccounting = bankingAccountingService.saveBankingAccountingComapny(bankingaccounting_id, comapny);
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("bankingaccounting_id", bankingaccounting_id);
+		mav.addObject("bankingaccounting", parent_bankingaccounting);
+		mav.setViewName("bankingaccounting/viewBankingAccounting.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Edit an existing Comapny entity
+	* 
+	*/
+	@RequestMapping("/editBankingAccountingComapny")
+	public ModelAndView editBankingAccountingComapny(@RequestParam Integer bankingaccounting_id, @RequestParam Integer comapny_id) {
+		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_id, -1, -1);
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("bankingaccounting_id", bankingaccounting_id);
+		mav.addObject("comapny", comapny);
 		mav.setViewName("bankingaccounting/comapny/editComapny.jsp");
 
 		return mav;

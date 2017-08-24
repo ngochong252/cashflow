@@ -46,13 +46,66 @@ public class ValidationController {
 	private ValidationService validationService;
 
 	/**
+	 * Delete an existing Validation entity
+	 * 
 	 */
-	@RequestMapping("/validationController/binary.action")
-	public ModelAndView streamBinary(@ModelAttribute HttpServletRequest request, @ModelAttribute HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("streamedBinaryContentView");
-		return mav;
+	@RequestMapping("/deleteValidation")
+	public String deleteValidation(@RequestParam Integer idKey) {
+		Validation validation = validationDAO.findValidationByPrimaryKey(idKey);
+		validationService.deleteValidation(validation);
+		return "forward:/indexValidation";
+	}
 
+	/**
+	* Show all Validation entities
+	* 
+	*/
+	@RequestMapping("/indexValidation")
+	public ModelAndView listValidations() {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("validations", validationService.loadValidations());
+
+		mav.setViewName("validation/listValidations.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Select the Validation entity for display allowing the user to confirm that they would like to delete the entity
+	* 
+	*/
+	@RequestMapping("/confirmDeleteValidation")
+	public ModelAndView confirmDeleteValidation(@RequestParam Integer idKey) {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("validation", validationDAO.findValidationByPrimaryKey(idKey));
+		mav.setViewName("validation/deleteValidation.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Create a new Validation entity
+	* 
+	*/
+	@RequestMapping("/newValidation")
+	public ModelAndView newValidation() {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("validation", new Validation());
+		mav.addObject("newFlag", true);
+		mav.setViewName("validation/editValidation.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Entry point to show all Validation entities
+	* 
+	*/
+	public String indexValidation() {
+		return "redirect:/indexValidation";
 	}
 
 	/**
@@ -70,37 +123,15 @@ public class ValidationController {
 	}
 
 	/**
-	* Delete an existing Validation entity
+	* Edit an existing Validation entity
 	* 
 	*/
-	@RequestMapping("/deleteValidation")
-	public String deleteValidation(@RequestParam Integer idKey) {
-		Validation validation = validationDAO.findValidationByPrimaryKey(idKey);
-		validationService.deleteValidation(validation);
-		return "forward:/indexValidation";
-	}
-
-	/**
-	* Save an existing Validation entity
-	* 
-	*/
-	@RequestMapping("/saveValidation")
-	public String saveValidation(@ModelAttribute Validation validation) {
-		validationService.saveValidation(validation);
-		return "forward:/indexValidation";
-	}
-
-	/**
-	* Show all Validation entities
-	* 
-	*/
-	@RequestMapping("/indexValidation")
-	public ModelAndView listValidations() {
+	@RequestMapping("/editValidation")
+	public ModelAndView editValidation(@RequestParam Integer idKey) {
 		ModelAndView mav = new ModelAndView();
 
-		mav.addObject("validations", validationService.loadValidations());
-
-		mav.setViewName("validation/listValidations.jsp");
+		mav.addObject("validation", validationDAO.findValidationByPrimaryKey(idKey));
+		mav.setViewName("validation/editValidation.jsp");
 
 		return mav;
 	}
@@ -124,53 +155,22 @@ public class ValidationController {
 	}
 
 	/**
-	* Edit an existing Validation entity
+	* Save an existing Validation entity
 	* 
 	*/
-	@RequestMapping("/editValidation")
-	public ModelAndView editValidation(@RequestParam Integer idKey) {
-		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("validation", validationDAO.findValidationByPrimaryKey(idKey));
-		mav.setViewName("validation/editValidation.jsp");
-
-		return mav;
+	@RequestMapping("/saveValidation")
+	public String saveValidation(@ModelAttribute Validation validation) {
+		validationService.saveValidation(validation);
+		return "forward:/indexValidation";
 	}
 
 	/**
-	* Select the Validation entity for display allowing the user to confirm that they would like to delete the entity
-	* 
 	*/
-	@RequestMapping("/confirmDeleteValidation")
-	public ModelAndView confirmDeleteValidation(@RequestParam Integer idKey) {
+	@RequestMapping("/validationController/binary.action")
+	public ModelAndView streamBinary(@ModelAttribute HttpServletRequest request, @ModelAttribute HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("validation", validationDAO.findValidationByPrimaryKey(idKey));
-		mav.setViewName("validation/deleteValidation.jsp");
-
+		mav.setViewName("streamedBinaryContentView");
 		return mav;
-	}
 
-	/**
-	* Entry point to show all Validation entities
-	* 
-	*/
-	public String indexValidation() {
-		return "redirect:/indexValidation";
-	}
-
-	/**
-	* Create a new Validation entity
-	* 
-	*/
-	@RequestMapping("/newValidation")
-	public ModelAndView newValidation() {
-		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("validation", new Validation());
-		mav.addObject("newFlag", true);
-		mav.setViewName("validation/editValidation.jsp");
-
-		return mav;
 	}
 }

@@ -55,9 +55,40 @@ public class ErrorDetailsController {
 	private ErrorDetailsService errorDetailsService;
 
 	/**
-	 * Select the ErrorDetails entity for display allowing the user to confirm that they would like to delete the entity
+	 * Edit an existing ProcessCase entity
 	 * 
 	 */
+	@RequestMapping("/editErrorDetailsProcessCases")
+	public ModelAndView editErrorDetailsProcessCases(@RequestParam Integer errordetails_id, @RequestParam Integer processcases_id) {
+		ProcessCase processcase = processCaseDAO.findProcessCaseByPrimaryKey(processcases_id, -1, -1);
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("errordetails_id", errordetails_id);
+		mav.addObject("processcase", processcase);
+		mav.setViewName("errordetails/processcases/editProcessCases.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Create a new ProcessCase entity
+	* 
+	*/
+	@RequestMapping("/newErrorDetailsProcessCases")
+	public ModelAndView newErrorDetailsProcessCases(@RequestParam Integer errordetails_id) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("errordetails_id", errordetails_id);
+		mav.addObject("processcase", new ProcessCase());
+		mav.addObject("newFlag", true);
+		mav.setViewName("errordetails/processcases/editProcessCases.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Select the ErrorDetails entity for display allowing the user to confirm that they would like to delete the entity
+	* 
+	*/
 	@RequestMapping("/confirmDeleteErrorDetails")
 	public ModelAndView confirmDeleteErrorDetails(@RequestParam Integer idKey) {
 		ModelAndView mav = new ModelAndView();
@@ -69,33 +100,43 @@ public class ErrorDetailsController {
 	}
 
 	/**
-	* Delete an existing ProcessCase entity
+	* Save an existing ProcessCase entity
 	* 
 	*/
-	@RequestMapping("/deleteErrorDetailsProcessCases")
-	public ModelAndView deleteErrorDetailsProcessCases(@RequestParam Integer errordetails_id, @RequestParam Integer related_processcases_id) {
+	@RequestMapping("/saveErrorDetailsProcessCases")
+	public ModelAndView saveErrorDetailsProcessCases(@RequestParam Integer errordetails_id, @ModelAttribute ProcessCase processcases) {
+		ErrorDetails parent_errordetails = errorDetailsService.saveErrorDetailsProcessCases(errordetails_id, processcases);
+
 		ModelAndView mav = new ModelAndView();
-
-		ErrorDetails errordetails = errorDetailsService.deleteErrorDetailsProcessCases(errordetails_id, related_processcases_id);
-
 		mav.addObject("errordetails_id", errordetails_id);
-		mav.addObject("errordetails", errordetails);
+		mav.addObject("errordetails", parent_errordetails);
 		mav.setViewName("errordetails/viewErrorDetails.jsp");
 
 		return mav;
 	}
 
 	/**
-	* Show all ErrorDetails entities
+	* Delete an existing ErrorDetails entity
 	* 
 	*/
-	@RequestMapping("/indexErrorDetails")
-	public ModelAndView listErrorDetailss() {
+	@RequestMapping("/deleteErrorDetails")
+	public String deleteErrorDetails(@RequestParam Integer idKey) {
+		ErrorDetails errordetails = errorDetailsDAO.findErrorDetailsByPrimaryKey(idKey);
+		errorDetailsService.deleteErrorDetails(errordetails);
+		return "forward:/indexErrorDetails";
+	}
+
+	/**
+	* Select the child ProcessCase entity for display allowing the user to confirm that they would like to delete the entity
+	* 
+	*/
+	@RequestMapping("/confirmDeleteErrorDetailsProcessCases")
+	public ModelAndView confirmDeleteErrorDetailsProcessCases(@RequestParam Integer errordetails_id, @RequestParam Integer related_processcases_id) {
 		ModelAndView mav = new ModelAndView();
 
-		mav.addObject("errordetailss", errorDetailsService.loadErrorDetailss());
-
-		mav.setViewName("errordetails/listErrorDetailss.jsp");
+		mav.addObject("processcase", processCaseDAO.findProcessCaseByPrimaryKey(related_processcases_id));
+		mav.addObject("errordetails_id", errordetails_id);
+		mav.setViewName("errordetails/processcases/deleteProcessCases.jsp");
 
 		return mav;
 	}
@@ -119,42 +160,42 @@ public class ErrorDetailsController {
 	}
 
 	/**
-	* Delete an existing ErrorDetails entity
+	* View an existing ProcessCase entity
 	* 
 	*/
-	@RequestMapping("/deleteErrorDetails")
-	public String deleteErrorDetails(@RequestParam Integer idKey) {
-		ErrorDetails errordetails = errorDetailsDAO.findErrorDetailsByPrimaryKey(idKey);
-		errorDetailsService.deleteErrorDetails(errordetails);
-		return "forward:/indexErrorDetails";
-	}
-
-	/**
-	* Edit an existing ErrorDetails entity
-	* 
-	*/
-	@RequestMapping("/editErrorDetails")
-	public ModelAndView editErrorDetails(@RequestParam Integer idKey) {
-		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("errordetails", errorDetailsDAO.findErrorDetailsByPrimaryKey(idKey));
-		mav.setViewName("errordetails/editErrorDetails.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Edit an existing ProcessCase entity
-	* 
-	*/
-	@RequestMapping("/editErrorDetailsProcessCases")
-	public ModelAndView editErrorDetailsProcessCases(@RequestParam Integer errordetails_id, @RequestParam Integer processcases_id) {
+	@RequestMapping("/selectErrorDetailsProcessCases")
+	public ModelAndView selectErrorDetailsProcessCases(@RequestParam Integer errordetails_id, @RequestParam Integer processcases_id) {
 		ProcessCase processcase = processCaseDAO.findProcessCaseByPrimaryKey(processcases_id, -1, -1);
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("errordetails_id", errordetails_id);
 		mav.addObject("processcase", processcase);
-		mav.setViewName("errordetails/processcases/editProcessCases.jsp");
+		mav.setViewName("errordetails/processcases/viewProcessCases.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Save an existing ErrorDetails entity
+	* 
+	*/
+	@RequestMapping("/saveErrorDetails")
+	public String saveErrorDetails(@ModelAttribute ErrorDetails errordetails) {
+		errorDetailsService.saveErrorDetails(errordetails);
+		return "forward:/indexErrorDetails";
+	}
+
+	/**
+	* Show all ErrorDetails entities
+	* 
+	*/
+	@RequestMapping("/indexErrorDetails")
+	public ModelAndView listErrorDetailss() {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("errordetailss", errorDetailsService.loadErrorDetailss());
+
+		mav.setViewName("errordetails/listErrorDetailss.jsp");
 
 		return mav;
 	}
@@ -184,14 +225,17 @@ public class ErrorDetailsController {
 	}
 
 	/**
-	* Select an existing ErrorDetails entity
+	* Delete an existing ProcessCase entity
 	* 
 	*/
-	@RequestMapping("/selectErrorDetails")
-	public ModelAndView selectErrorDetails(@RequestParam Integer idKey) {
+	@RequestMapping("/deleteErrorDetailsProcessCases")
+	public ModelAndView deleteErrorDetailsProcessCases(@RequestParam Integer errordetails_id, @RequestParam Integer related_processcases_id) {
 		ModelAndView mav = new ModelAndView();
 
-		mav.addObject("errordetails", errorDetailsDAO.findErrorDetailsByPrimaryKey(idKey));
+		ErrorDetails errordetails = errorDetailsService.deleteErrorDetailsProcessCases(errordetails_id, related_processcases_id);
+
+		mav.addObject("errordetails_id", errordetails_id);
+		mav.addObject("errordetails", errordetails);
 		mav.setViewName("errordetails/viewErrorDetails.jsp");
 
 		return mav;
@@ -206,73 +250,15 @@ public class ErrorDetailsController {
 	}
 
 	/**
-	* Save an existing ErrorDetails entity
+	* Select an existing ErrorDetails entity
 	* 
 	*/
-	@RequestMapping("/saveErrorDetails")
-	public String saveErrorDetails(@ModelAttribute ErrorDetails errordetails) {
-		errorDetailsService.saveErrorDetails(errordetails);
-		return "forward:/indexErrorDetails";
-	}
-
-	/**
-	* Save an existing ProcessCase entity
-	* 
-	*/
-	@RequestMapping("/saveErrorDetailsProcessCases")
-	public ModelAndView saveErrorDetailsProcessCases(@RequestParam Integer errordetails_id, @ModelAttribute ProcessCase processcases) {
-		ErrorDetails parent_errordetails = errorDetailsService.saveErrorDetailsProcessCases(errordetails_id, processcases);
-
+	@RequestMapping("/selectErrorDetails")
+	public ModelAndView selectErrorDetails(@RequestParam Integer idKey) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("errordetails_id", errordetails_id);
-		mav.addObject("errordetails", parent_errordetails);
+
+		mav.addObject("errordetails", errorDetailsDAO.findErrorDetailsByPrimaryKey(idKey));
 		mav.setViewName("errordetails/viewErrorDetails.jsp");
-
-		return mav;
-	}
-
-	/**
-	* View an existing ProcessCase entity
-	* 
-	*/
-	@RequestMapping("/selectErrorDetailsProcessCases")
-	public ModelAndView selectErrorDetailsProcessCases(@RequestParam Integer errordetails_id, @RequestParam Integer processcases_id) {
-		ProcessCase processcase = processCaseDAO.findProcessCaseByPrimaryKey(processcases_id, -1, -1);
-
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("errordetails_id", errordetails_id);
-		mav.addObject("processcase", processcase);
-		mav.setViewName("errordetails/processcases/viewProcessCases.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Select the child ProcessCase entity for display allowing the user to confirm that they would like to delete the entity
-	* 
-	*/
-	@RequestMapping("/confirmDeleteErrorDetailsProcessCases")
-	public ModelAndView confirmDeleteErrorDetailsProcessCases(@RequestParam Integer errordetails_id, @RequestParam Integer related_processcases_id) {
-		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("processcase", processCaseDAO.findProcessCaseByPrimaryKey(related_processcases_id));
-		mav.addObject("errordetails_id", errordetails_id);
-		mav.setViewName("errordetails/processcases/deleteProcessCases.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Create a new ProcessCase entity
-	* 
-	*/
-	@RequestMapping("/newErrorDetailsProcessCases")
-	public ModelAndView newErrorDetailsProcessCases(@RequestParam Integer errordetails_id) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("errordetails_id", errordetails_id);
-		mav.addObject("processcase", new ProcessCase());
-		mav.addObject("newFlag", true);
-		mav.setViewName("errordetails/processcases/editProcessCases.jsp");
 
 		return mav;
 	}
@@ -287,6 +273,20 @@ public class ErrorDetailsController {
 
 		mav.addObject("errordetails", new ErrorDetails());
 		mav.addObject("newFlag", true);
+		mav.setViewName("errordetails/editErrorDetails.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Edit an existing ErrorDetails entity
+	* 
+	*/
+	@RequestMapping("/editErrorDetails")
+	public ModelAndView editErrorDetails(@RequestParam Integer idKey) {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("errordetails", errorDetailsDAO.findErrorDetailsByPrimaryKey(idKey));
 		mav.setViewName("errordetails/editErrorDetails.jsp");
 
 		return mav;

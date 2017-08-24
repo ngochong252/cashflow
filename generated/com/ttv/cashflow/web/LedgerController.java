@@ -73,197 +73,9 @@ public class LedgerController {
 	private LedgerService ledgerService;
 
 	/**
-	 * Delete an existing Ledger entity
+	 * Create a new Ledger entity
 	 * 
 	 */
-	@RequestMapping("/deleteLedger")
-	public String deleteLedger(@RequestParam Integer idKey) {
-		Ledger ledger = ledgerDAO.findLedgerByPrimaryKey(idKey);
-		ledgerService.deleteLedger(ledger);
-		return "forward:/indexLedger";
-	}
-
-	/**
-	* View an existing Comapny entity
-	* 
-	*/
-	@RequestMapping("/selectLedgerComapny")
-	public ModelAndView selectLedgerComapny(@RequestParam Integer ledger_id, @RequestParam Integer comapny_companyId) {
-		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_companyId, -1, -1);
-
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("ledger_id", ledger_id);
-		mav.addObject("comapny", comapny);
-		mav.setViewName("ledger/comapny/viewComapny.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Save an existing Ledger entity
-	* 
-	*/
-	@RequestMapping("/saveLedger")
-	public String saveLedger(@ModelAttribute Ledger ledger) {
-		ledgerService.saveLedger(ledger);
-		return "forward:/indexLedger";
-	}
-
-	/**
-	* Edit an existing Comapny entity
-	* 
-	*/
-	@RequestMapping("/editLedgerComapny")
-	public ModelAndView editLedgerComapny(@RequestParam Integer ledger_id, @RequestParam Integer comapny_companyId) {
-		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_companyId, -1, -1);
-
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("ledger_id", ledger_id);
-		mav.addObject("comapny", comapny);
-		mav.setViewName("ledger/comapny/editComapny.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Edit an existing AccountPayable entity
-	* 
-	*/
-	@RequestMapping("/editLedgerAccountPayables")
-	public ModelAndView editLedgerAccountPayables(@RequestParam Integer ledger_id, @RequestParam Integer accountpayables_id) {
-		AccountPayable accountpayable = accountPayableDAO.findAccountPayableByPrimaryKey(accountpayables_id, -1, -1);
-
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("ledger_id", ledger_id);
-		mav.addObject("accountpayable", accountpayable);
-		mav.setViewName("ledger/accountpayables/editAccountPayables.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Show all AccountReceivable entities by Ledger
-	* 
-	*/
-	@RequestMapping("/listLedgerAccountReceivables")
-	public ModelAndView listLedgerAccountReceivables(@RequestParam Integer idKey) {
-		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("ledger", ledgerDAO.findLedgerByPrimaryKey(idKey));
-		mav.setViewName("ledger/accountreceivables/listAccountReceivables.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Save an existing Comapny entity
-	* 
-	*/
-	@RequestMapping("/saveLedgerComapny")
-	public ModelAndView saveLedgerComapny(@RequestParam Integer ledger_id, @ModelAttribute Comapny comapny) {
-		Ledger parent_ledger = ledgerService.saveLedgerComapny(ledger_id, comapny);
-
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("ledger_id", ledger_id);
-		mav.addObject("ledger", parent_ledger);
-		mav.setViewName("ledger/viewLedger.jsp");
-
-		return mav;
-	}
-
-	/**
-	* View an existing AccountReceivable entity
-	* 
-	*/
-	@RequestMapping("/selectLedgerAccountReceivables")
-	public ModelAndView selectLedgerAccountReceivables(@RequestParam Integer ledger_id, @RequestParam Integer accountreceivables_id) {
-		AccountReceivable accountreceivable = accountReceivableDAO.findAccountReceivableByPrimaryKey(accountreceivables_id, -1, -1);
-
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("ledger_id", ledger_id);
-		mav.addObject("accountreceivable", accountreceivable);
-		mav.setViewName("ledger/accountreceivables/viewAccountReceivables.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Edit an existing Ledger entity
-	* 
-	*/
-	@RequestMapping("/editLedger")
-	public ModelAndView editLedger(@RequestParam Integer idKey) {
-		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("ledger", ledgerDAO.findLedgerByPrimaryKey(idKey));
-		mav.setViewName("ledger/editLedger.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Save an existing AccountReceivable entity
-	* 
-	*/
-	@RequestMapping("/saveLedgerAccountReceivables")
-	public ModelAndView saveLedgerAccountReceivables(@RequestParam Integer ledger_id, @ModelAttribute AccountReceivable accountreceivables) {
-		Ledger parent_ledger = ledgerService.saveLedgerAccountReceivables(ledger_id, accountreceivables);
-
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("ledger_id", ledger_id);
-		mav.addObject("ledger", parent_ledger);
-		mav.setViewName("ledger/viewLedger.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Show all Comapny entities by Ledger
-	* 
-	*/
-	@RequestMapping("/listLedgerComapny")
-	public ModelAndView listLedgerComapny(@RequestParam Integer idKey) {
-		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("ledger", ledgerDAO.findLedgerByPrimaryKey(idKey));
-		mav.setViewName("ledger/comapny/listComapny.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Select the child AccountReceivable entity for display allowing the user to confirm that they would like to delete the entity
-	* 
-	*/
-	@RequestMapping("/confirmDeleteLedgerAccountReceivables")
-	public ModelAndView confirmDeleteLedgerAccountReceivables(@RequestParam Integer ledger_id, @RequestParam Integer related_accountreceivables_id) {
-		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("accountreceivable", accountReceivableDAO.findAccountReceivableByPrimaryKey(related_accountreceivables_id));
-		mav.addObject("ledger_id", ledger_id);
-		mav.setViewName("ledger/accountreceivables/deleteAccountReceivables.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Select an existing Ledger entity
-	* 
-	*/
-	@RequestMapping("/selectLedger")
-	public ModelAndView selectLedger(@RequestParam Integer idKey) {
-		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("ledger", ledgerDAO.findLedgerByPrimaryKey(idKey));
-		mav.setViewName("ledger/viewLedger.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Create a new Ledger entity
-	* 
-	*/
 	@RequestMapping("/newLedger")
 	public ModelAndView newLedger() {
 		ModelAndView mav = new ModelAndView();
@@ -276,43 +88,41 @@ public class LedgerController {
 	}
 
 	/**
-	*/
-	@RequestMapping("/ledgerController/binary.action")
-	public ModelAndView streamBinary(@ModelAttribute HttpServletRequest request, @ModelAttribute HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("streamedBinaryContentView");
-		return mav;
-
-	}
-
-	/**
-	* Create a new AccountReceivable entity
+	* View an existing AccountPayable entity
 	* 
 	*/
-	@RequestMapping("/newLedgerAccountReceivables")
-	public ModelAndView newLedgerAccountReceivables(@RequestParam Integer ledger_id) {
+	@RequestMapping("/selectLedgerAccountPayables")
+	public ModelAndView selectLedgerAccountPayables(@RequestParam Integer ledger_id, @RequestParam Integer accountpayables_id) {
+		AccountPayable accountpayable = accountPayableDAO.findAccountPayableByPrimaryKey(accountpayables_id, -1, -1);
+
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("ledger_id", ledger_id);
-		mav.addObject("accountreceivable", new AccountReceivable());
-		mav.addObject("newFlag", true);
-		mav.setViewName("ledger/accountreceivables/editAccountReceivables.jsp");
+		mav.addObject("accountpayable", accountpayable);
+		mav.setViewName("ledger/accountpayables/viewAccountPayables.jsp");
 
 		return mav;
 	}
 
 	/**
-	* Delete an existing Comapny entity
+	* Entry point to show all Ledger entities
 	* 
 	*/
-	@RequestMapping("/deleteLedgerComapny")
-	public ModelAndView deleteLedgerComapny(@RequestParam Integer ledger_id, @RequestParam Integer related_comapny_companyId) {
+	public String indexLedger() {
+		return "redirect:/indexLedger";
+	}
+
+	/**
+	* Edit an existing Comapny entity
+	* 
+	*/
+	@RequestMapping("/editLedgerComapny")
+	public ModelAndView editLedgerComapny(@RequestParam Integer ledger_id, @RequestParam Integer comapny_id) {
+		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_id, -1, -1);
+
 		ModelAndView mav = new ModelAndView();
-
-		Ledger ledger = ledgerService.deleteLedgerComapny(ledger_id, related_comapny_companyId);
-
 		mav.addObject("ledger_id", ledger_id);
-		mav.addObject("ledger", ledger);
-		mav.setViewName("ledger/viewLedger.jsp");
+		mav.addObject("comapny", comapny);
+		mav.setViewName("ledger/comapny/editComapny.jsp");
 
 		return mav;
 	}
@@ -349,41 +159,32 @@ public class LedgerController {
 	}
 
 	/**
-	* Show all AccountPayable entities by Ledger
+	* Edit an existing Ledger entity
 	* 
 	*/
-	@RequestMapping("/listLedgerAccountPayables")
-	public ModelAndView listLedgerAccountPayables(@RequestParam Integer idKey) {
+	@RequestMapping("/editLedger")
+	public ModelAndView editLedger(@RequestParam Integer idKey) {
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("ledger", ledgerDAO.findLedgerByPrimaryKey(idKey));
-		mav.setViewName("ledger/accountpayables/listAccountPayables.jsp");
+		mav.setViewName("ledger/editLedger.jsp");
 
 		return mav;
 	}
 
 	/**
-	* Edit an existing AccountReceivable entity
+	* Select the child Comapny entity for display allowing the user to confirm that they would like to delete the entity
 	* 
 	*/
-	@RequestMapping("/editLedgerAccountReceivables")
-	public ModelAndView editLedgerAccountReceivables(@RequestParam Integer ledger_id, @RequestParam Integer accountreceivables_id) {
-		AccountReceivable accountreceivable = accountReceivableDAO.findAccountReceivableByPrimaryKey(accountreceivables_id, -1, -1);
-
+	@RequestMapping("/confirmDeleteLedgerComapny")
+	public ModelAndView confirmDeleteLedgerComapny(@RequestParam Integer ledger_id, @RequestParam Integer related_comapny_id) {
 		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("comapny", comapnyDAO.findComapnyByPrimaryKey(related_comapny_id));
 		mav.addObject("ledger_id", ledger_id);
-		mav.addObject("accountreceivable", accountreceivable);
-		mav.setViewName("ledger/accountreceivables/editAccountReceivables.jsp");
+		mav.setViewName("ledger/comapny/deleteComapny.jsp");
 
 		return mav;
-	}
-
-	/**
-	* Entry point to show all Ledger entities
-	* 
-	*/
-	public String indexLedger() {
-		return "redirect:/indexLedger";
 	}
 
 	/**
@@ -402,6 +203,16 @@ public class LedgerController {
 	}
 
 	/**
+	* Save an existing Ledger entity
+	* 
+	*/
+	@RequestMapping("/saveLedger")
+	public String saveLedger(@ModelAttribute Ledger ledger) {
+		ledgerService.saveLedger(ledger);
+		return "forward:/indexLedger";
+	}
+
+	/**
 	* Select the child AccountPayable entity for display allowing the user to confirm that they would like to delete the entity
 	* 
 	*/
@@ -417,48 +228,80 @@ public class LedgerController {
 	}
 
 	/**
-	* Show all Ledger entities
+	* Delete an existing AccountReceivable entity
 	* 
 	*/
-	@RequestMapping("/indexLedger")
-	public ModelAndView listLedgers() {
+	@RequestMapping("/deleteLedgerAccountReceivables")
+	public ModelAndView deleteLedgerAccountReceivables(@RequestParam Integer ledger_id, @RequestParam Integer related_accountreceivables_id) {
 		ModelAndView mav = new ModelAndView();
 
-		mav.addObject("ledgers", ledgerService.loadLedgers());
+		Ledger ledger = ledgerService.deleteLedgerAccountReceivables(ledger_id, related_accountreceivables_id);
 
-		mav.setViewName("ledger/listLedgers.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Save an existing AccountPayable entity
-	* 
-	*/
-	@RequestMapping("/saveLedgerAccountPayables")
-	public ModelAndView saveLedgerAccountPayables(@RequestParam Integer ledger_id, @ModelAttribute AccountPayable accountpayables) {
-		Ledger parent_ledger = ledgerService.saveLedgerAccountPayables(ledger_id, accountpayables);
-
-		ModelAndView mav = new ModelAndView();
 		mav.addObject("ledger_id", ledger_id);
-		mav.addObject("ledger", parent_ledger);
+		mav.addObject("ledger", ledger);
 		mav.setViewName("ledger/viewLedger.jsp");
 
 		return mav;
 	}
 
 	/**
-	* View an existing AccountPayable entity
+	* Create a new AccountReceivable entity
 	* 
 	*/
-	@RequestMapping("/selectLedgerAccountPayables")
-	public ModelAndView selectLedgerAccountPayables(@RequestParam Integer ledger_id, @RequestParam Integer accountpayables_id) {
-		AccountPayable accountpayable = accountPayableDAO.findAccountPayableByPrimaryKey(accountpayables_id, -1, -1);
+	@RequestMapping("/newLedgerAccountReceivables")
+	public ModelAndView newLedgerAccountReceivables(@RequestParam Integer ledger_id) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("ledger_id", ledger_id);
+		mav.addObject("accountreceivable", new AccountReceivable());
+		mav.addObject("newFlag", true);
+		mav.setViewName("ledger/accountreceivables/editAccountReceivables.jsp");
+
+		return mav;
+	}
+
+	/**
+	* View an existing AccountReceivable entity
+	* 
+	*/
+	@RequestMapping("/selectLedgerAccountReceivables")
+	public ModelAndView selectLedgerAccountReceivables(@RequestParam Integer ledger_id, @RequestParam Integer accountreceivables_id) {
+		AccountReceivable accountreceivable = accountReceivableDAO.findAccountReceivableByPrimaryKey(accountreceivables_id, -1, -1);
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("ledger_id", ledger_id);
-		mav.addObject("accountpayable", accountpayable);
-		mav.setViewName("ledger/accountpayables/viewAccountPayables.jsp");
+		mav.addObject("accountreceivable", accountreceivable);
+		mav.setViewName("ledger/accountreceivables/viewAccountReceivables.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Select an existing Ledger entity
+	* 
+	*/
+	@RequestMapping("/selectLedger")
+	public ModelAndView selectLedger(@RequestParam Integer idKey) {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("ledger", ledgerDAO.findLedgerByPrimaryKey(idKey));
+		mav.setViewName("ledger/viewLedger.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Delete an existing Comapny entity
+	* 
+	*/
+	@RequestMapping("/deleteLedgerComapny")
+	public ModelAndView deleteLedgerComapny(@RequestParam Integer ledger_id, @RequestParam Integer related_comapny_id) {
+		ModelAndView mav = new ModelAndView();
+
+		Ledger ledger = ledgerService.deleteLedgerComapny(ledger_id, related_comapny_id);
+
+		mav.addObject("ledger_id", ledger_id);
+		mav.addObject("ledger", ledger);
+		mav.setViewName("ledger/viewLedger.jsp");
 
 		return mav;
 	}
@@ -482,18 +325,105 @@ public class LedgerController {
 	}
 
 	/**
-	* Delete an existing AccountReceivable entity
+	* View an existing Comapny entity
 	* 
 	*/
-	@RequestMapping("/deleteLedgerAccountReceivables")
-	public ModelAndView deleteLedgerAccountReceivables(@RequestParam Integer ledger_id, @RequestParam Integer related_accountreceivables_id) {
+	@RequestMapping("/selectLedgerComapny")
+	public ModelAndView selectLedgerComapny(@RequestParam Integer ledger_id, @RequestParam Integer comapny_id) {
+		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_id, -1, -1);
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("ledger_id", ledger_id);
+		mav.addObject("comapny", comapny);
+		mav.setViewName("ledger/comapny/viewComapny.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Save an existing AccountPayable entity
+	* 
+	*/
+	@RequestMapping("/saveLedgerAccountPayables")
+	public ModelAndView saveLedgerAccountPayables(@RequestParam Integer ledger_id, @ModelAttribute AccountPayable accountpayables) {
+		Ledger parent_ledger = ledgerService.saveLedgerAccountPayables(ledger_id, accountpayables);
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("ledger_id", ledger_id);
+		mav.addObject("ledger", parent_ledger);
+		mav.setViewName("ledger/viewLedger.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Save an existing AccountReceivable entity
+	* 
+	*/
+	@RequestMapping("/saveLedgerAccountReceivables")
+	public ModelAndView saveLedgerAccountReceivables(@RequestParam Integer ledger_id, @ModelAttribute AccountReceivable accountreceivables) {
+		Ledger parent_ledger = ledgerService.saveLedgerAccountReceivables(ledger_id, accountreceivables);
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("ledger_id", ledger_id);
+		mav.addObject("ledger", parent_ledger);
+		mav.setViewName("ledger/viewLedger.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Edit an existing AccountPayable entity
+	* 
+	*/
+	@RequestMapping("/editLedgerAccountPayables")
+	public ModelAndView editLedgerAccountPayables(@RequestParam Integer ledger_id, @RequestParam Integer accountpayables_id) {
+		AccountPayable accountpayable = accountPayableDAO.findAccountPayableByPrimaryKey(accountpayables_id, -1, -1);
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("ledger_id", ledger_id);
+		mav.addObject("accountpayable", accountpayable);
+		mav.setViewName("ledger/accountpayables/editAccountPayables.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Delete an existing Ledger entity
+	* 
+	*/
+	@RequestMapping("/deleteLedger")
+	public String deleteLedger(@RequestParam Integer idKey) {
+		Ledger ledger = ledgerDAO.findLedgerByPrimaryKey(idKey);
+		ledgerService.deleteLedger(ledger);
+		return "forward:/indexLedger";
+	}
+
+	/**
+	* Show all AccountPayable entities by Ledger
+	* 
+	*/
+	@RequestMapping("/listLedgerAccountPayables")
+	public ModelAndView listLedgerAccountPayables(@RequestParam Integer idKey) {
 		ModelAndView mav = new ModelAndView();
 
-		Ledger ledger = ledgerService.deleteLedgerAccountReceivables(ledger_id, related_accountreceivables_id);
+		mav.addObject("ledger", ledgerDAO.findLedgerByPrimaryKey(idKey));
+		mav.setViewName("ledger/accountpayables/listAccountPayables.jsp");
 
+		return mav;
+	}
+
+	/**
+	* Select the child AccountReceivable entity for display allowing the user to confirm that they would like to delete the entity
+	* 
+	*/
+	@RequestMapping("/confirmDeleteLedgerAccountReceivables")
+	public ModelAndView confirmDeleteLedgerAccountReceivables(@RequestParam Integer ledger_id, @RequestParam Integer related_accountreceivables_id) {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("accountreceivable", accountReceivableDAO.findAccountReceivableByPrimaryKey(related_accountreceivables_id));
 		mav.addObject("ledger_id", ledger_id);
-		mav.addObject("ledger", ledger);
-		mav.setViewName("ledger/viewLedger.jsp");
+		mav.setViewName("ledger/accountreceivables/deleteAccountReceivables.jsp");
 
 		return mav;
 	}
@@ -514,16 +444,86 @@ public class LedgerController {
 	}
 
 	/**
-	* Select the child Comapny entity for display allowing the user to confirm that they would like to delete the entity
+	* Save an existing Comapny entity
 	* 
 	*/
-	@RequestMapping("/confirmDeleteLedgerComapny")
-	public ModelAndView confirmDeleteLedgerComapny(@RequestParam Integer ledger_id, @RequestParam Integer related_comapny_companyId) {
+	@RequestMapping("/saveLedgerComapny")
+	public ModelAndView saveLedgerComapny(@RequestParam Integer ledger_id, @ModelAttribute Comapny comapny) {
+		Ledger parent_ledger = ledgerService.saveLedgerComapny(ledger_id, comapny);
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("ledger_id", ledger_id);
+		mav.addObject("ledger", parent_ledger);
+		mav.setViewName("ledger/viewLedger.jsp");
+
+		return mav;
+	}
+
+	/**
+	*/
+	@RequestMapping("/ledgerController/binary.action")
+	public ModelAndView streamBinary(@ModelAttribute HttpServletRequest request, @ModelAttribute HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("streamedBinaryContentView");
+		return mav;
+
+	}
+
+	/**
+	* Edit an existing AccountReceivable entity
+	* 
+	*/
+	@RequestMapping("/editLedgerAccountReceivables")
+	public ModelAndView editLedgerAccountReceivables(@RequestParam Integer ledger_id, @RequestParam Integer accountreceivables_id) {
+		AccountReceivable accountreceivable = accountReceivableDAO.findAccountReceivableByPrimaryKey(accountreceivables_id, -1, -1);
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("ledger_id", ledger_id);
+		mav.addObject("accountreceivable", accountreceivable);
+		mav.setViewName("ledger/accountreceivables/editAccountReceivables.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Show all AccountReceivable entities by Ledger
+	* 
+	*/
+	@RequestMapping("/listLedgerAccountReceivables")
+	public ModelAndView listLedgerAccountReceivables(@RequestParam Integer idKey) {
 		ModelAndView mav = new ModelAndView();
 
-		mav.addObject("comapny", comapnyDAO.findComapnyByPrimaryKey(related_comapny_companyId));
-		mav.addObject("ledger_id", ledger_id);
-		mav.setViewName("ledger/comapny/deleteComapny.jsp");
+		mav.addObject("ledger", ledgerDAO.findLedgerByPrimaryKey(idKey));
+		mav.setViewName("ledger/accountreceivables/listAccountReceivables.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Show all Comapny entities by Ledger
+	* 
+	*/
+	@RequestMapping("/listLedgerComapny")
+	public ModelAndView listLedgerComapny(@RequestParam Integer idKey) {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("ledger", ledgerDAO.findLedgerByPrimaryKey(idKey));
+		mav.setViewName("ledger/comapny/listComapny.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Show all Ledger entities
+	* 
+	*/
+	@RequestMapping("/indexLedger")
+	public ModelAndView listLedgers() {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("ledgers", ledgerService.loadLedgers());
+
+		mav.setViewName("ledger/listLedgers.jsp");
 
 		return mav;
 	}

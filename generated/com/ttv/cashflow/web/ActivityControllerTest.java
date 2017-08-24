@@ -24,9 +24,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.request.SessionScope;
 
 /**
- * Unit test for the <code>ValidationController</code> controller.
+ * Unit test for the <code>ActivityController</code> controller.
  *
- * @see com.ttv.cashflow.web.ValidationController
+ * @see com.ttv.cashflow.web.ActivityController
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -34,7 +34,7 @@ import org.springframework.web.context.request.SessionScope;
 		"file:./resources/cashflow-service-context.xml",
 		"file:./resources/cashflow-dao-context.xml",
 		"file:./resources/cashflow-web-context.xml" })
-public class ValidationControllerTest {
+public class ActivityControllerTest {
 	/**
 	 * The Spring application context.
 	 *
@@ -42,136 +42,136 @@ public class ValidationControllerTest {
 	private ApplicationContext context;
 
 	/**
-	 * Test <code>indexValidation()</code>.
+	 * Test <code>indexActivity()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void GetindexValidation() throws Exception {
+	public void GetindexActivity() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/indexValidation");
+		request.setRequestURI("/indexActivity");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
-		ValidationController controller = (ValidationController) context.getBean("ValidationController");
+		ActivityController controller = (ActivityController) context.getBean("ActivityController");
 
 		// TODO Invoke method and Assert return values
 
 	}
 
 	/**
-	 * Test <code>selectValidation()</code>.
+	 * Test <code>selectActivity()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void GetselectValidation() throws Exception {
+	public void GetselectActivity() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/selectValidation");
+		request.setRequestURI("/selectActivity");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
-		ValidationController controller = (ValidationController) context.getBean("ValidationController");
+		ActivityController controller = (ActivityController) context.getBean("ActivityController");
 
 		// TODO Invoke method and Assert return values
 
 	}
 
 	/**
-	 * Test <code>editValidation()</code>.
+	 * Test <code>editActivity()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void GeteditValidation() throws Exception {
+	public void GeteditActivity() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/editValidation");
+		request.setRequestURI("/editActivity");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
-		ValidationController controller = (ValidationController) context.getBean("ValidationController");
+		ActivityController controller = (ActivityController) context.getBean("ActivityController");
 
 		// TODO Invoke method and Assert return values
 
 	}
 
 	/**
-	 * Test <code>saveValidation()</code>.
+	 * Test <code>saveActivity()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void GetsaveValidation() throws Exception {
+	public void GetsaveActivity() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/saveValidation");
+		request.setRequestURI("/saveActivity");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
-		ValidationController controller = (ValidationController) context.getBean("ValidationController");
+		ActivityController controller = (ActivityController) context.getBean("ActivityController");
 
 		// TODO Invoke method and Assert return values
 
 	}
 
 	/**
-	 * Test <code>newValidation()</code>.
+	 * Test <code>newActivity()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void GetnewValidation() throws Exception {
+	public void GetnewActivity() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/newValidation");
+		request.setRequestURI("/newActivity");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
-		ValidationController controller = (ValidationController) context.getBean("ValidationController");
+		ActivityController controller = (ActivityController) context.getBean("ActivityController");
 
 		// TODO Invoke method and Assert return values
 
 	}
 
 	/**
-	 * Test <code>confirmDeleteValidation()</code>.
+	 * Test <code>confirmDeleteActivity()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void GetconfirmDeleteValidation() throws Exception {
+	public void GetconfirmDeleteActivity() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/confirmDeleteValidation");
+		request.setRequestURI("/confirmDeleteActivity");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
-		ValidationController controller = (ValidationController) context.getBean("ValidationController");
+		ActivityController controller = (ActivityController) context.getBean("ActivityController");
 
 		// TODO Invoke method and Assert return values
 
 	}
 
 	/**
-	 * Test <code>deleteValidation()</code>.
+	 * Test <code>deleteActivity()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void GetdeleteValidation() throws Exception {
+	public void GetdeleteActivity() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/deleteValidation");
+		request.setRequestURI("/deleteActivity");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
-		ValidationController controller = (ValidationController) context.getBean("ValidationController");
+		ActivityController controller = (ActivityController) context.getBean("ActivityController");
 
 		// TODO Invoke method and Assert return values
 
 	}
 
 	/**
-	 * Test <code>validationControllerbinaryaction()</code>.
+	 * Test <code>activityControllerbinaryaction()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void GetvalidationControllerbinaryaction() throws Exception {
+	public void GetactivityControllerbinaryaction() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/validationController/binary.action");
+		request.setRequestURI("/activityController/binary.action");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
-		ValidationController controller = (ValidationController) context.getBean("ValidationController");
+		ActivityController controller = (ActivityController) context.getBean("ActivityController");
 
 		// TODO Invoke method and Assert return values
 

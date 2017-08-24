@@ -55,42 +55,27 @@ public class ApprovalController {
 	private ApprovalService approvalService;
 
 	/**
-	 * Create a new Comapny entity
+	 * Entry point to show all Approval entities
 	 * 
 	 */
-	@RequestMapping("/newApprovalComapny")
-	public ModelAndView newApprovalComapny(@RequestParam Integer approval_id) {
+	public String indexApproval() {
+		return "redirect:/indexApproval";
+	}
+
+	/**
+	* Edit an existing Comapny entity
+	* 
+	*/
+	@RequestMapping("/editApprovalComapny")
+	public ModelAndView editApprovalComapny(@RequestParam Integer approval_id, @RequestParam Integer comapny_id) {
+		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_id, -1, -1);
+
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("approval_id", approval_id);
-		mav.addObject("comapny", new Comapny());
-		mav.addObject("newFlag", true);
+		mav.addObject("comapny", comapny);
 		mav.setViewName("approval/comapny/editComapny.jsp");
 
 		return mav;
-	}
-
-	/**
-	* Select an existing Approval entity
-	* 
-	*/
-	@RequestMapping("/selectApproval")
-	public ModelAndView selectApproval(@RequestParam Integer idKey) {
-		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("approval", approvalDAO.findApprovalByPrimaryKey(idKey));
-		mav.setViewName("approval/viewApproval.jsp");
-
-		return mav;
-	}
-
-	/**
-	*/
-	@RequestMapping("/approvalController/binary.action")
-	public ModelAndView streamBinary(@ModelAttribute HttpServletRequest request, @ModelAttribute HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("streamedBinaryContentView");
-		return mav;
-
 	}
 
 	/**
@@ -104,6 +89,52 @@ public class ApprovalController {
 		mav.addObject("approvals", approvalService.loadApprovals());
 
 		mav.setViewName("approval/listApprovals.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Create a new Approval entity
+	* 
+	*/
+	@RequestMapping("/newApproval")
+	public ModelAndView newApproval() {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("approval", new Approval());
+		mav.addObject("newFlag", true);
+		mav.setViewName("approval/editApproval.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Show all Comapny entities by Approval
+	* 
+	*/
+	@RequestMapping("/listApprovalComapny")
+	public ModelAndView listApprovalComapny(@RequestParam Integer idKey) {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("approval", approvalDAO.findApprovalByPrimaryKey(idKey));
+		mav.setViewName("approval/comapny/listComapny.jsp");
+
+		return mav;
+	}
+
+	/**
+	* Delete an existing Comapny entity
+	* 
+	*/
+	@RequestMapping("/deleteApprovalComapny")
+	public ModelAndView deleteApprovalComapny(@RequestParam Integer approval_id, @RequestParam Integer related_comapny_id) {
+		ModelAndView mav = new ModelAndView();
+
+		Approval approval = approvalService.deleteApprovalComapny(approval_id, related_comapny_id);
+
+		mav.addObject("approval_id", approval_id);
+		mav.addObject("approval", approval);
+		mav.setViewName("approval/viewApproval.jsp");
 
 		return mav;
 	}
@@ -127,6 +158,61 @@ public class ApprovalController {
 	}
 
 	/**
+	* Edit an existing Approval entity
+	* 
+	*/
+	@RequestMapping("/editApproval")
+	public ModelAndView editApproval(@RequestParam Integer idKey) {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("approval", approvalDAO.findApprovalByPrimaryKey(idKey));
+		mav.setViewName("approval/editApproval.jsp");
+
+		return mav;
+	}
+
+	/**
+	*/
+	@RequestMapping("/approvalController/binary.action")
+	public ModelAndView streamBinary(@ModelAttribute HttpServletRequest request, @ModelAttribute HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("streamedBinaryContentView");
+		return mav;
+
+	}
+
+	/**
+	* Create a new Comapny entity
+	* 
+	*/
+	@RequestMapping("/newApprovalComapny")
+	public ModelAndView newApprovalComapny(@RequestParam Integer approval_id) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("approval_id", approval_id);
+		mav.addObject("comapny", new Comapny());
+		mav.addObject("newFlag", true);
+		mav.setViewName("approval/comapny/editComapny.jsp");
+
+		return mav;
+	}
+
+	/**
+	* View an existing Comapny entity
+	* 
+	*/
+	@RequestMapping("/selectApprovalComapny")
+	public ModelAndView selectApprovalComapny(@RequestParam Integer approval_id, @RequestParam Integer comapny_id) {
+		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_id, -1, -1);
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("approval_id", approval_id);
+		mav.addObject("comapny", comapny);
+		mav.setViewName("approval/comapny/viewComapny.jsp");
+
+		return mav;
+	}
+
+	/**
 	* Select the Approval entity for display allowing the user to confirm that they would like to delete the entity
 	* 
 	*/
@@ -138,63 +224,6 @@ public class ApprovalController {
 		mav.setViewName("approval/deleteApproval.jsp");
 
 		return mav;
-	}
-
-	/**
-	* Delete an existing Comapny entity
-	* 
-	*/
-	@RequestMapping("/deleteApprovalComapny")
-	public ModelAndView deleteApprovalComapny(@RequestParam Integer approval_id, @RequestParam Integer related_comapny_companyId) {
-		ModelAndView mav = new ModelAndView();
-
-		Approval approval = approvalService.deleteApprovalComapny(approval_id, related_comapny_companyId);
-
-		mav.addObject("approval_id", approval_id);
-		mav.addObject("approval", approval);
-		mav.setViewName("approval/viewApproval.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Show all Comapny entities by Approval
-	* 
-	*/
-	@RequestMapping("/listApprovalComapny")
-	public ModelAndView listApprovalComapny(@RequestParam Integer idKey) {
-		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("approval", approvalDAO.findApprovalByPrimaryKey(idKey));
-		mav.setViewName("approval/comapny/listComapny.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Create a new Approval entity
-	* 
-	*/
-	@RequestMapping("/newApproval")
-	public ModelAndView newApproval() {
-		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("approval", new Approval());
-		mav.addObject("newFlag", true);
-		mav.setViewName("approval/editApproval.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Delete an existing Approval entity
-	* 
-	*/
-	@RequestMapping("/deleteApproval")
-	public String deleteApproval(@RequestParam Integer idKey) {
-		Approval approval = approvalDAO.findApprovalByPrimaryKey(idKey);
-		approvalService.deleteApproval(approval);
-		return "forward:/indexApproval";
 	}
 
 	/**
@@ -224,46 +253,14 @@ public class ApprovalController {
 	}
 
 	/**
-	* Edit an existing Comapny entity
-	* 
-	*/
-	@RequestMapping("/editApprovalComapny")
-	public ModelAndView editApprovalComapny(@RequestParam Integer approval_id, @RequestParam Integer comapny_companyId) {
-		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_companyId, -1, -1);
-
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("approval_id", approval_id);
-		mav.addObject("comapny", comapny);
-		mav.setViewName("approval/comapny/editComapny.jsp");
-
-		return mav;
-	}
-
-	/**
-	* View an existing Comapny entity
-	* 
-	*/
-	@RequestMapping("/selectApprovalComapny")
-	public ModelAndView selectApprovalComapny(@RequestParam Integer approval_id, @RequestParam Integer comapny_companyId) {
-		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_companyId, -1, -1);
-
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("approval_id", approval_id);
-		mav.addObject("comapny", comapny);
-		mav.setViewName("approval/comapny/viewComapny.jsp");
-
-		return mav;
-	}
-
-	/**
 	* Select the child Comapny entity for display allowing the user to confirm that they would like to delete the entity
 	* 
 	*/
 	@RequestMapping("/confirmDeleteApprovalComapny")
-	public ModelAndView confirmDeleteApprovalComapny(@RequestParam Integer approval_id, @RequestParam Integer related_comapny_companyId) {
+	public ModelAndView confirmDeleteApprovalComapny(@RequestParam Integer approval_id, @RequestParam Integer related_comapny_id) {
 		ModelAndView mav = new ModelAndView();
 
-		mav.addObject("comapny", comapnyDAO.findComapnyByPrimaryKey(related_comapny_companyId));
+		mav.addObject("comapny", comapnyDAO.findComapnyByPrimaryKey(related_comapny_id));
 		mav.addObject("approval_id", approval_id);
 		mav.setViewName("approval/comapny/deleteComapny.jsp");
 
@@ -271,24 +268,27 @@ public class ApprovalController {
 	}
 
 	/**
-	* Edit an existing Approval entity
+	* Select an existing Approval entity
 	* 
 	*/
-	@RequestMapping("/editApproval")
-	public ModelAndView editApproval(@RequestParam Integer idKey) {
+	@RequestMapping("/selectApproval")
+	public ModelAndView selectApproval(@RequestParam Integer idKey) {
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("approval", approvalDAO.findApprovalByPrimaryKey(idKey));
-		mav.setViewName("approval/editApproval.jsp");
+		mav.setViewName("approval/viewApproval.jsp");
 
 		return mav;
 	}
 
 	/**
-	* Entry point to show all Approval entities
+	* Delete an existing Approval entity
 	* 
 	*/
-	public String indexApproval() {
-		return "redirect:/indexApproval";
+	@RequestMapping("/deleteApproval")
+	public String deleteApproval(@RequestParam Integer idKey) {
+		Approval approval = approvalDAO.findApprovalByPrimaryKey(idKey);
+		approvalService.deleteApproval(approval);
+		return "forward:/indexApproval";
 	}
 }

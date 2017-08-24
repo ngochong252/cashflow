@@ -55,50 +55,55 @@ public class ProcessCaseController {
 	private ProcessCaseService processCaseService;
 
 	/**
-	 * Select the child ErrorDetails entity for display allowing the user to confirm that they would like to delete the entity
+	 * Save an existing ProcessCase entity
 	 * 
 	 */
-	@RequestMapping("/confirmDeleteProcessCaseErrorDetails")
-	public ModelAndView confirmDeleteProcessCaseErrorDetails(@RequestParam Integer processcase_id, @RequestParam Integer related_errordetails_id) {
-		ModelAndView mav = new ModelAndView();
+	@RequestMapping("/saveProcessCase")
+	public String saveProcessCase(@ModelAttribute ProcessCase processcase) {
+		processCaseService.saveProcessCase(processcase);
+		return "forward:/indexProcessCase";
+	}
 
-		mav.addObject("errordetails", errorDetailsDAO.findErrorDetailsByPrimaryKey(related_errordetails_id));
+	/**
+	* Create a new ErrorDetails entity
+	* 
+	*/
+	@RequestMapping("/newProcessCaseErrorDetails")
+	public ModelAndView newProcessCaseErrorDetails(@RequestParam Integer processcase_id) {
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("processcase_id", processcase_id);
-		mav.setViewName("processcase/errordetails/deleteErrorDetails.jsp");
+		mav.addObject("errordetails", new ErrorDetails());
+		mav.addObject("newFlag", true);
+		mav.setViewName("processcase/errordetails/editErrorDetails.jsp");
 
 		return mav;
 	}
 
 	/**
-	* Register custom, context-specific property editors
+	* Show all ErrorDetails entities by ProcessCase
 	* 
 	*/
-	@InitBinder
-	public void initBinder(WebDataBinder binder, HttpServletRequest request) { // Register static property editors.
-		binder.registerCustomEditor(java.util.Calendar.class, new org.skyway.spring.util.databinding.CustomCalendarEditor());
-		binder.registerCustomEditor(byte[].class, new org.springframework.web.multipart.support.ByteArrayMultipartFileEditor());
-		binder.registerCustomEditor(boolean.class, new org.skyway.spring.util.databinding.EnhancedBooleanEditor(false));
-		binder.registerCustomEditor(Boolean.class, new org.skyway.spring.util.databinding.EnhancedBooleanEditor(true));
-		binder.registerCustomEditor(java.math.BigDecimal.class, new org.skyway.spring.util.databinding.NaNHandlingNumberEditor(java.math.BigDecimal.class, true));
-		binder.registerCustomEditor(Integer.class, new org.skyway.spring.util.databinding.NaNHandlingNumberEditor(Integer.class, true));
-		binder.registerCustomEditor(java.util.Date.class, new org.skyway.spring.util.databinding.CustomDateEditor());
-		binder.registerCustomEditor(String.class, new org.skyway.spring.util.databinding.StringEditor());
-		binder.registerCustomEditor(Long.class, new org.skyway.spring.util.databinding.NaNHandlingNumberEditor(Long.class, true));
-		binder.registerCustomEditor(Double.class, new org.skyway.spring.util.databinding.NaNHandlingNumberEditor(Double.class, true));
+	@RequestMapping("/listProcessCaseErrorDetails")
+	public ModelAndView listProcessCaseErrorDetails(@RequestParam Integer idKey) {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("processcase", processCaseDAO.findProcessCaseByPrimaryKey(idKey));
+		mav.setViewName("processcase/errordetails/listErrorDetails.jsp");
+
+		return mav;
 	}
 
 	/**
-	* View an existing ErrorDetails entity
+	* Create a new ProcessCase entity
 	* 
 	*/
-	@RequestMapping("/selectProcessCaseErrorDetails")
-	public ModelAndView selectProcessCaseErrorDetails(@RequestParam Integer processcase_id, @RequestParam Integer errordetails_id) {
-		ErrorDetails errordetails = errorDetailsDAO.findErrorDetailsByPrimaryKey(errordetails_id, -1, -1);
-
+	@RequestMapping("/newProcessCase")
+	public ModelAndView newProcessCase() {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("processcase_id", processcase_id);
-		mav.addObject("errordetails", errordetails);
-		mav.setViewName("processcase/errordetails/viewErrorDetails.jsp");
+
+		mav.addObject("processcase", new ProcessCase());
+		mav.addObject("newFlag", true);
+		mav.setViewName("processcase/editProcessCase.jsp");
 
 		return mav;
 	}
@@ -118,16 +123,6 @@ public class ProcessCaseController {
 	}
 
 	/**
-	*/
-	@RequestMapping("/processcaseController/binary.action")
-	public ModelAndView streamBinary(@ModelAttribute HttpServletRequest request, @ModelAttribute HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("streamedBinaryContentView");
-		return mav;
-
-	}
-
-	/**
 	* Save an existing ErrorDetails entity
 	* 
 	*/
@@ -138,46 +133,6 @@ public class ProcessCaseController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("processcase_id", processcase_id);
 		mav.addObject("processcase", parent_processcase);
-		mav.setViewName("processcase/viewProcessCase.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Entry point to show all ProcessCase entities
-	* 
-	*/
-	public String indexProcessCase() {
-		return "redirect:/indexProcessCase";
-	}
-
-	/**
-	* Show all ProcessCase entities
-	* 
-	*/
-	@RequestMapping("/indexProcessCase")
-	public ModelAndView listProcessCases() {
-		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("processcases", processCaseService.loadProcessCases());
-
-		mav.setViewName("processcase/listProcessCases.jsp");
-
-		return mav;
-	}
-
-	/**
-	* Delete an existing ErrorDetails entity
-	* 
-	*/
-	@RequestMapping("/deleteProcessCaseErrorDetails")
-	public ModelAndView deleteProcessCaseErrorDetails(@RequestParam Integer processcase_id, @RequestParam Integer related_errordetails_id) {
-		ModelAndView mav = new ModelAndView();
-
-		ProcessCase processcase = processCaseService.deleteProcessCaseErrorDetails(processcase_id, related_errordetails_id);
-
-		mav.addObject("processcase_id", processcase_id);
-		mav.addObject("processcase", processcase);
 		mav.setViewName("processcase/viewProcessCase.jsp");
 
 		return mav;
@@ -197,6 +152,35 @@ public class ProcessCaseController {
 		mav.setViewName("processcase/errordetails/editErrorDetails.jsp");
 
 		return mav;
+	}
+
+	/**
+	* Delete an existing ProcessCase entity
+	* 
+	*/
+	@RequestMapping("/deleteProcessCase")
+	public String deleteProcessCase(@RequestParam Integer idKey) {
+		ProcessCase processcase = processCaseDAO.findProcessCaseByPrimaryKey(idKey);
+		processCaseService.deleteProcessCase(processcase);
+		return "forward:/indexProcessCase";
+	}
+
+	/**
+	* Register custom, context-specific property editors
+	* 
+	*/
+	@InitBinder
+	public void initBinder(WebDataBinder binder, HttpServletRequest request) { // Register static property editors.
+		binder.registerCustomEditor(java.util.Calendar.class, new org.skyway.spring.util.databinding.CustomCalendarEditor());
+		binder.registerCustomEditor(byte[].class, new org.springframework.web.multipart.support.ByteArrayMultipartFileEditor());
+		binder.registerCustomEditor(boolean.class, new org.skyway.spring.util.databinding.EnhancedBooleanEditor(false));
+		binder.registerCustomEditor(Boolean.class, new org.skyway.spring.util.databinding.EnhancedBooleanEditor(true));
+		binder.registerCustomEditor(java.math.BigDecimal.class, new org.skyway.spring.util.databinding.NaNHandlingNumberEditor(java.math.BigDecimal.class, true));
+		binder.registerCustomEditor(Integer.class, new org.skyway.spring.util.databinding.NaNHandlingNumberEditor(Integer.class, true));
+		binder.registerCustomEditor(java.util.Date.class, new org.skyway.spring.util.databinding.CustomDateEditor());
+		binder.registerCustomEditor(String.class, new org.skyway.spring.util.databinding.StringEditor());
+		binder.registerCustomEditor(Long.class, new org.skyway.spring.util.databinding.NaNHandlingNumberEditor(Long.class, true));
+		binder.registerCustomEditor(Double.class, new org.skyway.spring.util.databinding.NaNHandlingNumberEditor(Double.class, true));
 	}
 
 	/**
@@ -228,66 +212,82 @@ public class ProcessCaseController {
 	}
 
 	/**
-	* Create a new ErrorDetails entity
+	* Show all ProcessCase entities
 	* 
 	*/
-	@RequestMapping("/newProcessCaseErrorDetails")
-	public ModelAndView newProcessCaseErrorDetails(@RequestParam Integer processcase_id) {
+	@RequestMapping("/indexProcessCase")
+	public ModelAndView listProcessCases() {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("processcases", processCaseService.loadProcessCases());
+
+		mav.setViewName("processcase/listProcessCases.jsp");
+
+		return mav;
+	}
+
+	/**
+	* View an existing ErrorDetails entity
+	* 
+	*/
+	@RequestMapping("/selectProcessCaseErrorDetails")
+	public ModelAndView selectProcessCaseErrorDetails(@RequestParam Integer processcase_id, @RequestParam Integer errordetails_id) {
+		ErrorDetails errordetails = errorDetailsDAO.findErrorDetailsByPrimaryKey(errordetails_id, -1, -1);
+
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("processcase_id", processcase_id);
-		mav.addObject("errordetails", new ErrorDetails());
-		mav.addObject("newFlag", true);
-		mav.setViewName("processcase/errordetails/editErrorDetails.jsp");
+		mav.addObject("errordetails", errordetails);
+		mav.setViewName("processcase/errordetails/viewErrorDetails.jsp");
 
 		return mav;
 	}
 
 	/**
-	* Delete an existing ProcessCase entity
+	* Select the child ErrorDetails entity for display allowing the user to confirm that they would like to delete the entity
 	* 
 	*/
-	@RequestMapping("/deleteProcessCase")
-	public String deleteProcessCase(@RequestParam Integer idKey) {
-		ProcessCase processcase = processCaseDAO.findProcessCaseByPrimaryKey(idKey);
-		processCaseService.deleteProcessCase(processcase);
-		return "forward:/indexProcessCase";
-	}
-
-	/**
-	* Save an existing ProcessCase entity
-	* 
-	*/
-	@RequestMapping("/saveProcessCase")
-	public String saveProcessCase(@ModelAttribute ProcessCase processcase) {
-		processCaseService.saveProcessCase(processcase);
-		return "forward:/indexProcessCase";
-	}
-
-	/**
-	* Show all ErrorDetails entities by ProcessCase
-	* 
-	*/
-	@RequestMapping("/listProcessCaseErrorDetails")
-	public ModelAndView listProcessCaseErrorDetails(@RequestParam Integer idKey) {
+	@RequestMapping("/confirmDeleteProcessCaseErrorDetails")
+	public ModelAndView confirmDeleteProcessCaseErrorDetails(@RequestParam Integer processcase_id, @RequestParam Integer related_errordetails_id) {
 		ModelAndView mav = new ModelAndView();
 
-		mav.addObject("processcase", processCaseDAO.findProcessCaseByPrimaryKey(idKey));
-		mav.setViewName("processcase/errordetails/listErrorDetails.jsp");
+		mav.addObject("errordetails", errorDetailsDAO.findErrorDetailsByPrimaryKey(related_errordetails_id));
+		mav.addObject("processcase_id", processcase_id);
+		mav.setViewName("processcase/errordetails/deleteErrorDetails.jsp");
 
 		return mav;
 	}
 
 	/**
-	* Create a new ProcessCase entity
+	* Entry point to show all ProcessCase entities
 	* 
 	*/
-	@RequestMapping("/newProcessCase")
-	public ModelAndView newProcessCase() {
+	public String indexProcessCase() {
+		return "redirect:/indexProcessCase";
+	}
+
+	/**
+	*/
+	@RequestMapping("/processcaseController/binary.action")
+	public ModelAndView streamBinary(@ModelAttribute HttpServletRequest request, @ModelAttribute HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("streamedBinaryContentView");
+		return mav;
+
+	}
+
+	/**
+	* Delete an existing ErrorDetails entity
+	* 
+	*/
+	@RequestMapping("/deleteProcessCaseErrorDetails")
+	public ModelAndView deleteProcessCaseErrorDetails(@RequestParam Integer processcase_id, @RequestParam Integer related_errordetails_id) {
 		ModelAndView mav = new ModelAndView();
 
-		mav.addObject("processcase", new ProcessCase());
-		mav.addObject("newFlag", true);
-		mav.setViewName("processcase/editProcessCase.jsp");
+		ProcessCase processcase = processCaseService.deleteProcessCaseErrorDetails(processcase_id, related_errordetails_id);
+
+		mav.addObject("processcase_id", processcase_id);
+		mav.addObject("processcase", processcase);
+		mav.setViewName("processcase/viewProcessCase.jsp");
 
 		return mav;
 	}
