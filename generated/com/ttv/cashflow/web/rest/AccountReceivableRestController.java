@@ -56,14 +56,24 @@ public class AccountReceivableRestController {
 	private AccountReceivableService accountReceivableService;
 
 	/**
-	 * Create a new AccountReceivable entity
+	 * Delete an existing AccountReceivable entity
 	 * 
 	 */
-	@RequestMapping(value = "/AccountReceivable", method = RequestMethod.POST)
+	@RequestMapping(value = "/AccountReceivable/{accountreceivable_id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public AccountReceivable newAccountReceivable(@RequestBody AccountReceivable accountreceivable) {
-		accountReceivableService.saveAccountReceivable(accountreceivable);
-		return accountReceivableDAO.findAccountReceivableByPrimaryKey(accountreceivable.getId());
+	public void deleteAccountReceivable(@PathVariable Integer accountreceivable_id) {
+		AccountReceivable accountreceivable = accountReceivableDAO.findAccountReceivableByPrimaryKey(accountreceivable_id);
+		accountReceivableService.deleteAccountReceivable(accountreceivable);
+	}
+
+	/**
+	* Show all AccountReceivable entities
+	* 
+	*/
+	@RequestMapping(value = "/AccountReceivable", method = RequestMethod.GET)
+	@ResponseBody
+	public List<AccountReceivable> listAccountReceivables() {
+		return new java.util.ArrayList<AccountReceivable>(accountReceivableService.loadAccountReceivables());
 	}
 
 	/**
@@ -78,24 +88,24 @@ public class AccountReceivableRestController {
 	}
 
 	/**
-	* Save an existing Ledger entity
+	* Create a new Ledger entity
 	* 
 	*/
-	@RequestMapping(value = "/AccountReceivable/{accountreceivable_id}/ledger", method = RequestMethod.PUT)
+	@RequestMapping(value = "/AccountReceivable/{accountreceivable_id}/ledger", method = RequestMethod.POST)
 	@ResponseBody
-	public Ledger saveAccountReceivableLedger(@PathVariable Integer accountreceivable_id, @RequestBody Ledger ledger) {
+	public Ledger newAccountReceivableLedger(@PathVariable Integer accountreceivable_id, @RequestBody Ledger ledger) {
 		accountReceivableService.saveAccountReceivableLedger(accountreceivable_id, ledger);
 		return ledgerDAO.findLedgerByPrimaryKey(ledger.getId());
 	}
 
 	/**
-	* Select an existing AccountReceivable entity
+	* Delete an existing Ledger entity
 	* 
 	*/
-	@RequestMapping(value = "/AccountReceivable/{accountreceivable_id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/AccountReceivable/{accountreceivable_id}/ledger/{ledger_id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public AccountReceivable loadAccountReceivable(@PathVariable Integer accountreceivable_id) {
-		return accountReceivableDAO.findAccountReceivableByPrimaryKey(accountreceivable_id);
+	public void deleteAccountReceivableLedger(@PathVariable Integer accountreceivable_id, @PathVariable Integer related_ledger_id) {
+		accountReceivableService.deleteAccountReceivableLedger(accountreceivable_id, related_ledger_id);
 	}
 
 	/**
@@ -111,6 +121,16 @@ public class AccountReceivableRestController {
 	}
 
 	/**
+	* Select an existing AccountReceivable entity
+	* 
+	*/
+	@RequestMapping(value = "/AccountReceivable/{accountreceivable_id}", method = RequestMethod.GET)
+	@ResponseBody
+	public AccountReceivable loadAccountReceivable(@PathVariable Integer accountreceivable_id) {
+		return accountReceivableDAO.findAccountReceivableByPrimaryKey(accountreceivable_id);
+	}
+
+	/**
 	* Get Ledger entity by AccountReceivable
 	* 
 	*/
@@ -121,34 +141,25 @@ public class AccountReceivableRestController {
 	}
 
 	/**
-	* Delete an existing AccountReceivable entity
+	* Save an existing Ledger entity
 	* 
 	*/
-	@RequestMapping(value = "/AccountReceivable/{accountreceivable_id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/AccountReceivable/{accountreceivable_id}/ledger", method = RequestMethod.PUT)
 	@ResponseBody
-	public void deleteAccountReceivable(@PathVariable Integer accountreceivable_id) {
-		AccountReceivable accountreceivable = accountReceivableDAO.findAccountReceivableByPrimaryKey(accountreceivable_id);
-		accountReceivableService.deleteAccountReceivable(accountreceivable);
+	public Ledger saveAccountReceivableLedger(@PathVariable Integer accountreceivable_id, @RequestBody Ledger ledger) {
+		accountReceivableService.saveAccountReceivableLedger(accountreceivable_id, ledger);
+		return ledgerDAO.findLedgerByPrimaryKey(ledger.getId());
 	}
 
 	/**
-	* Delete an existing Ledger entity
+	* Create a new AccountReceivable entity
 	* 
 	*/
-	@RequestMapping(value = "/AccountReceivable/{accountreceivable_id}/ledger/{ledger_id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/AccountReceivable", method = RequestMethod.POST)
 	@ResponseBody
-	public void deleteAccountReceivableLedger(@PathVariable Integer accountreceivable_id, @PathVariable Integer related_ledger_id) {
-		accountReceivableService.deleteAccountReceivableLedger(accountreceivable_id, related_ledger_id);
-	}
-
-	/**
-	* Show all AccountReceivable entities
-	* 
-	*/
-	@RequestMapping(value = "/AccountReceivable", method = RequestMethod.GET)
-	@ResponseBody
-	public List<AccountReceivable> listAccountReceivables() {
-		return new java.util.ArrayList<AccountReceivable>(accountReceivableService.loadAccountReceivables());
+	public AccountReceivable newAccountReceivable(@RequestBody AccountReceivable accountreceivable) {
+		accountReceivableService.saveAccountReceivable(accountreceivable);
+		return accountReceivableDAO.findAccountReceivableByPrimaryKey(accountreceivable.getId());
 	}
 
 	/**
@@ -167,16 +178,5 @@ public class AccountReceivableRestController {
 		binder.registerCustomEditor(String.class, new org.skyway.spring.util.databinding.StringEditor());
 		binder.registerCustomEditor(Long.class, new org.skyway.spring.util.databinding.NaNHandlingNumberEditor(Long.class, true));
 		binder.registerCustomEditor(Double.class, new org.skyway.spring.util.databinding.NaNHandlingNumberEditor(Double.class, true));
-	}
-
-	/**
-	* Create a new Ledger entity
-	* 
-	*/
-	@RequestMapping(value = "/AccountReceivable/{accountreceivable_id}/ledger", method = RequestMethod.POST)
-	@ResponseBody
-	public Ledger newAccountReceivableLedger(@PathVariable Integer accountreceivable_id, @RequestBody Ledger ledger) {
-		accountReceivableService.saveAccountReceivableLedger(accountreceivable_id, ledger);
-		return ledgerDAO.findLedgerByPrimaryKey(ledger.getId());
 	}
 }

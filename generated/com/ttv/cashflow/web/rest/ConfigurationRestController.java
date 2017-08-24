@@ -1,10 +1,10 @@
 package com.ttv.cashflow.web.rest;
 
-import com.ttv.cashflow.dao.ValidationDAO;
+import com.ttv.cashflow.dao.ConfigurationDAO;
 
-import com.ttv.cashflow.domain.Validation;
+import com.ttv.cashflow.domain.Configuration;
 
-import com.ttv.cashflow.service.ValidationService;
+import com.ttv.cashflow.service.ConfigurationService;
 
 import java.util.List;
 
@@ -24,58 +24,48 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Spring Rest controller that handles CRUD requests for Validation entities
+ * Spring Rest controller that handles CRUD requests for Configuration entities
  * 
  */
 
-@Controller("ValidationRestController")
+@Controller("ConfigurationRestController")
 
-public class ValidationRestController {
+public class ConfigurationRestController {
 
 	/**
-	 * DAO injected by Spring that manages Validation entities
+	 * DAO injected by Spring that manages Configuration entities
 	 * 
 	 */
 	@Autowired
-	private ValidationDAO validationDAO;
+	private ConfigurationDAO configurationDAO;
 
 	/**
-	 * Service injected by Spring that provides CRUD operations for Validation entities
+	 * Service injected by Spring that provides CRUD operations for Configuration entities
 	 * 
 	 */
 	@Autowired
-	private ValidationService validationService;
+	private ConfigurationService configurationService;
 
 	/**
-	 * Save an existing Validation entity
+	 * Delete an existing Configuration entity
 	 * 
 	 */
-	@RequestMapping(value = "/Validation", method = RequestMethod.PUT)
+	@RequestMapping(value = "/Configuration/{configuration_id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public Validation saveValidation(@RequestBody Validation validation) {
-		validationService.saveValidation(validation);
-		return validationDAO.findValidationByPrimaryKey(validation.getId());
+	public void deleteConfiguration(@PathVariable Integer configuration_id) {
+		Configuration configuration = configurationDAO.findConfigurationByPrimaryKey(configuration_id);
+		configurationService.deleteConfiguration(configuration);
 	}
 
 	/**
-	* Delete an existing Validation entity
+	* Create a new Configuration entity
 	* 
 	*/
-	@RequestMapping(value = "/Validation/{validation_id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/Configuration", method = RequestMethod.POST)
 	@ResponseBody
-	public void deleteValidation(@PathVariable Integer validation_id) {
-		Validation validation = validationDAO.findValidationByPrimaryKey(validation_id);
-		validationService.deleteValidation(validation);
-	}
-
-	/**
-	* Select an existing Validation entity
-	* 
-	*/
-	@RequestMapping(value = "/Validation/{validation_id}", method = RequestMethod.GET)
-	@ResponseBody
-	public Validation loadValidation(@PathVariable Integer validation_id) {
-		return validationDAO.findValidationByPrimaryKey(validation_id);
+	public Configuration newConfiguration(@RequestBody Configuration configuration) {
+		configurationService.saveConfiguration(configuration);
+		return configurationDAO.findConfigurationByPrimaryKey(configuration.getId());
 	}
 
 	/**
@@ -97,23 +87,33 @@ public class ValidationRestController {
 	}
 
 	/**
-	* Show all Validation entities
+	* Select an existing Configuration entity
 	* 
 	*/
-	@RequestMapping(value = "/Validation", method = RequestMethod.GET)
+	@RequestMapping(value = "/Configuration/{configuration_id}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Validation> listValidations() {
-		return new java.util.ArrayList<Validation>(validationService.loadValidations());
+	public Configuration loadConfiguration(@PathVariable Integer configuration_id) {
+		return configurationDAO.findConfigurationByPrimaryKey(configuration_id);
 	}
 
 	/**
-	* Create a new Validation entity
+	* Save an existing Configuration entity
 	* 
 	*/
-	@RequestMapping(value = "/Validation", method = RequestMethod.POST)
+	@RequestMapping(value = "/Configuration", method = RequestMethod.PUT)
 	@ResponseBody
-	public Validation newValidation(@RequestBody Validation validation) {
-		validationService.saveValidation(validation);
-		return validationDAO.findValidationByPrimaryKey(validation.getId());
+	public Configuration saveConfiguration(@RequestBody Configuration configuration) {
+		configurationService.saveConfiguration(configuration);
+		return configurationDAO.findConfigurationByPrimaryKey(configuration.getId());
+	}
+
+	/**
+	* Show all Configuration entities
+	* 
+	*/
+	@RequestMapping(value = "/Configuration", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Configuration> listConfigurations() {
+		return new java.util.ArrayList<Configuration>(configurationService.loadConfigurations());
 	}
 }

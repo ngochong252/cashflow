@@ -42,13 +42,13 @@ public class ComapnyRestControllerTest {
 	private ApplicationContext context;
 
 	/**
-	 * Test <code>Comapnycomapny_companyIdapprovals()</code>.
+	 * Test <code>Comapnycomapny_idapprovals()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void GetComapnycomapny_companyIdapprovals() throws Exception {
+	public void GetComapnycomapny_idapprovals() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Comapny/{comapny_companyId}/approvals");
+		request.setRequestURI("/Comapny/{comapny_id}/approvals");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
@@ -59,13 +59,13 @@ public class ComapnyRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Comapnycomapny_companyIdapprovals()</code>.
+	 * Test <code>Comapnycomapny_idapprovals()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void PostComapnycomapny_companyIdapprovals() throws Exception {
+	public void PostComapnycomapny_idapprovals() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Comapny/{comapny_companyId}/approvals");
+		request.setRequestURI("/Comapny/{comapny_id}/approvals");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
@@ -76,13 +76,13 @@ public class ComapnyRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Comapnycomapny_companyIdapprovals()</code>.
+	 * Test <code>Comapnycomapny_idapprovals()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void PutComapnycomapny_companyIdapprovals() throws Exception {
+	public void PutComapnycomapny_idapprovals() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Comapny/{comapny_companyId}/approvals");
+		request.setRequestURI("/Comapny/{comapny_id}/approvals");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
@@ -93,13 +93,13 @@ public class ComapnyRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Comapnycomapny_companyIdapprovalsapproval_id()</code>.
+	 * Test <code>Comapnycomapny_idapprovalsapproval_id()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void DeleteComapnycomapny_companyIdapprovalsapproval_id() throws Exception {
+	public void DeleteComapnycomapny_idapprovalsapproval_id() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Comapny/{comapny_companyId}/approvals/{approval_id}");
+		request.setRequestURI("/Comapny/{comapny_id}/approvals/{approval_id}");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
@@ -110,13 +110,13 @@ public class ComapnyRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Comapnycomapny_companyIdapprovalsapproval_id()</code>.
+	 * Test <code>Comapnycomapny_idapprovalsapproval_id()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void GetComapnycomapny_companyIdapprovalsapproval_id() throws Exception {
+	public void GetComapnycomapny_idapprovalsapproval_id() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Comapny/{comapny_companyId}/approvals/{approval_id}");
+		request.setRequestURI("/Comapny/{comapny_id}/approvals/{approval_id}");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
@@ -127,13 +127,13 @@ public class ComapnyRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Comapnycomapny_companyIdbankingAccountings()</code>.
+	 * Test <code>Comapnycomapny_idbankingAccountings()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void GetComapnycomapny_companyIdbankingAccountings() throws Exception {
+	public void GetComapnycomapny_idbankingAccountings() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Comapny/{comapny_companyId}/bankingAccountings");
+		request.setRequestURI("/Comapny/{comapny_id}/bankingAccountings");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
@@ -144,13 +144,13 @@ public class ComapnyRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Comapnycomapny_companyIdbankingAccountings()</code>.
+	 * Test <code>Comapnycomapny_idbankingAccountings()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void PostComapnycomapny_companyIdbankingAccountings() throws Exception {
+	public void PostComapnycomapny_idbankingAccountings() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Comapny/{comapny_companyId}/bankingAccountings");
+		request.setRequestURI("/Comapny/{comapny_id}/bankingAccountings");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
@@ -161,13 +161,13 @@ public class ComapnyRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Comapnycomapny_companyIdbankingAccountings()</code>.
+	 * Test <code>Comapnycomapny_idbankingAccountings()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void PutComapnycomapny_companyIdbankingAccountings() throws Exception {
+	public void PutComapnycomapny_idbankingAccountings() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Comapny/{comapny_companyId}/bankingAccountings");
+		request.setRequestURI("/Comapny/{comapny_id}/bankingAccountings");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
@@ -178,13 +178,13 @@ public class ComapnyRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Comapnycomapny_companyIdbankingAccountingsbankingaccounting_id()</code>.
+	 * Test <code>Comapnycomapny_idbankingAccountingsbankingaccounting_id()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void DeleteComapnycomapny_companyIdbankingAccountingsbankingaccounting_id() throws Exception {
+	public void DeleteComapnycomapny_idbankingAccountingsbankingaccounting_id() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Comapny/{comapny_companyId}/bankingAccountings/{bankingaccounting_id}");
+		request.setRequestURI("/Comapny/{comapny_id}/bankingAccountings/{bankingaccounting_id}");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
@@ -195,13 +195,13 @@ public class ComapnyRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Comapnycomapny_companyIdbankingAccountingsbankingaccounting_id()</code>.
+	 * Test <code>Comapnycomapny_idbankingAccountingsbankingaccounting_id()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void GetComapnycomapny_companyIdbankingAccountingsbankingaccounting_id() throws Exception {
+	public void GetComapnycomapny_idbankingAccountingsbankingaccounting_id() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Comapny/{comapny_companyId}/bankingAccountings/{bankingaccounting_id}");
+		request.setRequestURI("/Comapny/{comapny_id}/bankingAccountings/{bankingaccounting_id}");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
@@ -212,13 +212,13 @@ public class ComapnyRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Comapnycomapny_companyIdledgers()</code>.
+	 * Test <code>Comapnycomapny_idledgers()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void GetComapnycomapny_companyIdledgers() throws Exception {
+	public void GetComapnycomapny_idledgers() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Comapny/{comapny_companyId}/ledgers");
+		request.setRequestURI("/Comapny/{comapny_id}/ledgers");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
@@ -229,13 +229,13 @@ public class ComapnyRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Comapnycomapny_companyIdledgers()</code>.
+	 * Test <code>Comapnycomapny_idledgers()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void PostComapnycomapny_companyIdledgers() throws Exception {
+	public void PostComapnycomapny_idledgers() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Comapny/{comapny_companyId}/ledgers");
+		request.setRequestURI("/Comapny/{comapny_id}/ledgers");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
@@ -246,13 +246,13 @@ public class ComapnyRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Comapnycomapny_companyIdledgers()</code>.
+	 * Test <code>Comapnycomapny_idledgers()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void PutComapnycomapny_companyIdledgers() throws Exception {
+	public void PutComapnycomapny_idledgers() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Comapny/{comapny_companyId}/ledgers");
+		request.setRequestURI("/Comapny/{comapny_id}/ledgers");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
@@ -263,13 +263,13 @@ public class ComapnyRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Comapnycomapny_companyIdledgersledger_id()</code>.
+	 * Test <code>Comapnycomapny_idledgersledger_id()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void DeleteComapnycomapny_companyIdledgersledger_id() throws Exception {
+	public void DeleteComapnycomapny_idledgersledger_id() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Comapny/{comapny_companyId}/ledgers/{ledger_id}");
+		request.setRequestURI("/Comapny/{comapny_id}/ledgers/{ledger_id}");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
@@ -280,13 +280,13 @@ public class ComapnyRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Comapnycomapny_companyIdledgersledger_id()</code>.
+	 * Test <code>Comapnycomapny_idledgersledger_id()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void GetComapnycomapny_companyIdledgersledger_id() throws Exception {
+	public void GetComapnycomapny_idledgersledger_id() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Comapny/{comapny_companyId}/ledgers/{ledger_id}");
+		request.setRequestURI("/Comapny/{comapny_id}/ledgers/{ledger_id}");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
@@ -314,13 +314,13 @@ public class ComapnyRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Comapnycomapny_companyId()</code>.
+	 * Test <code>Comapnycomapny_id()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void GetComapnycomapny_companyId() throws Exception {
+	public void GetComapnycomapny_id() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Comapny/{comapny_companyId}");
+		request.setRequestURI("/Comapny/{comapny_id}");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
@@ -365,13 +365,13 @@ public class ComapnyRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Comapnycomapny_companyId()</code>.
+	 * Test <code>Comapnycomapny_id()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void DeleteComapnycomapny_companyId() throws Exception {
+	public void DeleteComapnycomapny_id() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Comapny/{comapny_companyId}");
+		request.setRequestURI("/Comapny/{comapny_id}");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance

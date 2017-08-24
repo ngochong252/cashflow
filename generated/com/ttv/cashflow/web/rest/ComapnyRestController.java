@@ -74,36 +74,111 @@ public class ComapnyRestController {
 	private ComapnyService comapnyService;
 
 	/**
-	 * View an existing BankingAccounting entity
+	 * Show all Ledger entities by Comapny
 	 * 
 	 */
-	@RequestMapping(value = "/Comapny/{comapny_companyId}/bankingAccountings/{bankingaccounting_id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/Comapny/{comapny_id}/ledgers", method = RequestMethod.GET)
 	@ResponseBody
-	public BankingAccounting loadComapnyBankingAccountings(@PathVariable Integer comapny_companyId, @PathVariable Integer related_bankingaccountings_id) {
-		BankingAccounting bankingaccounting = bankingAccountingDAO.findBankingAccountingByPrimaryKey(related_bankingaccountings_id, -1, -1);
-
-		return bankingaccounting;
+	public List<Ledger> getComapnyLedgers(@PathVariable Integer comapny_id) {
+		return new java.util.ArrayList<Ledger>(comapnyDAO.findComapnyByPrimaryKey(comapny_id).getLedgers());
 	}
 
 	/**
-	* Show all Ledger entities by Comapny
+	* Create a new Approval entity
 	* 
 	*/
-	@RequestMapping(value = "/Comapny/{comapny_companyId}/ledgers", method = RequestMethod.GET)
+	@RequestMapping(value = "/Comapny/{comapny_id}/approvals", method = RequestMethod.POST)
 	@ResponseBody
-	public List<Ledger> getComapnyLedgers(@PathVariable Integer comapny_companyId) {
-		return new java.util.ArrayList<Ledger>(comapnyDAO.findComapnyByPrimaryKey(comapny_companyId).getLedgers());
+	public Approval newComapnyApprovals(@PathVariable Integer comapny_id, @RequestBody Approval approval) {
+		comapnyService.saveComapnyApprovals(comapny_id, approval);
+		return approvalDAO.findApprovalByPrimaryKey(approval.getId());
 	}
 
 	/**
 	* Save an existing BankingAccounting entity
 	* 
 	*/
-	@RequestMapping(value = "/Comapny/{comapny_companyId}/bankingAccountings", method = RequestMethod.PUT)
+	@RequestMapping(value = "/Comapny/{comapny_id}/bankingAccountings", method = RequestMethod.PUT)
 	@ResponseBody
-	public BankingAccounting saveComapnyBankingAccountings(@PathVariable Integer comapny_companyId, @RequestBody BankingAccounting bankingaccountings) {
-		comapnyService.saveComapnyBankingAccountings(comapny_companyId, bankingaccountings);
+	public BankingAccounting saveComapnyBankingAccountings(@PathVariable Integer comapny_id, @RequestBody BankingAccounting bankingaccountings) {
+		comapnyService.saveComapnyBankingAccountings(comapny_id, bankingaccountings);
 		return bankingAccountingDAO.findBankingAccountingByPrimaryKey(bankingaccountings.getId());
+	}
+
+	/**
+	* Create a new Comapny entity
+	* 
+	*/
+	@RequestMapping(value = "/Comapny", method = RequestMethod.POST)
+	@ResponseBody
+	public Comapny newComapny(@RequestBody Comapny comapny) {
+		comapnyService.saveComapny(comapny);
+		return comapnyDAO.findComapnyByPrimaryKey(comapny.getId());
+	}
+
+	/**
+	* Delete an existing Approval entity
+	* 
+	*/
+	@RequestMapping(value = "/Comapny/{comapny_id}/approvals/{approval_id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public void deleteComapnyApprovals(@PathVariable Integer comapny_id, @PathVariable Integer related_approvals_id) {
+		comapnyService.deleteComapnyApprovals(comapny_id, related_approvals_id);
+	}
+
+	/**
+	* Show all BankingAccounting entities by Comapny
+	* 
+	*/
+	@RequestMapping(value = "/Comapny/{comapny_id}/bankingAccountings", method = RequestMethod.GET)
+	@ResponseBody
+	public List<BankingAccounting> getComapnyBankingAccountings(@PathVariable Integer comapny_id) {
+		return new java.util.ArrayList<BankingAccounting>(comapnyDAO.findComapnyByPrimaryKey(comapny_id).getBankingAccountings());
+	}
+
+	/**
+	* Save an existing Approval entity
+	* 
+	*/
+	@RequestMapping(value = "/Comapny/{comapny_id}/approvals", method = RequestMethod.PUT)
+	@ResponseBody
+	public Approval saveComapnyApprovals(@PathVariable Integer comapny_id, @RequestBody Approval approvals) {
+		comapnyService.saveComapnyApprovals(comapny_id, approvals);
+		return approvalDAO.findApprovalByPrimaryKey(approvals.getId());
+	}
+
+	/**
+	* View an existing Ledger entity
+	* 
+	*/
+	@RequestMapping(value = "/Comapny/{comapny_id}/ledgers/{ledger_id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Ledger loadComapnyLedgers(@PathVariable Integer comapny_id, @PathVariable Integer related_ledgers_id) {
+		Ledger ledger = ledgerDAO.findLedgerByPrimaryKey(related_ledgers_id, -1, -1);
+
+		return ledger;
+	}
+
+	/**
+	* Delete an existing Comapny entity
+	* 
+	*/
+	@RequestMapping(value = "/Comapny/{comapny_id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public void deleteComapny(@PathVariable Integer comapny_id) {
+		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_id);
+		comapnyService.deleteComapny(comapny);
+	}
+
+	/**
+	* Create a new BankingAccounting entity
+	* 
+	*/
+	@RequestMapping(value = "/Comapny/{comapny_id}/bankingAccountings", method = RequestMethod.POST)
+	@ResponseBody
+	public BankingAccounting newComapnyBankingAccountings(@PathVariable Integer comapny_id, @RequestBody BankingAccounting bankingaccounting) {
+		comapnyService.saveComapnyBankingAccountings(comapny_id, bankingaccounting);
+		return bankingAccountingDAO.findBankingAccountingByPrimaryKey(bankingaccounting.getId());
 	}
 
 	/**
@@ -125,43 +200,56 @@ public class ComapnyRestController {
 	}
 
 	/**
-	* Select an existing Comapny entity
+	* View an existing BankingAccounting entity
 	* 
 	*/
-	@RequestMapping(value = "/Comapny/{comapny_companyId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/Comapny/{comapny_id}/bankingAccountings/{bankingaccounting_id}", method = RequestMethod.GET)
 	@ResponseBody
-	public Comapny loadComapny(@PathVariable Integer comapny_companyId) {
-		return comapnyDAO.findComapnyByPrimaryKey(comapny_companyId);
-	}
+	public BankingAccounting loadComapnyBankingAccountings(@PathVariable Integer comapny_id, @PathVariable Integer related_bankingaccountings_id) {
+		BankingAccounting bankingaccounting = bankingAccountingDAO.findBankingAccountingByPrimaryKey(related_bankingaccountings_id, -1, -1);
 
-	/**
-	* Delete an existing Ledger entity
-	* 
-	*/
-	@RequestMapping(value = "/Comapny/{comapny_companyId}/ledgers/{ledger_id}", method = RequestMethod.DELETE)
-	@ResponseBody
-	public void deleteComapnyLedgers(@PathVariable Integer comapny_companyId, @PathVariable Integer related_ledgers_id) {
-		comapnyService.deleteComapnyLedgers(comapny_companyId, related_ledgers_id);
-	}
-
-	/**
-	* Show all Approval entities by Comapny
-	* 
-	*/
-	@RequestMapping(value = "/Comapny/{comapny_companyId}/approvals", method = RequestMethod.GET)
-	@ResponseBody
-	public List<Approval> getComapnyApprovals(@PathVariable Integer comapny_companyId) {
-		return new java.util.ArrayList<Approval>(comapnyDAO.findComapnyByPrimaryKey(comapny_companyId).getApprovals());
+		return bankingaccounting;
 	}
 
 	/**
 	* Delete an existing BankingAccounting entity
 	* 
 	*/
-	@RequestMapping(value = "/Comapny/{comapny_companyId}/bankingAccountings/{bankingaccounting_id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/Comapny/{comapny_id}/bankingAccountings/{bankingaccounting_id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public void deleteComapnyBankingAccountings(@PathVariable Integer comapny_companyId, @PathVariable Integer related_bankingaccountings_id) {
-		comapnyService.deleteComapnyBankingAccountings(comapny_companyId, related_bankingaccountings_id);
+	public void deleteComapnyBankingAccountings(@PathVariable Integer comapny_id, @PathVariable Integer related_bankingaccountings_id) {
+		comapnyService.deleteComapnyBankingAccountings(comapny_id, related_bankingaccountings_id);
+	}
+
+	/**
+	* Select an existing Comapny entity
+	* 
+	*/
+	@RequestMapping(value = "/Comapny/{comapny_id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Comapny loadComapny(@PathVariable Integer comapny_id) {
+		return comapnyDAO.findComapnyByPrimaryKey(comapny_id);
+	}
+
+	/**
+	* Create a new Ledger entity
+	* 
+	*/
+	@RequestMapping(value = "/Comapny/{comapny_id}/ledgers", method = RequestMethod.POST)
+	@ResponseBody
+	public Ledger newComapnyLedgers(@PathVariable Integer comapny_id, @RequestBody Ledger ledger) {
+		comapnyService.saveComapnyLedgers(comapny_id, ledger);
+		return ledgerDAO.findLedgerByPrimaryKey(ledger.getId());
+	}
+
+	/**
+	* Delete an existing Ledger entity
+	* 
+	*/
+	@RequestMapping(value = "/Comapny/{comapny_id}/ledgers/{ledger_id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public void deleteComapnyLedgers(@PathVariable Integer comapny_id, @PathVariable Integer related_ledgers_id) {
+		comapnyService.deleteComapnyLedgers(comapny_id, related_ledgers_id);
 	}
 
 	/**
@@ -175,113 +263,13 @@ public class ComapnyRestController {
 	}
 
 	/**
-	* View an existing Approval entity
+	* Show all Approval entities by Comapny
 	* 
 	*/
-	@RequestMapping(value = "/Comapny/{comapny_companyId}/approvals/{approval_id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/Comapny/{comapny_id}/approvals", method = RequestMethod.GET)
 	@ResponseBody
-	public Approval loadComapnyApprovals(@PathVariable Integer comapny_companyId, @PathVariable Integer related_approvals_id) {
-		Approval approval = approvalDAO.findApprovalByPrimaryKey(related_approvals_id, -1, -1);
-
-		return approval;
-	}
-
-	/**
-	* Create a new Comapny entity
-	* 
-	*/
-	@RequestMapping(value = "/Comapny", method = RequestMethod.POST)
-	@ResponseBody
-	public Comapny newComapny(@RequestBody Comapny comapny) {
-		comapnyService.saveComapny(comapny);
-		return comapnyDAO.findComapnyByPrimaryKey(comapny.getCompanyId());
-	}
-
-	/**
-	* Save an existing Ledger entity
-	* 
-	*/
-	@RequestMapping(value = "/Comapny/{comapny_companyId}/ledgers", method = RequestMethod.PUT)
-	@ResponseBody
-	public Ledger saveComapnyLedgers(@PathVariable Integer comapny_companyId, @RequestBody Ledger ledgers) {
-		comapnyService.saveComapnyLedgers(comapny_companyId, ledgers);
-		return ledgerDAO.findLedgerByPrimaryKey(ledgers.getId());
-	}
-
-	/**
-	* Delete an existing Comapny entity
-	* 
-	*/
-	@RequestMapping(value = "/Comapny/{comapny_companyId}", method = RequestMethod.DELETE)
-	@ResponseBody
-	public void deleteComapny(@PathVariable Integer comapny_companyId) {
-		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(comapny_companyId);
-		comapnyService.deleteComapny(comapny);
-	}
-
-	/**
-	* Create a new Approval entity
-	* 
-	*/
-	@RequestMapping(value = "/Comapny/{comapny_companyId}/approvals", method = RequestMethod.POST)
-	@ResponseBody
-	public Approval newComapnyApprovals(@PathVariable Integer comapny_companyId, @RequestBody Approval approval) {
-		comapnyService.saveComapnyApprovals(comapny_companyId, approval);
-		return approvalDAO.findApprovalByPrimaryKey(approval.getId());
-	}
-
-	/**
-	* View an existing Ledger entity
-	* 
-	*/
-	@RequestMapping(value = "/Comapny/{comapny_companyId}/ledgers/{ledger_id}", method = RequestMethod.GET)
-	@ResponseBody
-	public Ledger loadComapnyLedgers(@PathVariable Integer comapny_companyId, @PathVariable Integer related_ledgers_id) {
-		Ledger ledger = ledgerDAO.findLedgerByPrimaryKey(related_ledgers_id, -1, -1);
-
-		return ledger;
-	}
-
-	/**
-	* Create a new Ledger entity
-	* 
-	*/
-	@RequestMapping(value = "/Comapny/{comapny_companyId}/ledgers", method = RequestMethod.POST)
-	@ResponseBody
-	public Ledger newComapnyLedgers(@PathVariable Integer comapny_companyId, @RequestBody Ledger ledger) {
-		comapnyService.saveComapnyLedgers(comapny_companyId, ledger);
-		return ledgerDAO.findLedgerByPrimaryKey(ledger.getId());
-	}
-
-	/**
-	* Show all BankingAccounting entities by Comapny
-	* 
-	*/
-	@RequestMapping(value = "/Comapny/{comapny_companyId}/bankingAccountings", method = RequestMethod.GET)
-	@ResponseBody
-	public List<BankingAccounting> getComapnyBankingAccountings(@PathVariable Integer comapny_companyId) {
-		return new java.util.ArrayList<BankingAccounting>(comapnyDAO.findComapnyByPrimaryKey(comapny_companyId).getBankingAccountings());
-	}
-
-	/**
-	* Delete an existing Approval entity
-	* 
-	*/
-	@RequestMapping(value = "/Comapny/{comapny_companyId}/approvals/{approval_id}", method = RequestMethod.DELETE)
-	@ResponseBody
-	public void deleteComapnyApprovals(@PathVariable Integer comapny_companyId, @PathVariable Integer related_approvals_id) {
-		comapnyService.deleteComapnyApprovals(comapny_companyId, related_approvals_id);
-	}
-
-	/**
-	* Save an existing Approval entity
-	* 
-	*/
-	@RequestMapping(value = "/Comapny/{comapny_companyId}/approvals", method = RequestMethod.PUT)
-	@ResponseBody
-	public Approval saveComapnyApprovals(@PathVariable Integer comapny_companyId, @RequestBody Approval approvals) {
-		comapnyService.saveComapnyApprovals(comapny_companyId, approvals);
-		return approvalDAO.findApprovalByPrimaryKey(approvals.getId());
+	public List<Approval> getComapnyApprovals(@PathVariable Integer comapny_id) {
+		return new java.util.ArrayList<Approval>(comapnyDAO.findComapnyByPrimaryKey(comapny_id).getApprovals());
 	}
 
 	/**
@@ -292,17 +280,29 @@ public class ComapnyRestController {
 	@ResponseBody
 	public Comapny saveComapny(@RequestBody Comapny comapny) {
 		comapnyService.saveComapny(comapny);
-		return comapnyDAO.findComapnyByPrimaryKey(comapny.getCompanyId());
+		return comapnyDAO.findComapnyByPrimaryKey(comapny.getId());
 	}
 
 	/**
-	* Create a new BankingAccounting entity
+	* Save an existing Ledger entity
 	* 
 	*/
-	@RequestMapping(value = "/Comapny/{comapny_companyId}/bankingAccountings", method = RequestMethod.POST)
+	@RequestMapping(value = "/Comapny/{comapny_id}/ledgers", method = RequestMethod.PUT)
 	@ResponseBody
-	public BankingAccounting newComapnyBankingAccountings(@PathVariable Integer comapny_companyId, @RequestBody BankingAccounting bankingaccounting) {
-		comapnyService.saveComapnyBankingAccountings(comapny_companyId, bankingaccounting);
-		return bankingAccountingDAO.findBankingAccountingByPrimaryKey(bankingaccounting.getId());
+	public Ledger saveComapnyLedgers(@PathVariable Integer comapny_id, @RequestBody Ledger ledgers) {
+		comapnyService.saveComapnyLedgers(comapny_id, ledgers);
+		return ledgerDAO.findLedgerByPrimaryKey(ledgers.getId());
+	}
+
+	/**
+	* View an existing Approval entity
+	* 
+	*/
+	@RequestMapping(value = "/Comapny/{comapny_id}/approvals/{approval_id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Approval loadComapnyApprovals(@PathVariable Integer comapny_id, @PathVariable Integer related_approvals_id) {
+		Approval approval = approvalDAO.findApprovalByPrimaryKey(related_approvals_id, -1, -1);
+
+		return approval;
 	}
 }

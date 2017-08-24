@@ -93,13 +93,13 @@ public class BankingAccountingRestControllerTest {
 	}
 
 	/**
-	 * Test <code>BankingAccountingbankingaccounting_idcomapnycomapny_companyId()</code>.
+	 * Test <code>BankingAccountingbankingaccounting_idcomapnycomapny_id()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void DeleteBankingAccountingbankingaccounting_idcomapnycomapny_companyId() throws Exception {
+	public void DeleteBankingAccountingbankingaccounting_idcomapnycomapny_id() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/BankingAccounting/{bankingaccounting_id}/comapny/{comapny_companyId}");
+		request.setRequestURI("/BankingAccounting/{bankingaccounting_id}/comapny/{comapny_id}");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
@@ -110,13 +110,13 @@ public class BankingAccountingRestControllerTest {
 	}
 
 	/**
-	 * Test <code>BankingAccountingbankingaccounting_idcomapnycomapny_companyId()</code>.
+	 * Test <code>BankingAccountingbankingaccounting_idcomapnycomapny_id()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void GetBankingAccountingbankingaccounting_idcomapnycomapny_companyId() throws Exception {
+	public void GetBankingAccountingbankingaccounting_idcomapnycomapny_id() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/BankingAccounting/{bankingaccounting_id}/comapny/{comapny_companyId}");
+		request.setRequestURI("/BankingAccounting/{bankingaccounting_id}/comapny/{comapny_id}");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance

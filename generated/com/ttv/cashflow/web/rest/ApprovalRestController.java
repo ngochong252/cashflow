@@ -56,56 +56,26 @@ public class ApprovalRestController {
 	private ApprovalService approvalService;
 
 	/**
-	 * Select an existing Approval entity
+	 * View an existing Comapny entity
 	 * 
 	 */
-	@RequestMapping(value = "/Approval/{approval_id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/Approval/{approval_id}/comapny/{comapny_id}", method = RequestMethod.GET)
 	@ResponseBody
-	public Approval loadApproval(@PathVariable Integer approval_id) {
-		return approvalDAO.findApprovalByPrimaryKey(approval_id);
-	}
-
-	/**
-	* Save an existing Comapny entity
-	* 
-	*/
-	@RequestMapping(value = "/Approval/{approval_id}/comapny", method = RequestMethod.PUT)
-	@ResponseBody
-	public Comapny saveApprovalComapny(@PathVariable Integer approval_id, @RequestBody Comapny comapny) {
-		approvalService.saveApprovalComapny(approval_id, comapny);
-		return comapnyDAO.findComapnyByPrimaryKey(comapny.getCompanyId());
-	}
-
-	/**
-	* View an existing Comapny entity
-	* 
-	*/
-	@RequestMapping(value = "/Approval/{approval_id}/comapny/{comapny_companyId}", method = RequestMethod.GET)
-	@ResponseBody
-	public Comapny loadApprovalComapny(@PathVariable Integer approval_id, @PathVariable Integer related_comapny_companyId) {
-		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(related_comapny_companyId, -1, -1);
+	public Comapny loadApprovalComapny(@PathVariable Integer approval_id, @PathVariable Integer related_comapny_id) {
+		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(related_comapny_id, -1, -1);
 
 		return comapny;
 	}
 
 	/**
-	* Delete an existing Comapny entity
+	* Delete an existing Approval entity
 	* 
 	*/
-	@RequestMapping(value = "/Approval/{approval_id}/comapny/{comapny_companyId}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/Approval/{approval_id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public void deleteApprovalComapny(@PathVariable Integer approval_id, @PathVariable Integer related_comapny_companyId) {
-		approvalService.deleteApprovalComapny(approval_id, related_comapny_companyId);
-	}
-
-	/**
-	* Get Comapny entity by Approval
-	* 
-	*/
-	@RequestMapping(value = "/Approval/{approval_id}/comapny", method = RequestMethod.GET)
-	@ResponseBody
-	public Comapny getApprovalComapny(@PathVariable Integer approval_id) {
-		return approvalDAO.findApprovalByPrimaryKey(approval_id).getComapny();
+	public void deleteApproval(@PathVariable Integer approval_id) {
+		Approval approval = approvalDAO.findApprovalByPrimaryKey(approval_id);
+		approvalService.deleteApproval(approval);
 	}
 
 	/**
@@ -127,25 +97,35 @@ public class ApprovalRestController {
 	}
 
 	/**
-	* Create a new Comapny entity
+	* Save an existing Comapny entity
 	* 
 	*/
-	@RequestMapping(value = "/Approval/{approval_id}/comapny", method = RequestMethod.POST)
+	@RequestMapping(value = "/Approval/{approval_id}/comapny", method = RequestMethod.PUT)
 	@ResponseBody
-	public Comapny newApprovalComapny(@PathVariable Integer approval_id, @RequestBody Comapny comapny) {
+	public Comapny saveApprovalComapny(@PathVariable Integer approval_id, @RequestBody Comapny comapny) {
 		approvalService.saveApprovalComapny(approval_id, comapny);
-		return comapnyDAO.findComapnyByPrimaryKey(comapny.getCompanyId());
+		return comapnyDAO.findComapnyByPrimaryKey(comapny.getId());
 	}
 
 	/**
-	* Delete an existing Approval entity
+	* Create a new Approval entity
 	* 
 	*/
-	@RequestMapping(value = "/Approval/{approval_id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/Approval", method = RequestMethod.POST)
 	@ResponseBody
-	public void deleteApproval(@PathVariable Integer approval_id) {
-		Approval approval = approvalDAO.findApprovalByPrimaryKey(approval_id);
-		approvalService.deleteApproval(approval);
+	public Approval newApproval(@RequestBody Approval approval) {
+		approvalService.saveApproval(approval);
+		return approvalDAO.findApprovalByPrimaryKey(approval.getId());
+	}
+
+	/**
+	* Get Comapny entity by Approval
+	* 
+	*/
+	@RequestMapping(value = "/Approval/{approval_id}/comapny", method = RequestMethod.GET)
+	@ResponseBody
+	public Comapny getApprovalComapny(@PathVariable Integer approval_id) {
+		return approvalDAO.findApprovalByPrimaryKey(approval_id).getComapny();
 	}
 
 	/**
@@ -159,14 +139,34 @@ public class ApprovalRestController {
 	}
 
 	/**
-	* Create a new Approval entity
+	* Create a new Comapny entity
 	* 
 	*/
-	@RequestMapping(value = "/Approval", method = RequestMethod.POST)
+	@RequestMapping(value = "/Approval/{approval_id}/comapny", method = RequestMethod.POST)
 	@ResponseBody
-	public Approval newApproval(@RequestBody Approval approval) {
-		approvalService.saveApproval(approval);
-		return approvalDAO.findApprovalByPrimaryKey(approval.getId());
+	public Comapny newApprovalComapny(@PathVariable Integer approval_id, @RequestBody Comapny comapny) {
+		approvalService.saveApprovalComapny(approval_id, comapny);
+		return comapnyDAO.findComapnyByPrimaryKey(comapny.getId());
+	}
+
+	/**
+	* Delete an existing Comapny entity
+	* 
+	*/
+	@RequestMapping(value = "/Approval/{approval_id}/comapny/{comapny_id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public void deleteApprovalComapny(@PathVariable Integer approval_id, @PathVariable Integer related_comapny_id) {
+		approvalService.deleteApprovalComapny(approval_id, related_comapny_id);
+	}
+
+	/**
+	* Select an existing Approval entity
+	* 
+	*/
+	@RequestMapping(value = "/Approval/{approval_id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Approval loadApproval(@PathVariable Integer approval_id) {
+		return approvalDAO.findApprovalByPrimaryKey(approval_id);
 	}
 
 	/**

@@ -93,13 +93,13 @@ public class ApprovalRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Approvalapproval_idcomapnycomapny_companyId()</code>.
+	 * Test <code>Approvalapproval_idcomapnycomapny_id()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void DeleteApprovalapproval_idcomapnycomapny_companyId() throws Exception {
+	public void DeleteApprovalapproval_idcomapnycomapny_id() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Approval/{approval_id}/comapny/{comapny_companyId}");
+		request.setRequestURI("/Approval/{approval_id}/comapny/{comapny_id}");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
@@ -110,13 +110,13 @@ public class ApprovalRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Approvalapproval_idcomapnycomapny_companyId()</code>.
+	 * Test <code>Approvalapproval_idcomapnycomapny_id()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void GetApprovalapproval_idcomapnycomapny_companyId() throws Exception {
+	public void GetApprovalapproval_idcomapnycomapny_id() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Approval/{approval_id}/comapny/{comapny_companyId}");
+		request.setRequestURI("/Approval/{approval_id}/comapny/{comapny_id}");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance

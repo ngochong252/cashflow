@@ -56,14 +56,55 @@ public class AccountPayableRestController {
 	private AccountPayableService accountPayableService;
 
 	/**
-	 * Create a new Ledger entity
+	 * Delete an existing AccountPayable entity
 	 * 
 	 */
-	@RequestMapping(value = "/AccountPayable/{accountpayable_id}/ledger", method = RequestMethod.POST)
+	@RequestMapping(value = "/AccountPayable/{accountpayable_id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public Ledger newAccountPayableLedger(@PathVariable Integer accountpayable_id, @RequestBody Ledger ledger) {
-		accountPayableService.saveAccountPayableLedger(accountpayable_id, ledger);
-		return ledgerDAO.findLedgerByPrimaryKey(ledger.getId());
+	public void deleteAccountPayable(@PathVariable Integer accountpayable_id) {
+		AccountPayable accountpayable = accountPayableDAO.findAccountPayableByPrimaryKey(accountpayable_id);
+		accountPayableService.deleteAccountPayable(accountpayable);
+	}
+
+	/**
+	* Save an existing AccountPayable entity
+	* 
+	*/
+	@RequestMapping(value = "/AccountPayable", method = RequestMethod.PUT)
+	@ResponseBody
+	public AccountPayable saveAccountPayable(@RequestBody AccountPayable accountpayable) {
+		accountPayableService.saveAccountPayable(accountpayable);
+		return accountPayableDAO.findAccountPayableByPrimaryKey(accountpayable.getId());
+	}
+
+	/**
+	* Delete an existing Ledger entity
+	* 
+	*/
+	@RequestMapping(value = "/AccountPayable/{accountpayable_id}/ledger/{ledger_id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public void deleteAccountPayableLedger(@PathVariable Integer accountpayable_id, @PathVariable Integer related_ledger_id) {
+		accountPayableService.deleteAccountPayableLedger(accountpayable_id, related_ledger_id);
+	}
+
+	/**
+	* Get Ledger entity by AccountPayable
+	* 
+	*/
+	@RequestMapping(value = "/AccountPayable/{accountpayable_id}/ledger", method = RequestMethod.GET)
+	@ResponseBody
+	public Ledger getAccountPayableLedger(@PathVariable Integer accountpayable_id) {
+		return accountPayableDAO.findAccountPayableByPrimaryKey(accountpayable_id).getLedger();
+	}
+
+	/**
+	* Show all AccountPayable entities
+	* 
+	*/
+	@RequestMapping(value = "/AccountPayable", method = RequestMethod.GET)
+	@ResponseBody
+	public List<AccountPayable> listAccountPayables() {
+		return new java.util.ArrayList<AccountPayable>(accountPayableService.loadAccountPayables());
 	}
 
 	/**
@@ -95,6 +136,17 @@ public class AccountPayableRestController {
 	}
 
 	/**
+	* Save an existing Ledger entity
+	* 
+	*/
+	@RequestMapping(value = "/AccountPayable/{accountpayable_id}/ledger", method = RequestMethod.PUT)
+	@ResponseBody
+	public Ledger saveAccountPayableLedger(@PathVariable Integer accountpayable_id, @RequestBody Ledger ledger) {
+		accountPayableService.saveAccountPayableLedger(accountpayable_id, ledger);
+		return ledgerDAO.findLedgerByPrimaryKey(ledger.getId());
+	}
+
+	/**
 	* View an existing Ledger entity
 	* 
 	*/
@@ -107,75 +159,23 @@ public class AccountPayableRestController {
 	}
 
 	/**
+	* Create a new Ledger entity
+	* 
+	*/
+	@RequestMapping(value = "/AccountPayable/{accountpayable_id}/ledger", method = RequestMethod.POST)
+	@ResponseBody
+	public Ledger newAccountPayableLedger(@PathVariable Integer accountpayable_id, @RequestBody Ledger ledger) {
+		accountPayableService.saveAccountPayableLedger(accountpayable_id, ledger);
+		return ledgerDAO.findLedgerByPrimaryKey(ledger.getId());
+	}
+
+	/**
 	* Create a new AccountPayable entity
 	* 
 	*/
 	@RequestMapping(value = "/AccountPayable", method = RequestMethod.POST)
 	@ResponseBody
 	public AccountPayable newAccountPayable(@RequestBody AccountPayable accountpayable) {
-		accountPayableService.saveAccountPayable(accountpayable);
-		return accountPayableDAO.findAccountPayableByPrimaryKey(accountpayable.getId());
-	}
-
-	/**
-	* Save an existing Ledger entity
-	* 
-	*/
-	@RequestMapping(value = "/AccountPayable/{accountpayable_id}/ledger", method = RequestMethod.PUT)
-	@ResponseBody
-	public Ledger saveAccountPayableLedger(@PathVariable Integer accountpayable_id, @RequestBody Ledger ledger) {
-		accountPayableService.saveAccountPayableLedger(accountpayable_id, ledger);
-		return ledgerDAO.findLedgerByPrimaryKey(ledger.getId());
-	}
-
-	/**
-	* Get Ledger entity by AccountPayable
-	* 
-	*/
-	@RequestMapping(value = "/AccountPayable/{accountpayable_id}/ledger", method = RequestMethod.GET)
-	@ResponseBody
-	public Ledger getAccountPayableLedger(@PathVariable Integer accountpayable_id) {
-		return accountPayableDAO.findAccountPayableByPrimaryKey(accountpayable_id).getLedger();
-	}
-
-	/**
-	* Delete an existing Ledger entity
-	* 
-	*/
-	@RequestMapping(value = "/AccountPayable/{accountpayable_id}/ledger/{ledger_id}", method = RequestMethod.DELETE)
-	@ResponseBody
-	public void deleteAccountPayableLedger(@PathVariable Integer accountpayable_id, @PathVariable Integer related_ledger_id) {
-		accountPayableService.deleteAccountPayableLedger(accountpayable_id, related_ledger_id);
-	}
-
-	/**
-	* Show all AccountPayable entities
-	* 
-	*/
-	@RequestMapping(value = "/AccountPayable", method = RequestMethod.GET)
-	@ResponseBody
-	public List<AccountPayable> listAccountPayables() {
-		return new java.util.ArrayList<AccountPayable>(accountPayableService.loadAccountPayables());
-	}
-
-	/**
-	* Delete an existing AccountPayable entity
-	* 
-	*/
-	@RequestMapping(value = "/AccountPayable/{accountpayable_id}", method = RequestMethod.DELETE)
-	@ResponseBody
-	public void deleteAccountPayable(@PathVariable Integer accountpayable_id) {
-		AccountPayable accountpayable = accountPayableDAO.findAccountPayableByPrimaryKey(accountpayable_id);
-		accountPayableService.deleteAccountPayable(accountpayable);
-	}
-
-	/**
-	* Save an existing AccountPayable entity
-	* 
-	*/
-	@RequestMapping(value = "/AccountPayable", method = RequestMethod.PUT)
-	@ResponseBody
-	public AccountPayable saveAccountPayable(@RequestBody AccountPayable accountpayable) {
 		accountPayableService.saveAccountPayable(accountpayable);
 		return accountPayableDAO.findAccountPayableByPrimaryKey(accountpayable.getId());
 	}

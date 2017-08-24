@@ -56,23 +56,15 @@ public class BankingAccountingRestController {
 	private BankingAccountingService bankingAccountingService;
 
 	/**
-	 * Get Comapny entity by BankingAccounting
+	 * View an existing Comapny entity
 	 * 
 	 */
-	@RequestMapping(value = "/BankingAccounting/{bankingaccounting_id}/comapny", method = RequestMethod.GET)
+	@RequestMapping(value = "/BankingAccounting/{bankingaccounting_id}/comapny/{comapny_id}", method = RequestMethod.GET)
 	@ResponseBody
-	public Comapny getBankingAccountingComapny(@PathVariable Integer bankingaccounting_id) {
-		return bankingAccountingDAO.findBankingAccountingByPrimaryKey(bankingaccounting_id).getComapny();
-	}
+	public Comapny loadBankingAccountingComapny(@PathVariable Integer bankingaccounting_id, @PathVariable Integer related_comapny_id) {
+		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(related_comapny_id, -1, -1);
 
-	/**
-	* Select an existing BankingAccounting entity
-	* 
-	*/
-	@RequestMapping(value = "/BankingAccounting/{bankingaccounting_id}", method = RequestMethod.GET)
-	@ResponseBody
-	public BankingAccounting loadBankingAccounting(@PathVariable Integer bankingaccounting_id) {
-		return bankingAccountingDAO.findBankingAccountingByPrimaryKey(bankingaccounting_id);
+		return comapny;
 	}
 
 	/**
@@ -94,14 +86,44 @@ public class BankingAccountingRestController {
 	}
 
 	/**
-	* Create a new BankingAccounting entity
+	* Create a new Comapny entity
 	* 
 	*/
-	@RequestMapping(value = "/BankingAccounting", method = RequestMethod.POST)
+	@RequestMapping(value = "/BankingAccounting/{bankingaccounting_id}/comapny", method = RequestMethod.POST)
 	@ResponseBody
-	public BankingAccounting newBankingAccounting(@RequestBody BankingAccounting bankingaccounting) {
-		bankingAccountingService.saveBankingAccounting(bankingaccounting);
-		return bankingAccountingDAO.findBankingAccountingByPrimaryKey(bankingaccounting.getId());
+	public Comapny newBankingAccountingComapny(@PathVariable Integer bankingaccounting_id, @RequestBody Comapny comapny) {
+		bankingAccountingService.saveBankingAccountingComapny(bankingaccounting_id, comapny);
+		return comapnyDAO.findComapnyByPrimaryKey(comapny.getId());
+	}
+
+	/**
+	* Delete an existing Comapny entity
+	* 
+	*/
+	@RequestMapping(value = "/BankingAccounting/{bankingaccounting_id}/comapny/{comapny_id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public void deleteBankingAccountingComapny(@PathVariable Integer bankingaccounting_id, @PathVariable Integer related_comapny_id) {
+		bankingAccountingService.deleteBankingAccountingComapny(bankingaccounting_id, related_comapny_id);
+	}
+
+	/**
+	* Select an existing BankingAccounting entity
+	* 
+	*/
+	@RequestMapping(value = "/BankingAccounting/{bankingaccounting_id}", method = RequestMethod.GET)
+	@ResponseBody
+	public BankingAccounting loadBankingAccounting(@PathVariable Integer bankingaccounting_id) {
+		return bankingAccountingDAO.findBankingAccountingByPrimaryKey(bankingaccounting_id);
+	}
+
+	/**
+	* Show all BankingAccounting entities
+	* 
+	*/
+	@RequestMapping(value = "/BankingAccounting", method = RequestMethod.GET)
+	@ResponseBody
+	public List<BankingAccounting> listBankingAccountings() {
+		return new java.util.ArrayList<BankingAccounting>(bankingAccountingService.loadBankingAccountings());
 	}
 
 	/**
@@ -116,6 +138,27 @@ public class BankingAccountingRestController {
 	}
 
 	/**
+	* Get Comapny entity by BankingAccounting
+	* 
+	*/
+	@RequestMapping(value = "/BankingAccounting/{bankingaccounting_id}/comapny", method = RequestMethod.GET)
+	@ResponseBody
+	public Comapny getBankingAccountingComapny(@PathVariable Integer bankingaccounting_id) {
+		return bankingAccountingDAO.findBankingAccountingByPrimaryKey(bankingaccounting_id).getComapny();
+	}
+
+	/**
+	* Create a new BankingAccounting entity
+	* 
+	*/
+	@RequestMapping(value = "/BankingAccounting", method = RequestMethod.POST)
+	@ResponseBody
+	public BankingAccounting newBankingAccounting(@RequestBody BankingAccounting bankingaccounting) {
+		bankingAccountingService.saveBankingAccounting(bankingaccounting);
+		return bankingAccountingDAO.findBankingAccountingByPrimaryKey(bankingaccounting.getId());
+	}
+
+	/**
 	* Save an existing Comapny entity
 	* 
 	*/
@@ -123,18 +166,7 @@ public class BankingAccountingRestController {
 	@ResponseBody
 	public Comapny saveBankingAccountingComapny(@PathVariable Integer bankingaccounting_id, @RequestBody Comapny comapny) {
 		bankingAccountingService.saveBankingAccountingComapny(bankingaccounting_id, comapny);
-		return comapnyDAO.findComapnyByPrimaryKey(comapny.getCompanyId());
-	}
-
-	/**
-	* Create a new Comapny entity
-	* 
-	*/
-	@RequestMapping(value = "/BankingAccounting/{bankingaccounting_id}/comapny", method = RequestMethod.POST)
-	@ResponseBody
-	public Comapny newBankingAccountingComapny(@PathVariable Integer bankingaccounting_id, @RequestBody Comapny comapny) {
-		bankingAccountingService.saveBankingAccountingComapny(bankingaccounting_id, comapny);
-		return comapnyDAO.findComapnyByPrimaryKey(comapny.getCompanyId());
+		return comapnyDAO.findComapnyByPrimaryKey(comapny.getId());
 	}
 
 	/**
@@ -146,37 +178,5 @@ public class BankingAccountingRestController {
 	public BankingAccounting saveBankingAccounting(@RequestBody BankingAccounting bankingaccounting) {
 		bankingAccountingService.saveBankingAccounting(bankingaccounting);
 		return bankingAccountingDAO.findBankingAccountingByPrimaryKey(bankingaccounting.getId());
-	}
-
-	/**
-	* Show all BankingAccounting entities
-	* 
-	*/
-	@RequestMapping(value = "/BankingAccounting", method = RequestMethod.GET)
-	@ResponseBody
-	public List<BankingAccounting> listBankingAccountings() {
-		return new java.util.ArrayList<BankingAccounting>(bankingAccountingService.loadBankingAccountings());
-	}
-
-	/**
-	* View an existing Comapny entity
-	* 
-	*/
-	@RequestMapping(value = "/BankingAccounting/{bankingaccounting_id}/comapny/{comapny_companyId}", method = RequestMethod.GET)
-	@ResponseBody
-	public Comapny loadBankingAccountingComapny(@PathVariable Integer bankingaccounting_id, @PathVariable Integer related_comapny_companyId) {
-		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(related_comapny_companyId, -1, -1);
-
-		return comapny;
-	}
-
-	/**
-	* Delete an existing Comapny entity
-	* 
-	*/
-	@RequestMapping(value = "/BankingAccounting/{bankingaccounting_id}/comapny/{comapny_companyId}", method = RequestMethod.DELETE)
-	@ResponseBody
-	public void deleteBankingAccountingComapny(@PathVariable Integer bankingaccounting_id, @PathVariable Integer related_comapny_companyId) {
-		bankingAccountingService.deleteBankingAccountingComapny(bankingaccounting_id, related_comapny_companyId);
 	}
 }

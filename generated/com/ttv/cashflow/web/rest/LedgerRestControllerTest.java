@@ -93,13 +93,13 @@ public class LedgerRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Ledgerledger_idcomapnycomapny_companyId()</code>.
+	 * Test <code>Ledgerledger_idcomapnycomapny_id()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void DeleteLedgerledger_idcomapnycomapny_companyId() throws Exception {
+	public void DeleteLedgerledger_idcomapnycomapny_id() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Ledger/{ledger_id}/comapny/{comapny_companyId}");
+		request.setRequestURI("/Ledger/{ledger_id}/comapny/{comapny_id}");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance
@@ -110,13 +110,13 @@ public class LedgerRestControllerTest {
 	}
 
 	/**
-	 * Test <code>Ledgerledger_idcomapnycomapny_companyId()</code>.
+	 * Test <code>Ledgerledger_idcomapnycomapny_id()</code>.
 	 */
 	@Test
 	@SuppressWarnings("unused")
-	public void GetLedgerledger_idcomapnycomapny_companyId() throws Exception {
+	public void GetLedgerledger_idcomapnycomapny_id() throws Exception {
 		MockHttpServletRequest request = getMockHttpServletRequest();
-		request.setRequestURI("/Ledger/{ledger_id}/comapny/{comapny_companyId}");
+		request.setRequestURI("/Ledger/{ledger_id}/comapny/{comapny_id}");
 		MockHttpServletResponse response = getMockHttpServletResponse();
 
 		// Get the singleton controller instance

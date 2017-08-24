@@ -85,46 +85,14 @@ public class LedgerRestController {
 	}
 
 	/**
-	* Show all Ledger entities
+	* Save an existing Comapny entity
 	* 
 	*/
-	@RequestMapping(value = "/Ledger", method = RequestMethod.GET)
+	@RequestMapping(value = "/Ledger/{ledger_id}/comapny", method = RequestMethod.PUT)
 	@ResponseBody
-	public List<Ledger> listLedgers() {
-		return new java.util.ArrayList<Ledger>(ledgerService.loadLedgers());
-	}
-
-	/**
-	* Create a new Comapny entity
-	* 
-	*/
-	@RequestMapping(value = "/Ledger/{ledger_id}/comapny", method = RequestMethod.POST)
-	@ResponseBody
-	public Comapny newLedgerComapny(@PathVariable Integer ledger_id, @RequestBody Comapny comapny) {
+	public Comapny saveLedgerComapny(@PathVariable Integer ledger_id, @RequestBody Comapny comapny) {
 		ledgerService.saveLedgerComapny(ledger_id, comapny);
-		return comapnyDAO.findComapnyByPrimaryKey(comapny.getCompanyId());
-	}
-
-	/**
-	* Save an existing Ledger entity
-	* 
-	*/
-	@RequestMapping(value = "/Ledger", method = RequestMethod.PUT)
-	@ResponseBody
-	public Ledger saveLedger(@RequestBody Ledger ledger) {
-		ledgerService.saveLedger(ledger);
-		return ledgerDAO.findLedgerByPrimaryKey(ledger.getId());
-	}
-
-	/**
-	* Create a new AccountReceivable entity
-	* 
-	*/
-	@RequestMapping(value = "/Ledger/{ledger_id}/accountReceivables", method = RequestMethod.POST)
-	@ResponseBody
-	public AccountReceivable newLedgerAccountReceivables(@PathVariable Integer ledger_id, @RequestBody AccountReceivable accountreceivable) {
-		ledgerService.saveLedgerAccountReceivables(ledger_id, accountreceivable);
-		return accountReceivableDAO.findAccountReceivableByPrimaryKey(accountreceivable.getId());
+		return comapnyDAO.findComapnyByPrimaryKey(comapny.getId());
 	}
 
 	/**
@@ -146,6 +114,71 @@ public class LedgerRestController {
 	}
 
 	/**
+	* View an existing AccountPayable entity
+	* 
+	*/
+	@RequestMapping(value = "/Ledger/{ledger_id}/accountPayables/{accountpayable_id}", method = RequestMethod.GET)
+	@ResponseBody
+	public AccountPayable loadLedgerAccountPayables(@PathVariable Integer ledger_id, @PathVariable Integer related_accountpayables_id) {
+		AccountPayable accountpayable = accountPayableDAO.findAccountPayableByPrimaryKey(related_accountpayables_id, -1, -1);
+
+		return accountpayable;
+	}
+
+	/**
+	* Get Comapny entity by Ledger
+	* 
+	*/
+	@RequestMapping(value = "/Ledger/{ledger_id}/comapny", method = RequestMethod.GET)
+	@ResponseBody
+	public Comapny getLedgerComapny(@PathVariable Integer ledger_id) {
+		return ledgerDAO.findLedgerByPrimaryKey(ledger_id).getComapny();
+	}
+
+	/**
+	* View an existing Comapny entity
+	* 
+	*/
+	@RequestMapping(value = "/Ledger/{ledger_id}/comapny/{comapny_id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Comapny loadLedgerComapny(@PathVariable Integer ledger_id, @PathVariable Integer related_comapny_id) {
+		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(related_comapny_id, -1, -1);
+
+		return comapny;
+	}
+
+	/**
+	* Save an existing Ledger entity
+	* 
+	*/
+	@RequestMapping(value = "/Ledger", method = RequestMethod.PUT)
+	@ResponseBody
+	public Ledger saveLedger(@RequestBody Ledger ledger) {
+		ledgerService.saveLedger(ledger);
+		return ledgerDAO.findLedgerByPrimaryKey(ledger.getId());
+	}
+
+	/**
+	* Select an existing Ledger entity
+	* 
+	*/
+	@RequestMapping(value = "/Ledger/{ledger_id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Ledger loadLedger(@PathVariable Integer ledger_id) {
+		return ledgerDAO.findLedgerByPrimaryKey(ledger_id);
+	}
+
+	/**
+	* Show all Ledger entities
+	* 
+	*/
+	@RequestMapping(value = "/Ledger", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Ledger> listLedgers() {
+		return new java.util.ArrayList<Ledger>(ledgerService.loadLedgers());
+	}
+
+	/**
 	* Delete an existing AccountReceivable entity
 	* 
 	*/
@@ -153,48 +186,6 @@ public class LedgerRestController {
 	@ResponseBody
 	public void deleteLedgerAccountReceivables(@PathVariable Integer ledger_id, @PathVariable Integer related_accountreceivables_id) {
 		ledgerService.deleteLedgerAccountReceivables(ledger_id, related_accountreceivables_id);
-	}
-
-	/**
-	* Save an existing AccountPayable entity
-	* 
-	*/
-	@RequestMapping(value = "/Ledger/{ledger_id}/accountPayables", method = RequestMethod.PUT)
-	@ResponseBody
-	public AccountPayable saveLedgerAccountPayables(@PathVariable Integer ledger_id, @RequestBody AccountPayable accountpayables) {
-		ledgerService.saveLedgerAccountPayables(ledger_id, accountpayables);
-		return accountPayableDAO.findAccountPayableByPrimaryKey(accountpayables.getId());
-	}
-
-	/**
-	* Delete an existing Comapny entity
-	* 
-	*/
-	@RequestMapping(value = "/Ledger/{ledger_id}/comapny/{comapny_companyId}", method = RequestMethod.DELETE)
-	@ResponseBody
-	public void deleteLedgerComapny(@PathVariable Integer ledger_id, @PathVariable Integer related_comapny_companyId) {
-		ledgerService.deleteLedgerComapny(ledger_id, related_comapny_companyId);
-	}
-
-	/**
-	* Show all AccountReceivable entities by Ledger
-	* 
-	*/
-	@RequestMapping(value = "/Ledger/{ledger_id}/accountReceivables", method = RequestMethod.GET)
-	@ResponseBody
-	public List<AccountReceivable> getLedgerAccountReceivables(@PathVariable Integer ledger_id) {
-		return new java.util.ArrayList<AccountReceivable>(ledgerDAO.findLedgerByPrimaryKey(ledger_id).getAccountReceivables());
-	}
-
-	/**
-	* Delete an existing Ledger entity
-	* 
-	*/
-	@RequestMapping(value = "/Ledger/{ledger_id}", method = RequestMethod.DELETE)
-	@ResponseBody
-	public void deleteLedger(@PathVariable Integer ledger_id) {
-		Ledger ledger = ledgerDAO.findLedgerByPrimaryKey(ledger_id);
-		ledgerService.deleteLedger(ledger);
 	}
 
 	/**
@@ -209,6 +200,16 @@ public class LedgerRestController {
 	}
 
 	/**
+	* Show all AccountPayable entities by Ledger
+	* 
+	*/
+	@RequestMapping(value = "/Ledger/{ledger_id}/accountPayables", method = RequestMethod.GET)
+	@ResponseBody
+	public List<AccountPayable> getLedgerAccountPayables(@PathVariable Integer ledger_id) {
+		return new java.util.ArrayList<AccountPayable>(ledgerDAO.findLedgerByPrimaryKey(ledger_id).getAccountPayables());
+	}
+
+	/**
 	* Create a new Ledger entity
 	* 
 	*/
@@ -220,46 +221,47 @@ public class LedgerRestController {
 	}
 
 	/**
-	* Show all AccountPayable entities by Ledger
+	* Create a new AccountReceivable entity
 	* 
 	*/
-	@RequestMapping(value = "/Ledger/{ledger_id}/accountPayables", method = RequestMethod.GET)
+	@RequestMapping(value = "/Ledger/{ledger_id}/accountReceivables", method = RequestMethod.POST)
 	@ResponseBody
-	public List<AccountPayable> getLedgerAccountPayables(@PathVariable Integer ledger_id) {
-		return new java.util.ArrayList<AccountPayable>(ledgerDAO.findLedgerByPrimaryKey(ledger_id).getAccountPayables());
+	public AccountReceivable newLedgerAccountReceivables(@PathVariable Integer ledger_id, @RequestBody AccountReceivable accountreceivable) {
+		ledgerService.saveLedgerAccountReceivables(ledger_id, accountreceivable);
+		return accountReceivableDAO.findAccountReceivableByPrimaryKey(accountreceivable.getId());
 	}
 
 	/**
-	* Save an existing Comapny entity
+	* Create a new Comapny entity
 	* 
 	*/
-	@RequestMapping(value = "/Ledger/{ledger_id}/comapny", method = RequestMethod.PUT)
+	@RequestMapping(value = "/Ledger/{ledger_id}/comapny", method = RequestMethod.POST)
 	@ResponseBody
-	public Comapny saveLedgerComapny(@PathVariable Integer ledger_id, @RequestBody Comapny comapny) {
+	public Comapny newLedgerComapny(@PathVariable Integer ledger_id, @RequestBody Comapny comapny) {
 		ledgerService.saveLedgerComapny(ledger_id, comapny);
-		return comapnyDAO.findComapnyByPrimaryKey(comapny.getCompanyId());
+		return comapnyDAO.findComapnyByPrimaryKey(comapny.getId());
 	}
 
 	/**
-	* View an existing Comapny entity
+	* Delete an existing Ledger entity
 	* 
 	*/
-	@RequestMapping(value = "/Ledger/{ledger_id}/comapny/{comapny_companyId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/Ledger/{ledger_id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public Comapny loadLedgerComapny(@PathVariable Integer ledger_id, @PathVariable Integer related_comapny_companyId) {
-		Comapny comapny = comapnyDAO.findComapnyByPrimaryKey(related_comapny_companyId, -1, -1);
-
-		return comapny;
+	public void deleteLedger(@PathVariable Integer ledger_id) {
+		Ledger ledger = ledgerDAO.findLedgerByPrimaryKey(ledger_id);
+		ledgerService.deleteLedger(ledger);
 	}
 
 	/**
-	* Get Comapny entity by Ledger
+	* Save an existing AccountPayable entity
 	* 
 	*/
-	@RequestMapping(value = "/Ledger/{ledger_id}/comapny", method = RequestMethod.GET)
+	@RequestMapping(value = "/Ledger/{ledger_id}/accountPayables", method = RequestMethod.PUT)
 	@ResponseBody
-	public Comapny getLedgerComapny(@PathVariable Integer ledger_id) {
-		return ledgerDAO.findLedgerByPrimaryKey(ledger_id).getComapny();
+	public AccountPayable saveLedgerAccountPayables(@PathVariable Integer ledger_id, @RequestBody AccountPayable accountpayables) {
+		ledgerService.saveLedgerAccountPayables(ledger_id, accountpayables);
+		return accountPayableDAO.findAccountPayableByPrimaryKey(accountpayables.getId());
 	}
 
 	/**
@@ -285,24 +287,22 @@ public class LedgerRestController {
 	}
 
 	/**
-	* Select an existing Ledger entity
+	* Show all AccountReceivable entities by Ledger
 	* 
 	*/
-	@RequestMapping(value = "/Ledger/{ledger_id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/Ledger/{ledger_id}/accountReceivables", method = RequestMethod.GET)
 	@ResponseBody
-	public Ledger loadLedger(@PathVariable Integer ledger_id) {
-		return ledgerDAO.findLedgerByPrimaryKey(ledger_id);
+	public List<AccountReceivable> getLedgerAccountReceivables(@PathVariable Integer ledger_id) {
+		return new java.util.ArrayList<AccountReceivable>(ledgerDAO.findLedgerByPrimaryKey(ledger_id).getAccountReceivables());
 	}
 
 	/**
-	* View an existing AccountPayable entity
+	* Delete an existing Comapny entity
 	* 
 	*/
-	@RequestMapping(value = "/Ledger/{ledger_id}/accountPayables/{accountpayable_id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/Ledger/{ledger_id}/comapny/{comapny_id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public AccountPayable loadLedgerAccountPayables(@PathVariable Integer ledger_id, @PathVariable Integer related_accountpayables_id) {
-		AccountPayable accountpayable = accountPayableDAO.findAccountPayableByPrimaryKey(related_accountpayables_id, -1, -1);
-
-		return accountpayable;
+	public void deleteLedgerComapny(@PathVariable Integer ledger_id, @PathVariable Integer related_comapny_id) {
+		ledgerService.deleteLedgerComapny(ledger_id, related_comapny_id);
 	}
 }
